@@ -38,6 +38,9 @@ bool Figure::initialized() {
 void Figure::setLabel ( const std::string &label_format_x, const std::string &label_format_y ) {
     label_format_x_ = label_format_x, label_format_y_ = label_format_y;
 }
+const std::string& Figure::backgroundFileName() const {
+    return background_filename_;
+}
 const cv::Mat& Figure::view() const {
     return view_;
 }

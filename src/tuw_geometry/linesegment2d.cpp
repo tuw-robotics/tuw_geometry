@@ -83,6 +83,15 @@ double LineSegment2D::distanceTo ( const Point2D &p, double &dx, double &dy ) co
     dy = yk - p.y();
     return sqrt ( dx*dx + dy*dy );
 }
+Point2D LineSegment2D::closestPointTo(const Point2D& p) const {
+    double px = x1()-x0();
+    double py = y1()-y0();
+    double l2 = px*px + py*py;
+    double  u =  ((p.x() - x0()) * px + (p.y() - y0()) * py) / l2;
+    if      (u > 1){ u = 1; }
+    else if (u < 0){ u = 0; }
+    return Point2D(x0() + u * px, y0() + u * py);
+}
 /** computes distance to line segment
  * @see http://stackoverflow.com/questions/849211/shortest-distance-between-a-point-and-a-line-segment
  * @param p point

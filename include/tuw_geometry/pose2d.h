@@ -17,6 +17,16 @@ class Pose2D {
 protected:
     Point2D position_;    /// position
     double orientation_;  /// rotation in rad
+    mutable double costheta_, sintheta_; // precomputed cos() & sin() of theta.
+    mutable bool   cossin_uptodate_;
+    
+    inline void update_cached_cos_sin() const {
+	    if (cossin_uptodate_) { return; }
+	    costheta_ = cos(orientation_);
+	    sintheta_ = sin(orientation_);
+	    cossin_uptodate_=true;
+    }
+    
 public:
     Pose2D();
     Pose2D ( const Point2D &p, double orientation );
@@ -91,9 +101,14 @@ public:
     
     /** 
      * position
-     * @return translational
+     * @return rotation
      **/
     double &theta ();
+    
+    /** Get a (cached) value of cos(phi), recomputing it only once when phi changes. */
+    inline double theta_cos() const { update_cached_cos_sin(); return costheta_; }
+    /** Get a (cached) value of sin(phi), recomputing it only once when phi changes. */
+    inline double theta_sin() const { update_cached_cos_sin(); return sintheta_; }
     
     /** 
      * computes a transformation matrix

@@ -105,6 +105,11 @@ public:
      * @return distance to line between the segment endpoints or the distance to the nearest endpoints 
      **/
     double distanceTo ( const Point2D &p, double &dx, double &dy ) const;
+    /** computes closest point along segment 
+     * @param p point
+     * @return closest point along segment to the given point
+     **/
+    Point2D closestPointTo(const Point2D& p) const;
     /** computes distance to line segment
      * @see http://stackoverflow.com/questions/849211/shortest-distance-between-a-point-and-a-line-segment
      * @return distance to line between the segment endpoints or the distance to the nearest endpoints 

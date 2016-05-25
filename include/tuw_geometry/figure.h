@@ -1,5 +1,6 @@
 #ifndef FIGURE_H
 #define FIGURE_H
+#include <opencv/cv.h>
 #include <opencv2/core/core.hpp>
 #include <opencv2/core/core_c.h>
 #include <tuw_geometry/pose2d.h>
@@ -64,6 +65,10 @@ public:
      **/
     void setLabel ( const std::string &label_x = std::string("x=%f"), const std::string &label_y = std::string("y=%f"));
 
+    /**
+     * @return Name of the background file
+     **/
+    const std::string& backgroundFileName() const;
     /**
      * @return the matrix related to the foreground canvas
      **/
