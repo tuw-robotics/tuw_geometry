@@ -49,7 +49,8 @@ const Point2D &Pose2D::position () const {
  * @return point
  **/
 Point2D Pose2D::point_ahead ( double d ) const {
-    return Point2D ( x() + cos ( theta() ) * d, y() + sin ( theta() ) * d );
+    update_cached_cos_sin();
+    return Point2D ( x() + costheta_ * d, y() + sintheta_ * d );
 }
 /** translational x component
   * @return x component
@@ -103,8 +104,8 @@ void Pose2D::normalizeOrientation () {
   * @return transformation
   **/
 Tf2D Pose2D::tf () const {
-    double c = cos ( orientation_ ),  s = sin ( orientation_ );
-    return cv::Matx33d ( c, -s, x(), s, c, y(), 0, 0, 1. );
+    update_cached_cos_sin();
+    return cv::Matx33d ( costheta_, -sintheta_, x(), sintheta_, costheta_, y(), 0, 0, 1. );
 }
 /**
  * retuns a state vector [x, y, theta]

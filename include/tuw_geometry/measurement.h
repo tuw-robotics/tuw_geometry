@@ -3,7 +3,7 @@
 
 #include <memory>
 #include <chrono>
-#include <opencv2/core/core.hpp>
+#include <tuw_geometry/pose2d.h>
 #include <boost/date_time/posix_time/ptime.hpp>
 
 namespace tuw {
@@ -21,7 +21,8 @@ public:
    **/
     enum class Type {
         LASER = 0,
-        LINE = 1
+        LINE = 1,
+	MARKER = 2
     };
     /**
      * constructor
@@ -46,14 +47,14 @@ public:
     const std::string getTypeName() const;
     /**
      * transformation related to the measurement
-     * @return matrix
+     * @return pose2d
      **/
-    const cv::Matx33d& tf() const;
+    const tuw::Pose2D& pose2d() const;
     /**
      * transformation related to the measurement
-     * @return matrix
+     * @return pose2d
      **/
-    cv::Matx33d& tf();
+    tuw::Pose2D& pose2d();
     /**
      * timestamp related to the measurement
      * @return stamp
@@ -67,7 +68,7 @@ public:
 private:
     Type type_;
     boost::posix_time::ptime stamp_;
-    cv::Matx33d tf_;
+    tuw::Pose2D pose_;
 };
 };
 

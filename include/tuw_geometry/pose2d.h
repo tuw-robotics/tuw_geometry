@@ -12,6 +12,7 @@ using Pose2DConstPtr = std::shared_ptr< Pose2D const>;
 
 /**
  * class to represent a pose in 2D space
+ * the class caches the cos(theta) and sin(theta) values
  **/
 class Pose2D {
 protected:
@@ -20,6 +21,9 @@ protected:
     mutable double costheta_, sintheta_; // precomputed cos() & sin() of theta.
     mutable bool   cossin_uptodate_;
     
+    /** 
+     * Updates the cached value of cos(phi) and sin(phi), 
+     * recomputing it only once when phi changes. */
     inline void update_cached_cos_sin() const {
 	    if (cossin_uptodate_) { return; }
 	    costheta_ = cos(orientation_);
@@ -105,9 +109,26 @@ public:
      **/
     double &theta ();
     
-    /** Get a (cached) value of cos(phi), recomputing it only once when phi changes. */
+    /** 
+     * enforces the recompuation of the cached value of cos(theta) and sin(theta), 
+     * recomputing it only once when theta changes. 
+     */
+    inline void recompute_cached_cos_sin() const {
+	    costheta_ = cos(orientation_);
+	    sintheta_ = sin(orientation_);
+	    cossin_uptodate_=true;
+    }
+    /** 
+     * get a (cached) value of cos(theta), 
+     * recomputing it only once when theta changes. 
+     * @return cos(theta)
+     */
     inline double theta_cos() const { update_cached_cos_sin(); return costheta_; }
-    /** Get a (cached) value of sin(phi), recomputing it only once when phi changes. */
+    /** 
+     * get a (cached) value of cos(theta), 
+     * recomputing it only once when theta changes. 
+     * @return sin(theta)
+     */
     inline double theta_sin() const { update_cached_cos_sin(); return sintheta_; }
     
     /** 

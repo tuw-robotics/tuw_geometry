@@ -9,6 +9,7 @@
 #include <tuw_geometry/figure.h>
 #include <tuw_geometry/command.h>
 #include <tuw_geometry/measurement_laser.h>
+#include <tuw_geometry/measurement_marker.h>
 #include <string>
 #include <map>
 

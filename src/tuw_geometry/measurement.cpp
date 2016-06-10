@@ -6,7 +6,7 @@ Measurement::Measurement ( Measurement::Type type )
     : type_ ( type ) {};
 
 Measurement::Measurement ( const Measurement &o )
-    : type_ ( o.type_ ), stamp_ ( o.stamp_ ), tf_ ( o.tf_ ) {
+    : type_ ( o.type_ ), stamp_ ( o.stamp_ ), pose_ ( o.pose_) {
 }
 Measurement::Type Measurement::getType() const {
     return type_;
@@ -20,11 +20,11 @@ const std::string Measurement::getTypeName() const {
     }
     return "NA";
 }
-const cv::Matx33d& Measurement::tf() const {
-    return tf_;
+const tuw::Pose2D& Measurement::pose2d() const {
+    return pose_;
 }
-cv::Matx33d& Measurement::tf() {
-    return tf_;
+tuw::Pose2D& Measurement::pose2d() {
+    return pose_;
 }
 
 const boost::posix_time::ptime& Measurement::stamp() const {

@@ -132,6 +132,7 @@ add_library(tuw_geometry
   src/${PROJECT_NAME}/figure.cpp
   src/${PROJECT_NAME}/measurement.cpp
   src/${PROJECT_NAME}/measurement_laser.cpp
+  src/${PROJECT_NAME}/measurement_marker.cpp
   src/${PROJECT_NAME}/tuw_geometry.cpp
 )
 ## Add cmake target dependencies of the library
@@ -147,9 +148,10 @@ add_dependencies(tuw_geometry ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPOR
 # add_dependencies(tuw_geometry_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
-# target_link_libraries(tuw_geometry_node
-#   ${catkin_LIBRARIES}
-# )
+target_link_libraries(tuw_geometry
+  ${catkin_LIBRARIES}
+  ${OpenCV_LIBS}
+)
 
 #############
 ## Install ##
