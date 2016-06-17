@@ -104,7 +104,7 @@ find_package(OpenCV REQUIRED)
 catkin_package(
   INCLUDE_DIRS include
   LIBRARIES tuw_geometry
-  CATKIN_DEPENDS roscpp rospy
+  CATKIN_DEPENDS roscpp rospy std_msgs
   DEPENDS OpenCV
 )
 
@@ -132,7 +132,6 @@ add_library(tuw_geometry
   src/${PROJECT_NAME}/figure.cpp
   src/${PROJECT_NAME}/measurement.cpp
   src/${PROJECT_NAME}/measurement_laser.cpp
-  src/${PROJECT_NAME}/measurement_marker.cpp
   src/${PROJECT_NAME}/tuw_geometry.cpp
 )
 ## Add cmake target dependencies of the library
