@@ -14,12 +14,14 @@ find_package(catkin REQUIRED COMPONENTS
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
 find_package(OpenCV REQUIRED)
+find_package(Boost REQUIRED COMPONENTS python)
+find_package(PythonLibs 2.7 REQUIRED)
 
 
 ## Uncomment this if the package has a setup.py. This macro ensures
 ## modules and global scripts declared therein get installed
 ## See http://ros.org/doc/api/catkin/html/user_guide/setup_dot_py.html
-# catkin_python_setup()
+catkin_python_setup()
 
 ################################################
 ## Declare ROS messages, services and actions ##
@@ -103,7 +105,7 @@ find_package(OpenCV REQUIRED)
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
   INCLUDE_DIRS include
-  LIBRARIES tuw_geometry
+  LIBRARIES tuw_geometry tuw_geometry_wrapper
   CATKIN_DEPENDS roscpp rospy std_msgs
   DEPENDS OpenCV
 )
@@ -117,6 +119,7 @@ catkin_package(
 # include_directories(include)
 include_directories(
   ${catkin_INCLUDE_DIRS}
+  ${PYTHON_INCLUDE_DIRS}
   ./include/
 )
 
@@ -134,6 +137,10 @@ add_library(tuw_geometry
   src/${PROJECT_NAME}/measurement_laser.cpp
   src/${PROJECT_NAME}/tuw_geometry.cpp
 )
+## Declare a Python C++ library wrapper
+add_library(tuw_geometry_wrapper
+   src/${PROJECT_NAME}/point2d_wrapper.cpp
+)
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
 ## either from message generation or dynamic reconfigure
@@ -149,7 +156,19 @@ add_dependencies(tuw_geometry ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPOR
 ## Specify libraries to link a library or executable target against
 target_link_libraries(tuw_geometry
   ${catkin_LIBRARIES}
-  ${OpenCV_LIBS}
+  ${OpenCV_LIBRARIES}
+)
+
+target_link_libraries(tuw_geometry_wrapper
+   tuw_geometry
+   ${catkin_LIBRARIES}
+   ${Boost_LIBRARIES}
+ )
+ 
+# Don't prepend wrapper library name with lib and add to Python libs.
+set_target_properties(tuw_geometry_wrapper PROPERTIES
+   PREFIX ""
+   LIBRARY_OUTPUT_DIRECTORY ${CATKIN_DEVEL_PREFIX}/${CATKIN_PACKAGE_PYTHON_DESTINATION}
 )
 
 #############

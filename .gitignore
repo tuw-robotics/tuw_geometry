@@ -46,6 +46,8 @@ build
 .pydevproject
 .settings
 
+#Python
+*.pyc
 
 # KDevelop
 *kdev*

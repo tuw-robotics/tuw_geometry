@@ -195,7 +195,19 @@ public:
         os << "[" << o.x() <<  ", " << o.y() << "]";
         return os;
     }
+    /**
+     * returns x and y as formated string
+     * @return string
+     **/  
+    std::string str() const
+    {
+        char format[] = "[%6.4lf, %6.4lf]";
+        char str[0xFF];
+        sprintf(str,format, x(), y()); 
+        return std::string(str);
+    }
 };
+
 
 };
 
