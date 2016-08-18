@@ -23,13 +23,9 @@ protected:
     
     /** 
      * Updates the cached value of cos(phi) and sin(phi), 
-     * recomputing it only once when phi changes. */
-    inline void update_cached_cos_sin() const {
-	    if (cossin_uptodate_) { return; }
-	    costheta_ = cos(orientation_);
-	    sintheta_ = sin(orientation_);
-	    cossin_uptodate_=true;
-    }
+     * recomputing it only once when phi changes. 
+     **/
+    void update_cached_cos_sin() const;
     
 public:
     Pose2D();
@@ -109,15 +105,47 @@ public:
      **/
     double &theta ();
     
+    /**
+     * set funktion for x
+     * @param x component
+     **/
+    void set_x (double v);
+    
+    /**
+     * get function for x
+     * @return x component
+     **/
+    double get_x () const;
+    
+    /**
+     * set funktion for y
+     * @param y component
+     **/
+    void set_y (double v);
+    
+    /**
+     * get function for y
+     * @return y component
+     **/
+    double get_y () const;
+    
+    /**
+     * set funktion for theta
+     * @param theta component
+     **/
+    void set_theta (double v);
+    
+    /**
+     * get function for theta
+     * @return theta component
+     **/
+    double get_theta () const;
+    
     /** 
      * enforces the recompuation of the cached value of cos(theta) and sin(theta), 
      * recomputing it only once when theta changes. 
      */
-    inline void recompute_cached_cos_sin() const {
-	    costheta_ = cos(orientation_);
-	    sintheta_ = sin(orientation_);
-	    cossin_uptodate_=true;
-    }
+    void recompute_cached_cos_sin() const;
     /** 
      * get a (cached) value of cos(theta), 
      * recomputing it only once when theta changes. 

@@ -143,6 +143,36 @@ public:
      **/
     double &h ();
     /**
+     * set funktion for x
+     * @param x component
+     **/
+    void set_x (double v);
+    /**
+     * get function for x
+     * @return x component
+     **/
+    double get_x () const;
+    /**
+     * set funktion for y
+     * @param y component
+     **/
+    void set_y (double v);
+    /**
+     * get function for y
+     * @return y component
+     **/
+    double get_y () const;
+    /**
+     * set funktion for h
+     * @param h component
+     **/
+    void set_h (double v);
+    /**
+     * get function for h
+     * @return h component
+     **/
+    double get_h () const;
+    /**
      * angle form origin to point (alpha in polar space) 
      * @see radius
      * @see Polar2D

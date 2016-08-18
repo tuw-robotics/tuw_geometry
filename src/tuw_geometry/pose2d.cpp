@@ -5,7 +5,7 @@ Pose2D::Pose2D() : position_(), orientation_ ( 0 ) {};
 Pose2D::Pose2D ( const Point2D &p, double orientation_ ) : position_ ( p ), orientation_ ( orientation_ ), cossin_uptodate_ ( false ) {};
 Pose2D::Pose2D ( const Pose2D &p ) : position_ ( p.position_ ), orientation_ ( p.orientation_ ), cossin_uptodate_ ( false ) {};
 Pose2D::Pose2D ( double x, double y, double orientation_ ) : position_ ( x,y ), orientation_ ( orientation_ ), cossin_uptodate_ ( false ) {};
-Pose2D::Pose2D ( const cv::Vec<double, 3> &s): position_ ( s(0),s(1) ), orientation_ ( s(2) ), cossin_uptodate_ ( false ) {};
+Pose2D::Pose2D ( const cv::Vec<double, 3> &s ) : position_ ( s ( 0 ),s ( 1 ) ), orientation_ ( s ( 2 ) ), cossin_uptodate_ ( false ) {};
 
 /** set the pose
   * @param x
@@ -14,7 +14,9 @@ Pose2D::Pose2D ( const cv::Vec<double, 3> &s): position_ ( s(0),s(1) ), orientat
   * @return this reference
   **/
 Pose2D &Pose2D::set ( double x, double y, double phi ) {
-    position_ = cv::Vec<double, 3> ( x, y, 1 ), orientation_ = phi; cossin_uptodate_ = false;
+    angle_normalize ( phi, -M_PI, +M_PI );
+    position_ = cv::Vec<double, 3> ( x, y, 1 ), orientation_ = phi;
+    cossin_uptodate_ = false;
     return *this;
 }
 /**
@@ -35,7 +37,8 @@ Pose2D &Pose2D::set ( const Point2D &position, const Point2D &point_ahead ) {
   * @return this reference
   **/
 Pose2D &Pose2D::set ( const Pose2D &p ) {
-    position_ = p.position_, orientation_ = p.orientation_; cossin_uptodate_ = false;
+    position_ = p.position_, orientation_ = p.orientation_;
+    cossin_uptodate_ = false;
     return *this;
 }
 /** location as vector
@@ -92,9 +95,53 @@ double &Pose2D::y () {
   * @return rotation
   **/
 double &Pose2D::theta () {
-    cossin_uptodate_ = false; 
+    cossin_uptodate_ = false;
     return orientation_;
 }
+
+/**
+ * set funktion for x
+ * @param x component
+ **/
+void Pose2D::set_x ( double v ) {
+    this->x() = v;
+}
+/**
+ * get function for x
+ * @return x component
+ **/
+double Pose2D::get_x () const {
+    return this->x();
+}
+/**
+ * set funktion for y
+ * @param y component
+ **/
+void Pose2D::set_y ( double v ) {
+    this->y() = v;
+}
+/**
+ * get function for y
+ * @return y component
+ **/
+double Pose2D::get_y () const {
+    return this->y();
+}
+/**
+ * set funktion for theta
+ * @param theta component
+ **/
+void Pose2D::set_theta ( double v ) {
+    this->theta () = v;
+}
+/**
+ * get function for theta
+ * @return theta component
+ **/
+double Pose2D::get_theta () const {
+    return this->theta ();
+}
+
 /** normalizes the orientation value betwenn -PI and PI
   **/
 void Pose2D::normalizeOrientation () {
@@ -131,7 +178,7 @@ Pose2D Pose2D::inv () const {
 Pose2D &Pose2D::operator += ( const cv::Vec<double, 3> &s ) {
     this->x() += s.val[0], this->y() += s.val[1], this->theta() += s.val[2];
     angle_normalize ( this->theta() );
-    cossin_uptodate_ = false; 
+    cossin_uptodate_ = false;
     return *this;
 }
 /**
@@ -141,6 +188,26 @@ Pose2D &Pose2D::operator += ( const cv::Vec<double, 3> &s ) {
  **/
 Pose2D &Pose2D::operator -= ( const cv::Vec<double, 3> &s ) {
     this->x() -= s.val[0], this->y() -= s.val[1], angle_difference ( this->theta(), s.val[2] );
-    cossin_uptodate_ = false; 
+    cossin_uptodate_ = false;
     return *this;
+}
+
+/**
+ * enforces the recompuation of the cached value of cos(theta) and sin(theta),
+ * recomputing it only once when theta changes.
+ */
+void Pose2D::recompute_cached_cos_sin() const {
+    costheta_ = cos ( orientation_ );
+    sintheta_ = sin ( orientation_ );
+    cossin_uptodate_=true;
+}
+/**
+ * Updates the cached value of cos(phi) and sin(phi),
+ * recomputing it only once when phi changes.
+ **/
+void Pose2D::update_cached_cos_sin() const {
+    if ( cossin_uptodate_ ) {
+        return;
+    }
+    recompute_cached_cos_sin();
 }

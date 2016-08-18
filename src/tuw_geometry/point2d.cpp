@@ -7,7 +7,7 @@ Point2D::Point2D ( const Point2D &p ) : cv::Vec<double,3> ( p ) {};
 Point2D::Point2D ( const cv::Point &p ) : cv::Vec<double,3> ( p.x,p.y,1. ) {};
 Point2D::Point2D ( double x, double y ) : cv::Vec<double,3> ( x, y, 1. ) {};
 Point2D::Point2D ( double x, double y, double h ) : cv::Vec<double,3> ( x, y, h ) {};
-Point2D::Point2D ( const Polar2D& p) : cv::Vec<double,3> ( p.rho() * cos(p.alpha()), p.rho() * sin(p.alpha()), 1 ) {};
+Point2D::Point2D ( const Polar2D& p ) : cv::Vec<double,3> ( p.rho() * cos ( p.alpha() ), p.rho() * sin ( p.alpha() ), 1 ) {};
 /**
  * sets values
  * @param x
@@ -72,6 +72,48 @@ double &Point2D::h () {
 }
 
 /**
+ * set funktion for x
+ * @param x component
+ **/
+void Point2D::set_x ( double v ) {
+    this->x() = v;
+}
+/**
+ * get function for x
+ * @return x component
+ **/
+double Point2D::get_x () const {
+    return this->x();
+}
+/**
+ * set funktion for y
+ * @param y component
+ **/
+void Point2D::set_y ( double v ) {
+    this->y() = v;
+}
+/**
+ * get function for y
+ * @return y component
+ **/
+double Point2D::get_y () const {
+    return this->y();
+}
+/**
+ * set funktion for h
+ * @param h component
+ **/
+void Point2D::set_h ( double v ) {
+    this->h() = v;
+}
+/**
+ * get function for h
+ * @return h component
+ **/
+double Point2D::get_h () const {
+    return this->h();
+}
+/**
  * vector without homogeneous component
  * @return state vector
  **/
@@ -101,22 +143,22 @@ cv::Point_<double>  &Point2D::cv () {
     return ( cv::Point_<double>  & ) *this;
 }
 /**
- * angle form origin to point (alpha in polar space) 
+ * angle form origin to point (alpha in polar space)
  * @see radius
  * @see Polar2D
  * @return angle between -PI and +PI
  **/
-double Point2D::angle () const{
-  return atan2(this->val[1], this->val[0]);
+double Point2D::angle () const {
+    return atan2 ( this->val[1], this->val[0] );
 }
 /**
-  * distance to origin (rho in polar space) 
+  * distance to origin (rho in polar space)
   * @see angle
   * @see Polar2D
   * @return distance
   **/
-double Point2D::radius () const{
-  return sqrt(this->val[0]*this->val[0] + this->val[1]*this->val[1]);
+double Point2D::radius () const {
+    return sqrt ( this->val[0]*this->val[0] + this->val[1]*this->val[1] );
 }
 /**
  * checks if a point is within a rectangle

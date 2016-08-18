@@ -17,3 +17,8 @@ if __name__ == '__main__':
     print (pnt2)
     print (pose)
     
+    p = pose.position()
+    print (p)
+    print p[0]
+    print p.x
+    print pose.theta
