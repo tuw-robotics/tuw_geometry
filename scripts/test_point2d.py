@@ -1,12 +1,19 @@
 #!/usr/bin/env python
-import tuw_geometry
+import tuw_geometry as tuw
+import cv2
 
 if __name__ == '__main__':
-    p = tuw_geometry.PointX()
-    p.set("servus")
-    print p.greet()
     
-    pnt0 = tuw_geometry.Point2D()
-    pnt1 = tuw_geometry.Point2D(3,2)
-    pnt2 = tuw_geometry.Point2D(3,2,4)
+    pnt0 = tuw.Point2D()
+    pnt1 = tuw.Point2D(3,2)
+    pnt2 = tuw.Point2D(3,2,4)
+    pose = tuw.Pose2D(3,2,4)
+    pnt2.set(1,2,1)
+    
     print (pnt1)
+    print (pnt1)
+    print pnt1.inside(0,0,4,4)
+    print pnt1.inside(0,0,2,2)
+    print (pnt2)
+    print (pose)
+    

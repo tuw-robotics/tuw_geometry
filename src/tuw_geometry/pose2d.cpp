@@ -13,7 +13,7 @@ Pose2D::Pose2D ( const cv::Vec<double, 3> &s): position_ ( s(0),s(1) ), orientat
   * @param phi (orientation_)
   * @return this reference
   **/
-Pose2D &Pose2D::set ( const double &x, const double &y, const double &phi ) {
+Pose2D &Pose2D::set ( double x, double y, double phi ) {
     position_ = cv::Vec<double, 3> ( x, y, 1 ), orientation_ = phi; cossin_uptodate_ = false;
     return *this;
 }

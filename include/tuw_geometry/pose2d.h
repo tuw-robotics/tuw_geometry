@@ -44,7 +44,7 @@ public:
      * @param phi (orientation)
      * @return this reference
      **/
-    Pose2D &set ( const double &x, const double &y, const double &phi ) ;
+    Pose2D &set ( double x, const double y, double phi ) ;
     /** 
      * set the pose based on two points in world coordinates
      * @param position 
@@ -185,6 +185,17 @@ public:
     friend std::ostream &operator << ( std::ostream &os, const Pose2D &o ) {
         os << "[" << o.x() <<  ", " << o.y() <<  ", " << o.theta()  << "]";
         return os;
+    }
+    /**
+     * returns x and y as formated string
+     * @return string
+     **/  
+    std::string str() const
+    {
+        char format[] = "[%6.4lf, %6.4lf, %6.5lf]";
+        char str[0xFF];
+        sprintf(str,format, x(), y(), theta()); 
+        return std::string(str);
     }
 };
 

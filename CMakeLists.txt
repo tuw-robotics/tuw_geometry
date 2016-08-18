@@ -139,7 +139,7 @@ add_library(tuw_geometry
 )
 ## Declare a Python C++ library wrapper
 add_library(tuw_geometry_wrapper
-   src/${PROJECT_NAME}/point2d_wrapper.cpp
+   src/${PROJECT_NAME}/tuw_geometry_wrapper.cpp
 )
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
