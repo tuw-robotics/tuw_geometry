@@ -21,6 +21,7 @@ void Point2Dsetitem ( Point2D& f, int index, int val ) {
     f.val[index] = val;
 }
 
+    BOOST_PYTHON_MEMBER_FUNCTION_OVERLOADS(str_overloads, str, 0, 1)
 BOOST_PYTHON_MODULE ( tuw_geometry_wrapper ) {
 
     Point2D & ( Point2D::*Point2Dset2 ) ( double, double )                          = &Point2D::set;
@@ -40,11 +41,13 @@ BOOST_PYTHON_MODULE ( tuw_geometry_wrapper ) {
     .def ( "set",                  Point2Dset2, return_value_policy<copy_non_const_reference>() )
     .def ( "set",                  Point2Dset3, return_value_policy<copy_non_const_reference>() )
     .def ( "cv",                   Point2cv, return_value_policy<copy_non_const_reference>() )
-    .def ( "__str__",              &Point2D::str );
+    .def("__str__", &Pose2D::str, str_overloads())
+    .def("str", &Pose2D::str, str_overloads());
 
 
     Pose2D  & ( Pose2D::*Pose2Dset3 ) ( double, double, double )                  = &Pose2D::set;
     Point2D & ( Pose2D::*Pose2Dposition ) ()                                    = &Pose2D::position;
+
 
     class_<Pose2D> ( "Pose2D" )
     .def ( init<double, double, double>() )
@@ -54,5 +57,8 @@ BOOST_PYTHON_MODULE ( tuw_geometry_wrapper ) {
     .add_property("theta",         &Pose2D::get_theta, &Pose2D::set_theta)
     .def ( "set", Pose2Dset3, return_value_policy<copy_non_const_reference>() )
     .def ( "position", Pose2Dposition, return_value_policy<copy_non_const_reference>() )
-    .def ( "__str__", &Pose2D::str );
+    .def ( "recompute_cached_cos_sin", &Pose2D::recompute_cached_cos_sin )
+    //.def ( "__str__", &Pose2D::str );
+    .def("__str__", &Pose2D::str, str_overloads())
+    .def("str", &Pose2D::str, str_overloads());
 }

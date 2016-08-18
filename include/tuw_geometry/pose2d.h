@@ -150,14 +150,14 @@ public:
      * get a (cached) value of cos(theta), 
      * recomputing it only once when theta changes. 
      * @return cos(theta)
-     */
-    inline double theta_cos() const { update_cached_cos_sin(); return costheta_; }
+     **/
+    double theta_cos() const;
     /** 
      * get a (cached) value of cos(theta), 
      * recomputing it only once when theta changes. 
      * @return sin(theta)
-     */
-    inline double theta_sin() const { update_cached_cos_sin(); return sintheta_; }
+     **/
+    double theta_sin() const;
     
     /** 
      * computes a transformation matrix
@@ -215,16 +215,11 @@ public:
         return os;
     }
     /**
-     * returns x and y as formated string
+     * returns x, y and theta as formated string
+     * @param format using printf format
      * @return string
      **/  
-    std::string str() const
-    {
-        char format[] = "[%6.4lf, %6.4lf, %6.5lf]";
-        char str[0xFF];
-        sprintf(str,format, x(), y(), theta()); 
-        return std::string(str);
-    }
+    std::string str(const char* format = "[%6.4lf, %6.4lf, %6.5lf]") const;
 };
 
 }

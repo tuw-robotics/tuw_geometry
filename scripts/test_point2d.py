@@ -22,3 +22,4 @@ if __name__ == '__main__':
     print p[0]
     print p.x
     print pose.theta
+    print pose.str("%lfm, %lfm, %lfrad")

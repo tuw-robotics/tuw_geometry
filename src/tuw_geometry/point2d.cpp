@@ -171,3 +171,15 @@ double Point2D::radius () const {
 bool Point2D::inside ( double x0, double y0, double x1, double y1 ) const {
     return ( ( x() >= x0 ) && ( x() <= x1 ) && ( y() >= y0 ) && ( y() <= y1 ) );
 }
+
+/**
+  * returns x and y as formated string
+  * @param format using printf format
+  * @return string
+  **/  
+std::string Point2D::str(const char* format) const
+{
+    char str[0xFF];
+    sprintf(str,format, x(), y()); 
+    return std::string(str);
+}

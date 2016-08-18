@@ -227,15 +227,10 @@ public:
     }
     /**
      * returns x and y as formated string
+     * @param format using printf format
      * @return string
      **/  
-    std::string str() const
-    {
-        char format[] = "[%6.4lf, %6.4lf]";
-        char str[0xFF];
-        sprintf(str,format, x(), y()); 
-        return std::string(str);
-    }
+    std::string str(const char* format = "[%6.4lf, %6.4lf, %6.5lf]") const;
 };
 
 

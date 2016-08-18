@@ -211,3 +211,32 @@ void Pose2D::update_cached_cos_sin() const {
     }
     recompute_cached_cos_sin();
 }
+/** 
+  * get a (cached) value of cos(theta), 
+  * recomputing it only once when theta changes. 
+  * @return cos(theta)
+ **/
+double Pose2D::theta_cos() const { 
+  update_cached_cos_sin(); 
+  return costheta_;   
+}
+/** 
+  * get a (cached) value of cos(theta), 
+  * recomputing it only once when theta changes. 
+  * @return sin(theta)
+ **/
+double Pose2D::theta_sin() const { 
+  update_cached_cos_sin(); 
+  return sintheta_;   
+}
+/**
+  * returns x, y and theta as formated string
+  * @param format using printf format
+  * @return string
+  **/  
+std::string Pose2D::str(const char* format) const
+{
+    char str[0xFF];
+    sprintf(str,format, x(), y(), theta()); 
+    return std::string(str);
+}
