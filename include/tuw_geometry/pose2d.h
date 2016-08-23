@@ -134,6 +134,13 @@ public:
      * @param theta component
      **/
     void set_theta (double v);
+    /** 
+     * transforms a point from pose target space into pose base space 
+     * @param src point in pose target space
+     * @param des point in pose base space
+     * @return ref point in pose base space
+     **/
+    Point2D &transform_into_base(const Point2D &src, Point2D &des) const;
     
     /**
      * get function for theta
@@ -204,6 +211,7 @@ public:
     * @return this
     **/
     Pose2D &operator -= ( const cv::Vec<double, 3> &s ) ;
+    
     /** 
      * Stream extraction
      * @param os outputstream
@@ -214,12 +222,20 @@ public:
         os << "[" << o.x() <<  ", " << o.y() <<  ", " << o.theta()  << "]";
         return os;
     }
+    
     /**
      * returns x, y and theta as formated string
      * @param format using printf format
      * @return string
      **/  
     std::string str(const char* format = "[%6.4lf, %6.4lf, %6.5lf]") const;
+    
+    /** 
+      * compares with within tolerance
+      * @param o 
+      * @param tolerance 
+      **/
+    bool equal( const Pose2D& o, double tolerance) const;
 };
 
 }

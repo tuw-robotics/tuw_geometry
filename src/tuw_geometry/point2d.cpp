@@ -183,3 +183,13 @@ std::string Point2D::str(const char* format) const
     sprintf(str,format, x(), y()); 
     return std::string(str);
 }
+
+/** 
+  * compares with within tolerance
+  * @param o 
+  * @param tolerance 
+  **/
+bool Point2D::equal( const Point2D& o, double tolerance) const {
+      double d = cv::norm(o - *this);
+      return d < tolerance;
+}

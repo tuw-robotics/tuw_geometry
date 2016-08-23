@@ -45,7 +45,7 @@ BOOST_PYTHON_MODULE ( tuw_geometry_wrapper ) {
     .def("str", &Pose2D::str, str_overloads());
 
 
-    Pose2D  & ( Pose2D::*Pose2Dset3 ) ( double, double, double )                  = &Pose2D::set;
+    Pose2D  & ( Pose2D::*Pose2Dset3 ) ( double, double, double )                = &Pose2D::set;
     Point2D & ( Pose2D::*Pose2Dposition ) ()                                    = &Pose2D::position;
 
 
@@ -58,6 +58,7 @@ BOOST_PYTHON_MODULE ( tuw_geometry_wrapper ) {
     .def ( "set", Pose2Dset3, return_value_policy<copy_non_const_reference>() )
     .def ( "position", Pose2Dposition, return_value_policy<copy_non_const_reference>() )
     .def ( "recompute_cached_cos_sin", &Pose2D::recompute_cached_cos_sin )
+    .def ( "transform_into_base", &Pose2D::transform_into_base, return_value_policy<copy_non_const_reference>())
     //.def ( "__str__", &Pose2D::str );
     .def("__str__", &Pose2D::str, str_overloads())
     .def("str", &Pose2D::str, str_overloads());

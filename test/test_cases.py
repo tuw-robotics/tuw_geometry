@@ -17,7 +17,12 @@ class TestPoint2D(unittest.TestCase):
 class TestPose2D(unittest.TestCase):
 
     def runTest(self):
-        my_var = True
+        pose = tuw.Pose2D(3,2,0)
+        p0 = tuw.Point2D(0,0)
+        
+        self.assertEqual(p.x, 3, 'incorrect x')
+        self.assertEqual(p.y, 2, 'incorrect y')
+        self.assertEqual(p.h, 1, 'incorrect h')
 
         # do some things to my_var which might change its value...
 

@@ -169,6 +169,19 @@ Pose2D Pose2D::inv () const {
     Pose2D p ( -this->x(), -this->y(), -this->theta() );
     return p;
 }
+/** 
+  * transforms a point from pose target space into pose base space 
+  * @param src point in pose target space
+  * @param des point in pose base space
+  * @return ref point in pose base space
+  **/
+Point2D &Pose2D::transform_into_base(const Point2D &src, Point2D &des) const{
+    //update_cached_cos_sin();
+    des.set(src.x() * costheta_ - src.y() * sintheta_ + src.h() * x(), 
+            src.x() * sintheta_ + src.y() * costheta_ + src.h() * y(),
+	    src.h() );
+    return des;
+}
 
 /**
  * adds a state vector [x, y, theta]
@@ -239,4 +252,15 @@ std::string Pose2D::str(const char* format) const
     char str[0xFF];
     sprintf(str,format, x(), y(), theta()); 
     return std::string(str);
+}
+
+/** 
+  * compares with within tolerance
+  * @param o 
+  * @param tolerance 
+  **/
+bool Pose2D::equal( const Pose2D& o, double tolerance) const {
+      double d_position = cv::norm(o.position() - this->position());
+      double d_angle = angle_difference(o.theta(),this->theta());
+      return (d_angle < tolerance) && (fabs(d_angle) < tolerance);
 }

@@ -231,6 +231,13 @@ public:
      * @return string
      **/  
     std::string str(const char* format = "[%6.4lf, %6.4lf, %6.5lf]") const;
+    
+    /** 
+     * compares with within tolerance
+     * @param o 
+     * @param tolerance 
+     **/
+    bool equal( const Point2D& o, double tolerance = 0.0001 ) const ;
 };
 
 
