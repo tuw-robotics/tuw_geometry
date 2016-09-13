@@ -136,6 +136,7 @@ add_library(tuw_geometry
   src/${PROJECT_NAME}/measurement.cpp
   src/${PROJECT_NAME}/measurement_laser.cpp
   src/${PROJECT_NAME}/tuw_geometry.cpp
+  src/${PROJECT_NAME}/world_scoped_maps.cpp
 )
 ## Declare a Python C++ library wrapper
 add_library(tuw_geometry_wrapper

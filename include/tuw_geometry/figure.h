@@ -4,34 +4,26 @@
 #include <opencv2/core/core.hpp>
 #include <opencv2/core/core_c.h>
 #include <tuw_geometry/pose2d.h>
+#include <tuw_geometry/world_scoped_maps.h>
 
 namespace tuw {
 class Figure; /// Prototype
-using FigurePtr = std::shared_ptr< Figure > ;
+using FigurePtr      = std::shared_ptr< Figure > ;
 using FigureConstPtr = std::shared_ptr< Figure const>;
 
 /**
  * class to visualize information using OpenCV matrices
  **/
-class Figure {
+class Figure : public WorldScopedMaps {
     std::string title_;               /// window name
     std::string label_format_x_;      /// label format string
     std::string label_format_y_;      /// label format string
     cv::Mat view_;                    /// canvas
     cv::Mat background_;              /// background data, grid or image
-    cv::Matx33d Mw2m_;                /// transformation world to map
-    cv::Matx33d Mm2w_;                /// transformation map to world
     std::string background_filename_; /// if empty no file will be used
-    int width_pixel_,  height_pixel_; /// dimensions of the canvas in pixel
-    double min_x_, max_x_, min_y_, max_y_, rotation_; /// area and rotation of the visualized space
-    double grid_scale_x_, grid_scale_y_; /// dimension of the drawn grid, if -1 no grid will be drawn
-    double dx_, dy_; /// dimension of the visualized space
-    double ox_, oy_; /// image offset
-    double mx_, my_; /// offset of the visualized space
-    double sx_, sy_; /// scale
+    double grid_scale_x_, grid_scale_y_; /// dimension of the drawn grid, if -1 no grid will be drawn 
 
     void drawBackground (); /// draws the background image
-    void init();            /// initializes the transformation matrices  @ToDo Student 1. exercise
 public:
     /**
      * constructor
@@ -86,24 +78,10 @@ public:
      **/
     cv::Mat& background();
     /**
-     *  @returns true if the figure is initialized
-     **/
-    bool initialized(); 
-    /**
      * can be used to clone an image into the foreground independent to the image format (gray, color, ...)
      * @param view source image
      **/
     void setView ( const cv::Mat& view );
-    /**
-     * draws a line given in the visualization space (meter, ....) into the image
-     * @param view image
-     * @param p0 start point
-     * @param p1 end point 
-     * @param color color --> @see opencv
-     * @param thickness line thickness --> @see opencv
-     * @param lineType line type --> @see opencv
-     **/
-    void line ( cv::Mat &view, const Point2D &p0, const Point2D &p1, const cv::Scalar &color, int thickness=1, int lineType = CV_AA );
     /**
      * draws a line given in the visualization space (meter, ....) into the foreground image
      * @param p0 start point
@@ -113,9 +91,9 @@ public:
      * @param lineType line type --> @see opencv
      **/
     void line ( const Point2D &p0, const Point2D &p1, const cv::Scalar &color, int thickness=1, int lineType = CV_AA );
+    using WorldScopedMaps::line;
     /**
-     * draws a circle given in the visualization space (meter, ....) into the image
-     * @param view image
+     * draws a circle given in the visualization space (meter, ....) into the foreground image
      * @param p location
      * @param radius radius
      * @param color color --> @see opencv
@@ -123,28 +101,17 @@ public:
      * @param lineType line type --> @see opencv
      **/
     void circle ( const Point2D &p, int radius, const cv::Scalar &color, int thickness=1, int lineType = CV_AA );
+    using WorldScopedMaps::circle;
     /**
-     * draws a circle given in the visualization space (meter, ....) into the foreground image
+     * draws a symbol (dot) given in the visualization space (meter, ....) into a pixel map
      * @param view image
      * @param p location
-     * @param radius radius
-     * @param color color --> @see opencv
-     * @param thickness line thickness --> @see opencv
-     * @param lineType line type --> @see opencv
-     **/
-    void circle ( cv::Mat &view, const Point2D &p, int radius, const cv::Scalar &color, int thickness=1, int lineType = CV_AA );
-    /**
-     * draws a symbol (dot) given in the visualization space (meter, ....) into the image
-     * @param view image
-     * @param p location
-     * @param radius radius
      * @param color color --> @see opencv
      **/
     void symbol ( cv::Mat &view, const Point2D &p, const cv::Scalar &color );
     /**
      * draws a symbol (dot) given in the visualization space (meter, ....)  into the foreground image
      * @param p location
-     * @param radius radius
      * @param color color --> @see opencv
      **/
     void symbol ( const Point2D &p, const cv::Scalar &color );
@@ -195,75 +162,6 @@ public:
      * overwrites the foreground with the background
      **/
     void clear ();
-
-    /**
-     * @return transformation matrix from the visualization space to image space (world -> map)
-     **/
-    const cv::Matx33d  &Mw2m () const;
-    /**
-     * @return transformation matrix from the image space to visualization space (map -> world)
-     **/
-    const cv::Matx33d  &Mm2w () const;
-
-    /**
-     * transforms a point from the visualization space to image space (world -> map)
-     * @param src point in visualization space (world)
-     * @return point in image space (map [pixel])
-     **/
-    Point2D w2m ( const Point2D &src ) const ;
-    /**
-     * transforms a point from the visualization space to image space (world -> map)
-     * @param src point in visualization space (world)
-     * @param des point in image space (map [pixel])
-     * @return reference to des
-     **/
-    Point2D &w2m ( const Point2D &src, Point2D &des ) const;
-    /**
-     * transforms a point from the image space to visualization space (map -> world)
-     * @param src point in image space (map [pixel])
-     * @return point in visualization space (world)
-     **/
-    Point2D m2w ( const Point2D &src ) const ;
-    /**
-     * transforms a point from the image space to visualization space (map -> world)
-     * @param src point in image space (map [pixel])
-     * @param des  point in visualization space (world)
-     * @return reference to des
-     **/
-    Point2D &m2w ( const Point2D &src, Point2D &des ) const;
-
-    /**
-     * @return canvas (image) width 
-     **/
-    int width () const ;
-    /**
-     * @return canvas (image) height 
-     **/
-    int height () const ;
-    /**
-     * @return computed x scale
-     **/
-    double scale_x () const ;
-    /**
-     * @return computed y scale
-     **/
-    double scale_y () const ;
-    /**
-     * @return minimal x of the visualized space
-     **/
-    double min_x () const ;
-    /**
-     * @return maximal x of the visualized space
-     **/
-    double max_x () const ;
-    /**
-     * @return minimal y of the visualized space
-     **/
-    double min_y () const ;
-    /**
-     * @return maximal y of the visualized space
-     **/
-    double max_y () const ;
     
     /// color to use with the drawing functions
     static const cv::Scalar green;      
