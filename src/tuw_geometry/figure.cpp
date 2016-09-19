@@ -24,6 +24,21 @@ const cv::Scalar Figure::gray ( 128, 128, 128 );
 const cv::Scalar Figure::black ( 0,   0,   0 );
 const cv::Scalar Figure::white ( 255, 255, 255 );
 
+const cv::Scalar Figure::niceBlue        (155, 100,   59);
+const cv::Scalar Figure::niceMustard     ( 28, 174,  184);
+const cv::Scalar Figure::niceMagenta     (147,  32,  220);
+const cv::Scalar Figure::niceGreenBlue   (181, 196,   36);
+const cv::Scalar Figure::niceRed         ( 82,  77,  204);
+const cv::Scalar Figure::niceRedDark     ( 52,  48,  158);
+const cv::Scalar Figure::niceGreen       ( 55, 142,   84);
+const cv::Scalar Figure::niceGrey        (132, 109,  106);
+const cv::Scalar Figure::niceGreyLight   (179, 165,  153);
+const cv::Scalar Figure::niceGreyPurple  (155, 135,  149);
+const cv::Scalar Figure::niceGreenWashed (151, 166,  125);
+const cv::Scalar Figure::niceGreyDark    ( 85,  79,   74);
+const cv::Scalar Figure::niceLime        ( 23, 176,  154);
+const cv::Scalar Figure::niceDirtyPink   ( 78,   0,  120);
+
 Figure::Figure ( const std::string &title )
     : title_ ( title )
     , label_format_x_ ( "x=%f" )
@@ -160,4 +175,25 @@ void Figure::putText ( const std::string& text, const Point2D &p, int fontFace, 
 }
 void Figure::putText ( cv::Mat &view, const std::string& text, const Point2D &p, int fontFace, double fontScale, cv::Scalar color, int thickness, int lineType, bool bottomLeftOrigin ) {
     cv::putText ( view, text, w2m ( p ).cv(), fontFace, fontScale, color, thickness, lineType, bottomLeftOrigin );
+}
+
+void Figure::appendToView ( const cv::Mat& _mat, const cv::Scalar& _colMin, const cv::Scalar& _colMax, u_int8_t _truncateLayerVal ) {
+    if( view().empty() || _mat.empty() || !initialized() ) { return; }
+    
+    CV_Assert ( _mat.depth() == CV_8U );
+    int channels = _mat.channels();
+    int nRows    = _mat.rows;
+    int nCols    = _mat.cols * channels;
+
+    uint8_t const* p_s; cv::Vec3b* p_d;
+    for(int i = 0; i < nRows; ++i) {
+        for (p_s = _mat.ptr<const uint8_t>(i), p_d =view().ptr<cv::Vec3b>(i); p_s != _mat.ptr<uint8_t>(i+1); p_d++, p_s++){
+	    if ( (*p_d == cv::Vec3b(255,255,255) ) && (*p_s < 255 - _truncateLayerVal ) ) {  
+		double scale = *p_s / (255. - (double)_truncateLayerVal);
+		*p_d =  cv::Vec3b( _colMin[0] + scale * (_colMax[0] - _colMin[0]),
+				   _colMin[1] + scale * (_colMax[1] - _colMin[1]),
+				   _colMin[2] + scale * (_colMax[2] - _colMin[2]) );
+	    }
+	}
+    }
 }

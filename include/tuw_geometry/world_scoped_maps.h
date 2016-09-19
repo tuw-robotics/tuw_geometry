@@ -25,10 +25,14 @@ class WorldScopedMaps {
 
     void init();     ///< initializes the transformation matrices
 public:
-    /**
-     * constructor
-     **/
+    
+    //special class member functions
     WorldScopedMaps ( );
+    virtual ~WorldScopedMaps()                         = default;
+    WorldScopedMaps           (const WorldScopedMaps&) = default;
+    WorldScopedMaps& operator=(const WorldScopedMaps&) = default;
+    WorldScopedMaps           (WorldScopedMaps&&)      = default;
+    WorldScopedMaps& operator=(WorldScopedMaps&&)      = default;
 
     /**
      * used to initialize the figure
@@ -55,7 +59,7 @@ public:
      * @param thickness line thickness --> @see opencv
      * @param lineType line type --> @see opencv
      **/
-    void line ( cv::Mat &view, const Point2D &p0, const Point2D &p1, const cv::Scalar &color, int thickness=1, int lineType = CV_AA );
+    void line ( cv::Mat &view, const Point2D &p0, const Point2D &p1, const cv::Scalar &color, int thickness=1, int lineType = CV_AA ) const;
     /**
      * draws a circle given in the visualization space (meter, ....) into a pixel map
      * @param view image
@@ -65,7 +69,7 @@ public:
      * @param thickness line thickness --> @see opencv
      * @param lineType line type --> @see opencv
      **/
-    void circle ( cv::Mat &view, const Point2D &p, int radius, const cv::Scalar &color, int thickness=1, int lineType = CV_AA );
+    void circle ( cv::Mat &view, const Point2D &p, int radius, const cv::Scalar &color, int thickness=1, int lineType = CV_AA ) const;
 
     /**
      * @return transformation matrix from the visualization space to image space (world -> map)

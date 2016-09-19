@@ -71,11 +71,11 @@ Point2D &WorldScopedMaps::m2w ( const Point2D &src, Point2D &des ) const {
     return des;
 }
 
-void WorldScopedMaps::line ( cv::Mat &view,  const Point2D &p0, const Point2D &p1, const cv::Scalar &color, int thickness, int lineType ) {
+void WorldScopedMaps::line ( cv::Mat &view,  const Point2D &p0, const Point2D &p1, const cv::Scalar &color, int thickness, int lineType ) const {
     cv::line ( view, w2m ( p0 ).cv(), w2m ( p1 ).cv(), color, thickness, lineType );
 }
 
-void WorldScopedMaps::circle ( cv::Mat &view, const Point2D &p, int radius, const cv::Scalar &color, int thickness, int lineType ) {
+void WorldScopedMaps::circle ( cv::Mat &view, const Point2D &p, int radius, const cv::Scalar &color, int thickness, int lineType ) const {
     cv::circle ( view, w2m ( p ).cv(), radius, color, thickness, lineType );
 }
 

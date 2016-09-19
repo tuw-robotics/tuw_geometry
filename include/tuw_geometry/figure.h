@@ -25,11 +25,17 @@ class Figure : public WorldScopedMaps {
 
     void drawBackground (); /// draws the background image
 public:
+    //special class member functions
     /**
      * constructor
      * @param title title of the displayed windows
      **/
     Figure ( const std::string &title );
+    virtual ~Figure()                = default;
+    Figure           (const Figure&) = default;
+    Figure& operator=(const Figure&) = default;
+    Figure           (Figure&&)      = default;
+    Figure& operator=(Figure&&)      = default;
 
     /**
      * used to initialize the figure
@@ -44,7 +50,12 @@ public:
      * @param grid_scale_y dimension of the drawn grid, if -1 no grid will be drawn
      * @param background_image file name of an image for the background, it can be empty as well
      **/
-    void init ( int width_pixel, int height_pixel, double min_y, double max_y, double min_x, double max_x, double rotation = 0, double grid_scale_x = -1, double grid_scale_y = -1, const std::string &background_image = std::string() );
+    virtual void init ( int width_pixel, int height_pixel, 
+			double min_y, double max_y, 
+			double min_x, double max_x, 
+			double rotation = 0, 
+			double grid_scale_x = -1, double grid_scale_y = -1, 
+			const std::string &background_image = std::string() );
     
     /**
      * @return title of the window
@@ -163,6 +174,15 @@ public:
      **/
     void clear ();
     
+    /**
+     * Appends the contents of a single channel CV_8U map into the foreground image as a (BGR) colour gradient on foreground pixels that were previously white (255,255,255).
+     * @param _mat Map (CV_8U) to be appended to the foreground image
+     * @param _colMin Minimum (BGR) colour vector value of the appended map (a value of 0 in the input map will be appended with the colour @ref _colMin)
+     * @param _colMax Maximum (BGR) colour vector value of the appended map (a value of 255 in the input map will be appended with the colour @ref _colMax)
+     * @param _truncateLayerVal Value to be truncated from the source map. For example, a value of 10 will not append any pixels with value greater than 245 ( = 255-10 )
+     **/
+    void appendToView(const cv::Mat& _mat, const cv::Scalar& _colMin, const cv::Scalar& _colMax, u_int8_t _truncateLayerVal = 0);
+    
     /// color to use with the drawing functions
     static const cv::Scalar green;      
     static const cv::Scalar green_bright;
@@ -179,6 +199,21 @@ public:
     static const cv::Scalar gray;
     static const cv::Scalar black;
     static const cv::Scalar white;
+    
+    static const cv::Scalar niceBlue;
+    static const cv::Scalar niceMustard;
+    static const cv::Scalar niceMagenta;
+    static const cv::Scalar niceGreenBlue;
+    static const cv::Scalar niceRed;
+    static const cv::Scalar niceRedDark;
+    static const cv::Scalar niceGreen;
+    static const cv::Scalar niceGrey;
+    static const cv::Scalar niceGreyLight;
+    static const cv::Scalar niceGreyPurple;
+    static const cv::Scalar niceGreenWashed;
+    static const cv::Scalar niceGreyDark;
+    static const cv::Scalar niceLime;
+    static const cv::Scalar niceDirtyPink;
     
 };
 }
