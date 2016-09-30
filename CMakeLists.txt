@@ -107,7 +107,7 @@ catkin_python_setup()
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
   INCLUDE_DIRS include
-  LIBRARIES tuw_geometry tuw_geometry_wrapper
+  LIBRARIES tuw_geometry
   CATKIN_DEPENDS roscpp rospy std_msgs
   DEPENDS OpenCV
 )
