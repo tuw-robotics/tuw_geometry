@@ -144,7 +144,7 @@ void LayeredMaps::computeDistanceField ( Mat& _mDst, Mat& _mSrc, const double& _
     int maskSize = voronoiType >= 0 ? CV_DIST_MASK_5 : maskSize0;
     int distType = voronoiType >= 0 ? CV_DIST_L2     : distType0;
     Mat destMap_f,  labels;  
-    destMap_f.create ( width(), height(), CV_32F );
+//     destMap_f.create ( width(), height(), CV_32F );
     if ( voronoiType < 0 ){ cv::distanceTransform ( srcMap, destMap_f, distType, maskSize ); }
     else                  { cv::distanceTransform ( srcMap, destMap_f, labels, distType, maskSize, voronoiType ); }
 //     destMap_f.convertTo(destMap_ui, CV_8U );

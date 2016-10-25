@@ -71,27 +71,44 @@ LineSegment2D& LineSegment2D::set ( const Point2D &p0, const Point2D &p1 ) {
  * @param dx vector to point y
  * @return distance to line between the segment endpoints or the distance to the nearest endpoints **/
 double LineSegment2D::distanceTo ( const Point2D &p, double &dx, double &dy ) const {
-    double px = x1()-x0();
-    double py = y1()-y0();
-    double l2 = px*px + py*py;
+    return distanceSqrTo(p, dx, dy);
+}
+/** computes squared distance to line segment
+ * @see http://stackoverflow.com/questions/849211/shortest-distance-between-a-point-and-a-line-segment
+ * @param p point
+ * @param dx vector to point x
+ * @param dx vector to point y
+ * @return distance to line between the segment endpoints or the distance to the nearest endpoints **/
+double LineSegment2D::distanceSqrTo ( const Point2D &p, double &dx, double &dy ) const {
+    const double px = x1()-x0();
+    const double py = y1()-y0();
+    const double l2 = px*px + py*py;
     double u = ( ( p.x() - x0() ) * px + ( p.y() - y0() ) * py ) / l2;
-    if ( u > 1 ) u = 1;
+    if      ( u > 1 ) u = 1;
     else if ( u < 0 ) u = 0;
-    double xk = x0() + u * px;
-    double yk = y0() + u * py;
+    const double xk = x0() + u * px;
+    const double yk = y0() + u * py;
     dx = xk - p.x();
     dy = yk - p.y();
-    return sqrt ( dx*dx + dy*dy );
+    return dx*dx + dy*dy ;
 }
-Point2D LineSegment2D::closestPointTo(const Point2D& p) const {
+
+double LineSegment2D::closestPointLineSegmentRatio(const Point2D& p) const {
     double px = x1()-x0();
     double py = y1()-y0();
     double l2 = px*px + py*py;
     double  u =  ((p.x() - x0()) * px + (p.y() - y0()) * py) / l2;
     if      (u > 1){ u = 1; }
     else if (u < 0){ u = 0; }
+    return u;
+}
+Point2D LineSegment2D::closestPointTo(const Point2D& p) const {
+    double px = x1()-x0();
+    double py = y1()-y0();
+    const double& u = closestPointLineSegmentRatio(p);
     return Point2D(x0() + u * px, y0() + u * py);
 }
+
 /** computes distance to line segment
  * @see http://stackoverflow.com/questions/849211/shortest-distance-between-a-point-and-a-line-segment
  * @param p point
