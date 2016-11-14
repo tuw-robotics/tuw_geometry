@@ -105,8 +105,8 @@ catkin_python_setup()
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
   INCLUDE_DIRS include
-  LIBRARIES tuw_geometry #tuw_geometry_wrapper
-  CATKIN_DEPENDS roscpp rospy std_msgs 
+  LIBRARIES tuw_geometry
+  CATKIN_DEPENDS roscpp rospy std_msgs
   DEPENDS OpenCV
 )
 
@@ -136,6 +136,9 @@ add_library(tuw_geometry
   src/${PROJECT_NAME}/measurement.cpp
   src/${PROJECT_NAME}/measurement_laser.cpp
   src/${PROJECT_NAME}/tuw_geometry.cpp
+  src/${PROJECT_NAME}/world_scoped_maps.cpp
+  src/${PROJECT_NAME}/layered_maps.cpp
+  src/${PROJECT_NAME}/layered_figure.cpp
 )
 ## Declare a Python C++ library wrapper
 add_library(tuw_geometry_wrapper

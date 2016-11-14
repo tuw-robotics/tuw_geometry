@@ -24,15 +24,26 @@ const cv::Scalar Figure::gray ( 128, 128, 128 );
 const cv::Scalar Figure::black ( 0,   0,   0 );
 const cv::Scalar Figure::white ( 255, 255, 255 );
 
+const cv::Scalar Figure::niceBlue        (155, 100,   59);
+const cv::Scalar Figure::niceMustard     ( 28, 174,  184);
+const cv::Scalar Figure::niceMagenta     (147,  32,  220);
+const cv::Scalar Figure::niceGreenBlue   (181, 196,   36);
+const cv::Scalar Figure::niceRed         ( 82,  77,  204);
+const cv::Scalar Figure::niceRedDark     ( 52,  48,  158);
+const cv::Scalar Figure::niceGreen       ( 55, 142,   84);
+const cv::Scalar Figure::niceGrey        (132, 109,  106);
+const cv::Scalar Figure::niceGreyLight   (179, 165,  153);
+const cv::Scalar Figure::niceGreyPurple  (155, 135,  149);
+const cv::Scalar Figure::niceGreenWashed (151, 166,  125);
+const cv::Scalar Figure::niceGreyDark    ( 85,  79,   74);
+const cv::Scalar Figure::niceLime        ( 23, 176,  154);
+const cv::Scalar Figure::niceDirtyPink   ( 78,   0,  120);
+
 Figure::Figure ( const std::string &title )
     : title_ ( title )
-    , width_pixel_(-1), height_pixel_(-1), min_x_(0), max_x_(0), min_y_(0), max_y_(0)
     , label_format_x_ ( "x=%f" )
     , label_format_y_ ( "y=%f" ) {
 
-};
-bool Figure::initialized() {
-  return ((width_pixel_ != -1) && (height_pixel_ != -1));
 }
 
 void Figure::setLabel ( const std::string &label_format_x, const std::string &label_format_y ) {
@@ -65,65 +76,17 @@ void Figure::setView ( const cv::Mat& view ) {
     }
 }
 
-void Figure::init () {
-    /**
-     * @ToDo Wanderer
-     * you have to fill some local variabels which you can use to cerate the transformation matrix
-     * use max_x_, min_x_, max_y_, min_y_, width_pixel_, height_pixel_, rotation_ for the computation
-     **/
-    //dx_ =   // visual width
-    //dy_ =   // visual height
-    //sx_ =   // scaling x
-    //sy_ =   // scaling y
-    //ox_ =   // offset image space x
-    //oy_ =   // offset image space y
-    //mx_ =   // visual image space x
-    //my_ =   // visual image space y
-    //cv::Matx<double, 3, 3 > Tw ( 1, 0, 0, 0, 1, 0, 0, 0, 1 ); // translation visual space
-    //cv::Matx<double, 3, 3 > Sc ( 1, 0, 0, 0, 1, 0, 0, 0, 1 ); // scaling
-    //cv::Matx<double, 3, 3 > Sp ( 1, 0, 0, 0, 1, 0, 0, 0, 1 ); // mirroring
-    //cv::Matx<double, 3, 3 > R  ( 1, 0, 0, 0, 1, 0, 0, 0, 1 ); // rotation
-    //cv::Matx<double, 3, 3 > Tm ( 1, 0, 0, 0, 1, 0, 0, 0, 1 ); // translation image space
-    //Mw2m_ = Tm * R * Sp * Sc * Tw;
-    //Mw2m_ = cv::Matx<double, 3, 3 > ( 15, 3, 350, 2, 5, 400, 0, 0, 1 ); ///  @ToDo remove this line dummy matrix
-       
-    dx_ = max_x_ - min_x_;
-    dy_ = max_y_ - min_y_;
-    sx_ = width_pixel_  / dx_;
-    sy_ = height_pixel_ / dy_;
-    ox_ = width_pixel_  / 2.0;
-    oy_ = height_pixel_ / 2.0;
-    double ca = cos ( rotation_ ), sa = sin ( rotation_ );
-    mx_ = min_x_ + dx_/2.;
-    my_ = min_y_ + dy_/2.;
-    cv::Matx<double, 3, 3 > Tw ( 1, 0, -mx_, 0, 1, -my_, 0, 0, 1 ); // translation
-    cv::Matx<double, 3, 3 > Sc ( sx_, 0, 0, 0, sy_, 0, 0, 0, 1 );   // scaling
-    cv::Matx<double, 3, 3 > Sp ( -1, 0, 0, 0, 1, 0, 0, 0, 1 );      // mirroring
-    cv::Matx<double, 3, 3 > R ( ca, -sa, 0, sa, ca, 0, 0, 0, 1 );   // rotation
-    cv::Matx<double, 3, 3 > Tm ( 1, 0, ox_, 0, 1, oy_, 0, 0, 1 );   // translation
-    Mw2m_ = Tm * R * Sp * Sc * Tw;
-    
-    Mm2w_ = Mw2m_.inv();
-    drawBackground();
-    clear();
-}
 void Figure::init ( int width_pixel, int height_pixel, double min_x, double max_x, double min_y, double max_y, double rotation, double grid_scale_y, double grid_scale_x, const std::string &background_image ) {
-    width_pixel_ = width_pixel,   height_pixel_ = height_pixel;
-    min_y_ = std::min ( min_y, max_y );
-    max_y_ = std::max ( min_y, max_y );
-    min_x_ = std::min ( min_x, max_x );
-    max_x_ = std::max ( min_x, max_x );
-    rotation_ = rotation;
+    WorldScopedMaps::init(width_pixel, height_pixel, min_x, max_x, min_y, max_y, rotation);
     grid_scale_x_ = grid_scale_x, grid_scale_y_ = grid_scale_y;
     background_filename_ = background_image;
-
-
-    init();
+    drawBackground();
+    clear();
 }
 
 void Figure::drawBackground() {
 
-    background_.create ( height_pixel_, width_pixel_, CV_8UC3 );
+    background_.create ( height(), width(), CV_8UC3 );
     if ( !background_filename_.empty() ) {
         cv::Mat image = cv::imread ( background_filename_, CV_LOAD_IMAGE_COLOR );
         cv::resize ( image, background_, cv::Size ( background_.cols, background_.rows ), cv::INTER_AREA );
@@ -133,14 +96,14 @@ void Figure::drawBackground() {
     if ( ( grid_scale_y_ > 0 ) && ( grid_scale_x_ > 0 ) ) {
         char txt[0xFF];
         Point2D p0, p1, pm0, pm1;
-        double min_y = round ( min_y_/grid_scale_y_ ) *  grid_scale_y_;
-        double max_y = round ( max_y_/grid_scale_y_ ) *  grid_scale_y_;
+        double min_y = round ( WorldScopedMaps::min_y() /grid_scale_y_ ) *  grid_scale_y_;
+        double max_y = round ( WorldScopedMaps::max_y() /grid_scale_y_ ) *  grid_scale_y_;
         for ( p0.y() = min_y; p0.y() <= max_y; p0.y() +=grid_scale_y_ ) {
-            p0.x() = round ( max_x_/grid_scale_x_ )  *  grid_scale_x_;
+            p0.x() = round ( max_x() /grid_scale_x_ )  *  grid_scale_x_;
             p1.y() = p0.y();
-            p1.x() = round ( min_x_/grid_scale_x_ )  *  grid_scale_x_;
-            if ( fabs ( p0.y() ) > FLT_MIN ) line ( background_, p0, p1, gray_bright, 1, 8 );
-            else line ( background_, p0, p1, gray, 1, 8 );
+            p1.x() = round ( min_x() /grid_scale_x_ )  *  grid_scale_x_;
+            if ( fabs ( p0.y() ) > FLT_MIN ) WorldScopedMaps::line ( background_, p0, p1, gray_bright, 1, 8 );
+            else WorldScopedMaps::line ( background_, p0, p1, gray, 1, 8 );
         }
         p0.set ( 0, max_y - grid_scale_y_/2.0 );
         sprintf ( txt, label_format_y_.c_str(), max_y );
@@ -151,16 +114,16 @@ void Figure::drawBackground() {
         cv::putText ( background_, txt, w2m ( p1 ).cv(), cv::FONT_HERSHEY_PLAIN, 0.6, white, 3, CV_AA );
         cv::putText ( background_, txt, w2m ( p1 ).cv(), cv::FONT_HERSHEY_PLAIN, 0.6, gray, 1, CV_AA );
 
-        double min_x = round ( min_x_/grid_scale_x_ ) *  grid_scale_x_;
-        double max_x = round ( max_x_/grid_scale_x_ ) *  grid_scale_x_;
+        double min_x = round ( WorldScopedMaps::min_x() /grid_scale_x_ ) *  grid_scale_x_;
+        double max_x = round ( WorldScopedMaps::max_x() /grid_scale_x_ ) *  grid_scale_x_;
         for ( p0.x() = min_x; p0.x() <= max_x; p0.x() +=grid_scale_x_ ) {
-            p0.y() = round ( max_y_/grid_scale_y_ )  *  grid_scale_y_;
+            p0.y() = round ( WorldScopedMaps::max_y() /grid_scale_y_ )  *  grid_scale_y_;
             p1.x() = p0.x();
-            p1.y() = round ( min_y_/grid_scale_y_ )  *  grid_scale_y_;
+            p1.y() = round ( WorldScopedMaps::min_y() /grid_scale_y_ )  *  grid_scale_y_;
             pm0 = w2m ( p0 );
             pm1 = w2m ( p1 );
-            if ( fabs ( p0.x() ) > FLT_MIN ) line ( background_, p0, p1, gray_bright, 1, 8 );
-            else line ( background_, p0, p1, gray, 1, 8 );
+            if ( fabs ( p0.x() ) > FLT_MIN ) WorldScopedMaps::line ( background_, p0, p1, gray_bright, 1, 8 );
+            else WorldScopedMaps::line ( background_, p0, p1, gray, 1, 8 );
         }
         p0.set ( max_x - grid_scale_x_/2.0, 0 );
         sprintf ( txt, label_format_x_.c_str(), max_x );
@@ -177,33 +140,8 @@ void Figure::clear () {
     background_.copyTo ( view_ );
 }
 
-const cv::Matx33d  &Figure::Mw2m () const {
-    return Mw2m_;
-}
-const cv::Matx33d  &Figure::Mm2w () const {
-    return Mm2w_;
-}
-Point2D Figure::w2m ( const Point2D &src ) const {
-    return Mw2m_ * src;
-}
-Point2D &Figure::w2m ( const Point2D &src, Point2D &des ) const {
-    des = Mw2m_ * src;
-    return des;
-}
-Point2D Figure::m2w ( const Point2D &src ) const {
-    return Mm2w_ * src;
-}
-Point2D &Figure::m2w ( const Point2D &src, Point2D &des ) const {
-    des = Mm2w_ * src;
-    return des;
-}
-
 void Figure::line ( const Point2D &p0, const Point2D &p1, const cv::Scalar &color, int thickness, int lineType ) {
-    line ( view_, p0, p1, color, thickness, lineType );
-}
-
-void Figure::line ( cv::Mat &view,  const Point2D &p0, const Point2D &p1, const cv::Scalar &color, int thickness, int lineType ) {
-    cv::line ( view, w2m ( p0 ).cv(), w2m ( p1 ).cv(), color, thickness, lineType );
+    WorldScopedMaps::line ( view_, p0, p1, color, thickness, lineType );
 }
 
 void Figure::symbol ( const Point2D &p, const cv::Scalar &color ) {
@@ -220,11 +158,7 @@ const std::string Figure::title() const {
 }
 
 void Figure::circle ( const Point2D &p, int radius, const cv::Scalar &color, int thickness, int lineType ) {
-    circle ( view_, p, radius, color, thickness, lineType );
-}
-
-void Figure::circle ( cv::Mat &view, const Point2D &p, int radius, const cv::Scalar &color, int thickness, int lineType ) {
-    cv::circle ( view, w2m ( p ).cv(), radius, color, thickness, lineType );
+    WorldScopedMaps::circle ( view_, p, radius, color, thickness, lineType );
 }
 
 void Figure::symbol ( const Pose2D &p, double radius, const cv::Scalar &color, int thickness, int lineType ) {
@@ -243,27 +177,23 @@ void Figure::putText ( cv::Mat &view, const std::string& text, const Point2D &p,
     cv::putText ( view, text, w2m ( p ).cv(), fontFace, fontScale, color, thickness, lineType, bottomLeftOrigin );
 }
 
-double Figure::max_x () const {
-    return max_x_;
-}
-double Figure::min_x () const  {
-    return min_x_;
-}
-double Figure::scale_x () const  {
-    return sx_;
-}
-double Figure::max_y () const  {
-    return max_y_;
-}
-double Figure::min_y () const  {
-    return min_y_;
-}
-double Figure::scale_y () const  {
-    return sy_;
-}
-int Figure::width () const {
-    return view_.cols;
-}
-int Figure::height () const {
-    return view_.rows;
+void Figure::appendToView ( const cv::Mat& _mat, const cv::Scalar& _colMin, const cv::Scalar& _colMax, u_int8_t _truncateLayerVal ) {
+    if( view().empty() || _mat.empty() || !initialized() ) { return; }
+    
+    CV_Assert ( _mat.depth() == CV_8U );
+    int channels = _mat.channels();
+    int nRows    = _mat.rows;
+    int nCols    = _mat.cols * channels;
+
+    uint8_t const* p_s; cv::Vec3b* p_d;
+    for(int i = 0; i < nRows; ++i) {
+        for (p_s = _mat.ptr<const uint8_t>(i), p_d =view().ptr<cv::Vec3b>(i); p_s != _mat.ptr<uint8_t>(i+1); p_d++, p_s++){
+	    if ( (*p_d == cv::Vec3b(255,255,255) ) && (*p_s < 255 - _truncateLayerVal ) ) {  
+		double scale = *p_s / (255. - (double)_truncateLayerVal);
+		*p_d =  cv::Vec3b( _colMin[0] + scale * (_colMax[0] - _colMin[0]),
+				   _colMin[1] + scale * (_colMax[1] - _colMin[1]),
+				   _colMin[2] + scale * (_colMax[2] - _colMin[2]) );
+	    }
+	}
+    }
 }
