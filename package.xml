@@ -14,6 +14,7 @@
   <!-- Commonly used license strings: -->
   <!--   BSD, MIT, Boost Software License, GPLv2, GPLv3, LGPLv2.1, LGPLv3 -->
   <license>BSD</license>
+  <author>Markus Bader</author>
 
 
   <!-- Url tags are optional, but mutiple are allowed, one per tag -->
@@ -42,7 +43,7 @@
   <buildtool_depend>catkin</buildtool_depend>
   
   <build_depend>boost</build_depend>
-  <build_depend>opencv3</build_depend>
+  <build_depend>cv_bridge</build_depend>  <!-- for opencv3 -->
   <build_depend>roscpp</build_depend>
   <build_depend>rospy</build_depend>
   <build_depend>std_msgs</build_depend>
@@ -51,7 +52,7 @@
   <run_depend>roscpp</run_depend>
   <run_depend>rospy</run_depend>
   <run_depend>std_msgs</run_depend>
-  <run_depend>opencv3</run_depend>
+  <run_depend>cv_bridge</run_depend>  <!-- for opencv3 -->
 
   <test_depend>rosunit</test_depend>
   
