@@ -71,7 +71,7 @@ LineSegment2D& LineSegment2D::set ( const Point2D &p0, const Point2D &p1 ) {
  * @param dx vector to point y
  * @return distance to line between the segment endpoints or the distance to the nearest endpoints **/
 double LineSegment2D::distanceTo ( const Point2D &p, double &dx, double &dy ) const {
-    return distanceSqrTo(p, dx, dy);
+    return sqrt( distanceSqrTo(p, dx, dy) );
 }
 /** computes squared distance to line segment
  * @see http://stackoverflow.com/questions/849211/shortest-distance-between-a-point-and-a-line-segment
