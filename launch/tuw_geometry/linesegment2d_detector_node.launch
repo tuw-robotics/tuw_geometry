@@ -1,9 +1,10 @@
 <launch>
-  <arg name="laser_namespace" default="/p3dx/laser_front"/>
-  <arg name="laser_scan" default="$(arg laser_namespace)/scan"/>
+  <arg name="laser_frame" default="/p3dx/laser_front"/>
+  <arg name="laser_scan" default="$(arg laser_frame)/scan"/>
   <arg name="linesegments_pub" default="line_segments"/>
   
   <node name="linesegment2d_detector_node" pkg="tuw_geometry" type="linesegment2d_detector_node" output="screen">
+    <param name="laser_frame" value="$(arg laser_frame)" type="str" />
     <remap from="scan" to="$(arg laser_scan)" />
     <remap from="line_segments" to="$(arg linesegments_pub)" />
   </node>

@@ -49,6 +49,7 @@
   <build_depend>std_msgs</build_depend>
   <build_depend>sensor_msgs</build_depend>
   <build_depend>tuw_geometry_msgs</build_depend>
+  <build_depend>dynamic_reconfigure</build_depend>
   
   <run_depend>roscpp</run_depend>
   <run_depend>rospy</run_depend>
@@ -56,6 +57,7 @@
   <run_depend>sensor_msgs</run_depend>
   <run_depend>cv_bridge</run_depend>  <!-- for opencv3 -->
   <run_depend>tuw_geometry_msgs</run_depend>
+  <run_depend>dynamic_reconfigure</run_depend>
 
   <test_depend>rosunit</test_depend>
   
