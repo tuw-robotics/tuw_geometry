@@ -9,9 +9,6 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy
   std_msgs
-  sensor_msgs
-  tuw_geometry_msgs
-  dynamic_reconfigure
 )
 
 ## System dependencies are found with CMake's conventions
@@ -92,9 +89,10 @@ catkin_python_setup()
 ##     and list every .cfg file to be processed
 
 ## Generate dynamic reconfigure parameters in the 'cfg' folder
-generate_dynamic_reconfigure_options(
-  cfg/Linesegment2DDetector.cfg
-)
+# generate_dynamic_reconfigure_options(
+#   cfg/DynReconf1.cfg
+#   cfg/DynReconf2.cfg
+# )
 
 ###################################
 ## catkin specific configuration ##
@@ -152,14 +150,11 @@ add_library(tuw_geometry_wrapper
 add_dependencies(tuw_geometry ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Declare a C++ executable
-add_executable(linesegment2d_detector_node src/${PROJECT_NAME}/linesegment2d_detector_node.cpp)
+# add_executable(tuw_geometry_node src/tuw_geometry_node.cpp)
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
-add_dependencies(linesegment2d_detector_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-
-# make sure configure headers are built before any node using them
-add_dependencies(tuw_geometry ${PROJECT_NAME}_gencfg)
+# add_dependencies(tuw_geometry_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
 target_link_libraries(tuw_geometry
@@ -171,13 +166,7 @@ target_link_libraries(tuw_geometry_wrapper
    tuw_geometry
    ${catkin_LIBRARIES}
    ${Boost_LIBRARIES}
-)
-
-target_link_libraries(linesegment2d_detector_node
-  tuw_geometry
-  ${catkin_LIBRARIES}
-  #${OpenCV_LIBRARIES}
-)
+ )
  
 # Don't prepend wrapper library name with lib and add to Python libs.
 set_target_properties(tuw_geometry_wrapper PROPERTIES
