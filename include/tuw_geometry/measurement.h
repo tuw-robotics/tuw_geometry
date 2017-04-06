@@ -22,7 +22,8 @@ public:
     enum class Type {
         LASER = 0,
         LINE = 1,
-	MARKER = 2
+        MARKER = 2,
+        OBJECT = 3
     };
     /**
      * constructor
