@@ -3,6 +3,7 @@
 
 #include <tuw_geometry/measurement.h>
 #include <eigen3/Eigen/Dense>
+#include <eigen3/Eigen/Geometry>
 
 namespace tuw {
 
@@ -13,23 +14,131 @@ using MeasurementObjectConstPtr = std::shared_ptr<MeasurementObject const>;
 class MeasurementObject : public Measurement
 {
 public:
+    
+    struct Object 
+    {
+        std::vector<int> ids;
+        std::vector<double> ids_confidence;
+        Pose2D pose2d;
+        // twist
+        Eigen::Matrix<double, 3, 3, Eigen::RowMajor> covariance;
+        boost::posix_time::ptime stamp;
+    };
+    
     /**
      * constructor
      * @param distinguish extended classes in base versions
      **/
     MeasurementObject();
+    
     /**
      * copy constructor
      * @param o source
      **/
     MeasurementObject(const MeasurementObject &o);
-    const std::vector<int> &ids() const;
-    const std::vector<double> &idsConfidence() const;
-    const Eigen::Matrix3d &covariance() const;
+    
+    /**
+     * resizes the vector holding the object measurements
+     * @param size
+     **/
+    void resize (size_t n);
+    
+    /**
+     * returns the max range measurement
+     * @return possible max measurement
+     **/
+    double &range_max();
+    
+    /**
+     * returns the max range measurement
+     * @return possible max measurement
+     **/
+    const double &range_max() const;
+    
+    /**
+     * returns the max id range measurement
+     * @return possible max id measurement
+     **/
+    double &range_max_id();
+    
+    /**
+     * returns the max id range measurement
+     * @return possible max id measurement
+     **/
+    const double &range_max_id() const;
+    
+    /**
+     * returns the min range measurement
+     * @return possible min measurement
+     **/
+    double &range_min();
+    
+    /**
+     * returns the min range measurement
+     * @return possible min measurement
+     **/
+    const double &range_min() const;
+    
+    /**
+     * @return true on empty
+     **/
+    bool empty() const;
+    
+    /**
+     * @return number of objects vector
+     **/
+    size_t size() const;
+    
+    /** Array operation
+    * @param i entry to return
+    * @return reference to the element
+    **/
+    Object& operator[](int i);
+    
+    /** Array operation const version
+    * @param i entry to return
+    * @return reference to the element
+    **/
+    const Object& operator[](int i) const;
+    
+    /** Erase object at index i
+     * @param i entry to erase
+     **/
+    void eraseObject(int i);    
+    
+    Eigen::Quaterniond& view_direction();
+    
+    const Eigen::Quaterniond& view_direction() const;
+    
+    double& fov_horizontal();
+    
+    const double& fov_horizontal() const;
+    
+    double& fov_vertical();
+    
+    const double& fov_vertical() const;
+    
+    std::string& type();
+    
+    const std::string& type() const;
+    
+    std::string& sensor_type();
+    
+    const std::string& sensor_type() const;
+    
 private:
-    std::vector<int> ids_;
-    std::vector<double> ids_confidence_;
-    Eigen::Matrix3d covariance_;
+    std::vector<Object> objects_;
+    
+    double range_min_;
+    double range_max_;
+    double range_max_id_;
+    
+    Eigen::Quaterniond view_direction_;
+    double fov_horizontal_;
+    double fov_vertical_;
+    
+    std::string type_;
+    std::string sensor_type_;
 };
 
 }
