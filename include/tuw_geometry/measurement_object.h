@@ -29,6 +29,7 @@ public:
   {
     std::vector<int> ids;
     std::vector<double> ids_confidence;
+    std::vector<double> shape_variables;
     Pose2D pose2d;
     // twist
     Eigen::Matrix<double, 3, 3, Eigen::RowMajor> covariance;
