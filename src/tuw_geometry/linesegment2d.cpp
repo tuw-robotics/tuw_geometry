@@ -105,7 +105,7 @@ double LineSegment2D::closestPointLineSegmentRatio(const Point2D& p) const {
 Point2D LineSegment2D::closestPointTo(const Point2D& p) const {
     double px = x1()-x0();
     double py = y1()-y0();
-    const double& u = closestPointLineSegmentRatio(p);
+    const double u = closestPointLineSegmentRatio(p);
     return Point2D(x0() + u * px, y0() + u * py);
 }
 
