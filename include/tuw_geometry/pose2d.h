@@ -9,6 +9,55 @@ class Pose2D;
 using Pose2DPtr = std::shared_ptr< Pose2D >;
 using Pose2DConstPtr = std::shared_ptr< Pose2D const>;
 
+/**
+ * Quaternion to an euler roll angle
+ * @see https://en.wikipedia.org/wiki/Conversion_between_quaternions_and_Euler_angles
+ **/
+template <typename Quaternion> 
+void QuaterniontoRoll ( const Quaternion& q, double& roll )
+{
+    // roll (x-axis rotation)
+    double sinr = +2.0 * ( q.w * q.x + q.y * q.z );
+    double cosr = +1.0 - 2.0 * ( q.x * q.x + q.y * q.y );
+    roll = atan2 ( sinr, cosr );
+}
+/**
+ * Quaternion to an euler pitch angle
+ * @see https://en.wikipedia.org/wiki/Conversion_between_quaternions_and_Euler_angles
+ **/
+template <typename Quaternion> 
+void QuaterniontoPitch ( const Quaternion& q, double& pitch )
+{
+    // pitch (y-axis rotation)
+    double sinp = +2.0 * ( q.w * q.y - q.z * q.x );
+    if ( fabs ( sinp ) >= 1 ) {
+        pitch = copysign ( M_PI / 2, sinp );    // use 90 degrees if out of range
+    } else {
+        pitch = asin ( sinp );
+    }
+}
+/**
+ * Quaternion to an euler yaw angle
+ * @see https://en.wikipedia.org/wiki/Conversion_between_quaternions_and_Euler_angles
+ **/
+template <typename Quaternion> 
+void QuaterniontoYaw ( const Quaternion& q, double& yaw )
+{
+    // yaw (z-axis rotation)
+    double siny = +2.0 * ( q.w * q.z + q.x * q.y );
+    double cosy = +1.0 - 2.0 * ( q.y * q.y + q.z * q.z );
+    yaw = atan2 ( siny, cosy );
+}
+
+/**
+ * Quaternion to euler angles
+ * @see https://en.wikipedia.org/wiki/Conversion_between_quaternions_and_Euler_angles
+ **/
+template <typename Quaternion> 
+void QuaterniontoEuler ( const Quaternion& q, double& roll, double& pitch, double& yaw )
+{
+    QuaterniontoRoll ( q, roll ), QuaterniontoPitch ( q, pitch ),  QuaterniontoYaw ( q, yaw );
+}
 
 /**
  * class to represent a pose in 2D space

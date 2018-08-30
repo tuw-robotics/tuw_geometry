@@ -3,6 +3,7 @@
 #include <opencv/cv.h>
 #include <opencv2/core/core.hpp>
 #include <opencv2/core/core_c.h>
+#include <opencv2/imgproc/imgproc.hpp>
 #include <tuw_geometry/pose2d.h>
 
 namespace tuw {
@@ -45,6 +46,25 @@ public:
      * @param rotation rotation of the visualized spaces
      **/
     void init ( int width_pixel, int height_pixel, double min_y, double max_y, double min_x, double max_x, double rotation = 0  );
+    
+    /**
+     * used to initialize the figure based on a ROS nav_msgs/MapMetaData
+     * @param T nav_msgs/MapMetaData
+     **/
+    template <typename T> void init(const T &metadata){
+        int width_pixel = metadata.width;
+        int height_pixel = metadata.height; 
+        double width_meter = metadata.resolution * (double) width_pixel;
+        double height_meter = metadata.resolution * (double) height_pixel;
+        double min_y = metadata.origin.position.y;
+        double min_x = metadata.origin.position.x;
+        double roll = 0, pitch = 0, yaw = 0;
+        QuaterniontoEuler ( metadata.origin.orientation, roll, pitch, yaw );
+        double rotation = yaw;
+        double max_y = min_y + sin(rotation) * width_meter;
+        double max_x = min_x + cos(rotation) * height_pixel;
+        init(width_pixel, height_pixel, min_y, max_y, min_x, max_x, rotation);        
+    }
 
     /**
      *  @returns true if the figure is initialized
@@ -52,24 +72,40 @@ public:
     bool initialized(); 
     /**
      * draws a line given in the visualization space (meter, ....) into a pixel map
-     * @param view image
+     * @param map opencv matrix
      * @param p0 start point
      * @param p1 end point 
      * @param color color --> @see opencv
      * @param thickness line thickness --> @see opencv
      * @param lineType line type --> @see opencv
      **/
-    void line ( cv::Mat &view, const Point2D &p0, const Point2D &p1, const cv::Scalar &color, int thickness=1, int lineType = CV_AA ) const;
+    template <typename T>
+    void line ( T &map, const Point2D &p0, const Point2D &p1, const cv::Scalar &color, int thickness=1, int lineType = CV_AA ) const {
+        cv::line ( map, w2m ( p0 ).cv(), w2m ( p1 ).cv(), color, thickness, lineType );
+    }
     /**
      * draws a circle given in the visualization space (meter, ....) into a pixel map
-     * @param view image
+     * @param map opencv matrix
      * @param p location
      * @param radius radius
      * @param color color --> @see opencv
      * @param thickness line thickness --> @see opencv
      * @param lineType line type --> @see opencv
      **/
-    void circle ( cv::Mat &view, const Point2D &p, int radius, const cv::Scalar &color, int thickness=1, int lineType = CV_AA ) const;
+    template <typename T>
+    void circle ( T &map, const Point2D &p, int radius, const cv::Scalar &color, int thickness=1, int lineType = CV_AA ) const{
+        cv::circle ( map, w2m ( p ).cv(), radius, color, thickness, lineType );
+    }
+    
+    /**
+     * draws a circle given in the visualization space (meter, ....) into a pixel map
+     * @param map opencv matrix
+     * @param p location
+     **/
+    template <typename T>
+    cv::Scalar_<T> get ( cv::Mat_<T> &map, const Point2D &p) const{
+        return map.at(w2m ( p ).cv() );
+    }
 
     /**
      * @return transformation matrix from the visualization space to image space (world -> map)
@@ -140,5 +176,6 @@ public:
      **/
     double max_y () const ;
 };
+
 }
 #endif // WORLD_SCOPED_MAPS_H

@@ -13,13 +13,15 @@
 #include <string>
 #include <map>
 
-namespace tuw {
-  enum DistributionType {
-      NORMAL_DISTRIBUTION = 0,
-      UNIFORM_DISTRIBUTION = 1,
-      GRID_DISTRIBUTION = 2
-  };
-  static std::map<DistributionType, std::string> DistributionTypeName; 
+namespace tuw
+{
+enum DistributionType {
+    NORMAL_DISTRIBUTION = 0,
+    UNIFORM_DISTRIBUTION = 1,
+    GRID_DISTRIBUTION = 2
+};
+static std::map<DistributionType, std::string> DistributionTypeName;
+
 }
 
 #endif // TUW_GEOMETRY
