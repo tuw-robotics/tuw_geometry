@@ -75,7 +75,9 @@ public:
     {
         return data_.at( w2m ( _world_coordinates ) );
     }
-
+    const cv::Mat_<T> &mat() const{
+        return data_;
+    }
 private:
     bool read_only_;
     cv::Mat_<T> data_;
