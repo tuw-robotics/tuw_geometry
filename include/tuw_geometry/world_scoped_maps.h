@@ -52,18 +52,30 @@ public:
      * @param T nav_msgs/MapMetaData
      **/
     template <typename T> void init(const T &metadata){
-        int width_pixel = metadata.width;
-        int height_pixel = metadata.height; 
-        double width_meter = metadata.resolution * (double) width_pixel;
-        double height_meter = metadata.resolution * (double) height_pixel;
-        double min_y = metadata.origin.position.y;
-        double min_x = metadata.origin.position.x;
+        width_pixel_ = metadata.width,   height_pixel_ = metadata.height;        
+        dx_ = metadata.resolution * (double) metadata.width;
+        dy_ = metadata.resolution * (double) metadata.height;
+        sx_ = 1.0/metadata.resolution;
+        sy_ = 1.0/metadata.resolution;
+        ox_ = 0.;
+        oy_ = 0.;
         double roll = 0, pitch = 0, yaw = 0;
-        QuaterniontoEuler ( metadata.origin.orientation, roll, pitch, yaw );
-        double rotation = yaw;
-        double max_y = min_y + sin(rotation) * width_meter;
-        double max_x = min_x + cos(rotation) * height_pixel;
-        init(width_pixel, height_pixel, min_y, max_y, min_x, max_x, rotation);        
+        QuaternionToEuler ( metadata.origin.orientation, roll, pitch, yaw );
+        rotation_ = -yaw;
+        rotation_ = 0;
+        double ca = cos ( rotation_ ), sa = sin ( rotation_ );
+        mx_ = metadata.origin.position.x;
+        my_ = metadata.origin.position.y;
+        cv::Matx<double, 3, 3 > Tw ( 1, 0, -mx_, 0, 1, -my_, 0, 0, 1 ); // translation
+        cv::Matx<double, 3, 3 > Sc ( sx_, 0, 0, 0, sy_, 0, 0, 0, 1 );   // scaling
+        cv::Matx<double, 3, 3 > R ( ca, -sa, 0, sa, ca, 0, 0, 0, 1 );   // rotation
+        Mw2m_ = R * Sc * Tw;
+        Mm2w_ = Mw2m_.inv();
+        Point2D p = m2w(width_pixel_, height_pixel_);
+        min_y_ = mx_;
+        min_x_ = my_;
+        max_x_ = p.x();
+        max_y_ = p.y();  
     }
 
     /**
@@ -98,7 +110,7 @@ public:
     }
     
     /**
-     * draws a circle given in the visualization space (meter, ....) into a pixel map
+     * return a copy of the value located at p in the visual space (meter, ....)
      * @param map opencv matrix
      * @param p location
      **/
@@ -124,6 +136,13 @@ public:
     Point2D w2m ( const Point2D &src ) const ;
     /**
      * transforms a point from the visualization space to image space (world -> map)
+     * @param x x coordinate in visualization space (world) eg. [m]
+     * @param y y coordinate in visualization space (world) eg. [m]
+     * @return point in image space  eg. [pixel]
+     **/
+    Point2D w2m ( double x, double y ) const ;
+    /**
+     * transforms a point from the visualization space to image space (world -> map)
      * @param src point in visualization space (world)
      * @param des point in image space (map [pixel])
      * @return reference to des
@@ -135,6 +154,13 @@ public:
      * @return point in visualization space (world)
      **/
     Point2D m2w ( const Point2D &src ) const ;
+    /**
+     * transforms a point from the image space to visualization space (map -> world)
+     * @param x x coordinate in image space  eg. [pixel]
+     * @param y y coordinate in image space  eg. [pixel]
+     * @return point in visualization space (world) eg. [m]
+     **/
+    Point2D m2w ( double x, double y ) const ;
     /**
      * transforms a point from the image space to visualization space (map -> world)
      * @param src point in image space (map [pixel])
@@ -174,7 +200,19 @@ public:
     /**
      * @return maximal y of the visualized space
      **/
-    double max_y () const ;
+    double max_y () const ;    
+    /**
+    * returns a distance measure scaled
+    * @param v value to be scaledt
+    * @return distance
+    **/ 
+    double scale_w2m (double v) const ;    
+    /**
+    * returns information about the maps metadata
+    * @param format using printf format
+    * @return string
+    **/  
+    std::string infoHeader() const;
 };
 
 }

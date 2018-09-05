@@ -1,9 +1,11 @@
 #include <cfloat>
 #include <tgmath.h>
+#include <iomanip>
 #include <boost/lexical_cast.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 #include <tuw_geometry/world_scoped_maps.h>
+#include <tuw_geometry/utils.h>
 
 
 using namespace tuw;
@@ -59,12 +61,18 @@ const cv::Matx33d  &WorldScopedMaps::Mm2w () const {
 Point2D WorldScopedMaps::w2m ( const Point2D &src ) const {
     return Mw2m_ * src;
 }
+Point2D WorldScopedMaps::w2m ( double x, double y ) const {
+    return w2m(Point2D(x,y));
+}
 Point2D &WorldScopedMaps::w2m ( const Point2D &src, Point2D &des ) const {
     des = Mw2m_ * src;
     return des;
 }
 Point2D WorldScopedMaps::m2w ( const Point2D &src ) const {
     return Mm2w_ * src;
+}
+Point2D WorldScopedMaps::m2w ( double x, double y ) const {
+    return m2w(Point2D(x,y));
 }
 Point2D &WorldScopedMaps::m2w ( const Point2D &src, Point2D &des ) const {
     des = Mm2w_ * src;
@@ -93,4 +101,16 @@ int WorldScopedMaps::width () const {
 }
 int WorldScopedMaps::height () const {
     return height_pixel_;
+}
+    
+double WorldScopedMaps::scale_w2m (double v) const {
+    return v * sx_;
+}
+std::string WorldScopedMaps::infoHeader() const{
+    char buffer[0x1FF];
+    Point2D p0 = m2w(0, 0);
+    Point2D p1 = m2w(width_pixel_/2, height_pixel_/2);
+    sprintf(buffer, "%4i,%4i [px];  %6.2f, %6.2f [m] => %6.2f, %6.2f [px/m]; 0, 0 [px] = %6.2f, %6.2f [m] @ %3.2f [rad]; %4i, %4i [px] = %6.2f, %6.2f [m] @ %3.2f [rad]", 
+            width_pixel_, height_pixel_, dx_, dy_, sx_, sy_, p0.x(), p0.y(), rotation_, width_pixel_/2, height_pixel_/2, p1.x(), p1.y(), rotation_);
+    return std::string(buffer);    
 }

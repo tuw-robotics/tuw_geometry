@@ -3,53 +3,9 @@
 
 #include <memory>
 #include <opencv2/core/core.hpp>
+#include <tuw_geometry/utils.h>
 
 namespace tuw {
-typedef cv::Matx<double, 3, 3> Tf2D;
-
-/**
- * creates a new vector by adding a single component
- * usable to homogeneous vectors
- * @param src to normalize
- * @param value
- * @return extended vector
- **/
-inline cv::Vec<double, 3>  append (const cv::Vec<double, 2> &src, double value = 1.0) {
-    return cv::Vec<double, 3>(src.val[0], src.val[1], value);
-}
-
-/**
- * creates a new vector by adding a single component
- * usable to homogeneous vectors
- * @param src to normalize
- * @param value
- * @return extended vector
- **/
-inline cv::Vec<double, 4>  append (const cv::Vec<double, 3> &src, double value = 1.0) {
-    return cv::Vec<double, 4>(src.val[0], src.val[1], src.val[2], value);
-}
-
-/**
- * normalizes an angle between min_angle and max_angle but max_angle - min_angle >= 2PI
- * @param angle to normalize
- * @param min_angle
- * @param max_angle
- * @return normalize angle
- **/
-inline double angle_normalize (double angle, double min_angle = -M_PI, double max_angle = +M_PI) {
-    while ( angle > max_angle ) angle -= ( 2.*M_PI );
-    while ( angle < min_angle ) angle += ( 2.*M_PI );
-    return angle;
-}
-/**
- * computes the angle difference between two angles by taking into account the circular space
- * @param alpha0
- * @param angle1
- * @return difference
- **/
-inline double angle_difference(double alpha0, double angle1){
-  return atan2(sin(alpha0-angle1), cos(alpha0-angle1));
-}
 
 
 class Point2D;  /// Prototype

@@ -125,6 +125,7 @@ include_directories(
 
 ## Declare a C++ library
 add_library(tuw_geometry
+  src/${PROJECT_NAME}/utils.cpp
   src/${PROJECT_NAME}/point2d.cpp
   src/${PROJECT_NAME}/polar2d.cpp
   src/${PROJECT_NAME}/pose2d.cpp
