@@ -62,25 +62,30 @@ public:
     GridMap ( GridMap&& )      = default;
     GridMap& operator= ( GridMap&& )      = default;
 
-    template <typename MapMetaData>
-    void init ( const MapMetaData &metadata, T *data )
+    template <typename MapMetaData, class ARRAY>
+    void init ( const MapMetaData &metadata, ARRAY *data )
     {
         WorldScopedMaps::init ( metadata );
         data_ = cv::Mat_<T> ( height(), width(), data );
         read_only_ = false;
     }
-    template <typename MapMetaData>
-    void init ( MapMetaData &metadata, T *data )
+    template <typename MapMetaData, class ARRAY>
+    void init ( MapMetaData &metadata, ARRAY &data )
     {
         WorldScopedMaps::init ( metadata );
-        data_ = cv::Mat_<T> ( height(), width(), ( T * ) data );
+        data_ = cv::Mat_<T> ( height(), width(), ( T * ) &data[0] );
         read_only_ = false;
     }
     template <typename MapMetaData>
-    void init ( const MapMetaData &metadata, const T *data )
+    void init ( const MapMetaData &metadata, const T &data, bool copy = false)
     {
         WorldScopedMaps::init ( metadata );
-        data_ = cv::Mat_<T> ( height(), width(), ( T * ) data );
+        if(copy){
+            data_ = cv::Mat_<T> ( height(), width());
+            std::copy(data.begin(), data.end(), data_.begin());
+        }else {
+            data_ = cv::Mat_<T> ( height(), width(), ( T * ) &data[0] );
+        }
         read_only_ = true;
     }
     
