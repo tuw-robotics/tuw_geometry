@@ -16,7 +16,7 @@ find_package(catkin REQUIRED COMPONENTS
 find_package(OpenCV REQUIRED)
 find_package(Boost REQUIRED COMPONENTS python)
 find_package(PythonLibs 2.7 REQUIRED)
-
+find_package(Eigen3 REQUIRED)
 
 ## Uncomment this if the package has a setup.py. This macro ensures
 ## modules and global scripts declared therein get installed
@@ -107,7 +107,9 @@ catkin_package(
   INCLUDE_DIRS include
   LIBRARIES tuw_geometry
   CATKIN_DEPENDS roscpp rospy std_msgs
-  DEPENDS OpenCV
+  DEPENDS 
+    OpenCV
+    Eigen3
 )
 
 ###########

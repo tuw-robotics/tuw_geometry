@@ -42,6 +42,7 @@
   <!--   <test_depend>gtest</test_depend> -->
   <buildtool_depend>catkin</buildtool_depend>
   
+  <build_depend>eigen</build_depend>  
   <build_depend>boost</build_depend>
   <build_depend>cv_bridge</build_depend>  <!-- for opencv3 -->
   <build_depend>roscpp</build_depend>
