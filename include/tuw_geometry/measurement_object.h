@@ -2,8 +2,8 @@
 #define MEASUREMENT_OBJECT_H
 
 #include <tuw_geometry/measurement.h>
-#include <eigen3/Eigen/Dense>
-#include <eigen3/Eigen/Geometry>
+#include <Eigen/Dense>
+#include <Eigen/Geometry>
 
 namespace tuw
 {
