@@ -150,9 +150,6 @@ add_library(tuw_geometry
   src/${PROJECT_NAME}/linesegment2d.cpp
   src/${PROJECT_NAME}/linesegment2d_detector.cpp
   src/${PROJECT_NAME}/figure.cpp
-  src/${PROJECT_NAME}/measurement.cpp
-  src/${PROJECT_NAME}/measurement_laser.cpp
-  src/${PROJECT_NAME}/measurement_object.cpp
   src/${PROJECT_NAME}/tuw_geometry.cpp
   src/${PROJECT_NAME}/world_scoped_maps.cpp
   src/${PROJECT_NAME}/layered_maps.cpp
