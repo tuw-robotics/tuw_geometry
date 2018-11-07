@@ -195,14 +195,6 @@ Pose2D &Pose2D::operator += ( const cv::Vec<double, 3> &s ) {
     return *this;
 }
 /**
- * adds a pose [x, y, theta]
- * @param s object
- * @return pose
- **/
-Pose2D Pose2D::add( const Pose2D &s ) const{
-    return Pose2D(this->x() + s.x(), this->y() + s.y(), angle_normalize (this->theta() + s.theta()));
-}
-/**
  * substracts a state vector [x, y, theta]
  * @param s object
  * @return this
@@ -213,12 +205,13 @@ Pose2D &Pose2D::operator -= ( const cv::Vec<double, 3> &s ) {
     return *this;
 }
 /**
- * substracts a Pose2D
- * @param s object
- * @return pose
- **/
-Pose2D Pose2D::sub( const Pose2D &s ) const{
-    return Pose2D(this->x() - s.x(), this->y() - s.y(), angle_difference ( this->theta(), s.theta()));
+* transforms a pose into the target frame
+* the orientation will be normalized between -PI and PI
+* @param target target frame
+* @return pose in target frame
+**/
+Pose2D Pose2D::transform_into( const Pose2D &target ) const{
+    return Pose2D(this->x() - target.x(), this->y() - target.y(), angle_normalize (this->theta() - target.theta()));
 }
 
 /**
