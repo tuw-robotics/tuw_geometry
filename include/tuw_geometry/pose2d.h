@@ -201,9 +201,16 @@ public:
      * adds a state vector [x, y, theta]
      * the orientation will be normalized between -PI and PI
      * @param s object
-     * @return thisl
+     * @return pose
      **/
     Pose2D &operator += ( const cv::Vec<double, 3> &s );
+    /**
+     * adds a state vector [x, y, theta]
+     * the orientation will be normalized between -PI and PI
+    * @param s object
+    * @return pose
+    **/
+    Pose2D add( const cv::Vec<double, 3> &s ) ;
 
     /**
     * substracts a state vector [x, y, theta]
@@ -212,6 +219,14 @@ public:
     * @return this
     **/
     Pose2D &operator -= ( const cv::Vec<double, 3> &s ) ;
+    
+    /**
+    * substracts a state vector [x, y, theta]
+    * the orientation will be normalized between -PI and PI
+    * @param s object
+    * @return this
+    **/
+    Pose2D sub( const cv::Vec<double, 3> &s ) ;
 
     /**
      * Stream extraction
