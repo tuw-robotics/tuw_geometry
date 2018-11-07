@@ -195,12 +195,12 @@ Pose2D &Pose2D::operator += ( const cv::Vec<double, 3> &s ) {
     return *this;
 }
 /**
- * adds a state vector [x, y, theta]
+ * adds a pose [x, y, theta]
  * @param s object
  * @return pose
  **/
-Pose2D Pose2D::add( const cv::Vec<double, 3> &s ) {
-    return Pose2D(this->x() + s.val[0], this->y() + s.val[1], angle_normalize (this->theta() + s.val[2]));
+Pose2D Pose2D::add( const Pose2D &s ) const{
+    return Pose2D(this->x() + s.x(), this->y() + s.y(), angle_normalize (this->theta() + s.theta()));
 }
 /**
  * substracts a state vector [x, y, theta]
@@ -213,12 +213,12 @@ Pose2D &Pose2D::operator -= ( const cv::Vec<double, 3> &s ) {
     return *this;
 }
 /**
- * substracts a state vector [x, y, theta]
+ * substracts a Pose2D
  * @param s object
  * @return pose
  **/
-Pose2D Pose2D::sub( const cv::Vec<double, 3> &s ) {
-    return Pose2D(this->x() - s.val[0], this->y() - s.val[1], angle_difference ( this->theta(), s.val[2] ));
+Pose2D Pose2D::sub( const Pose2D &s ) const{
+    return Pose2D(this->x() - s.x(), this->y() - s.y(), angle_difference ( this->theta(), s.theta()));
 }
 
 /**
