@@ -204,6 +204,15 @@ Pose2D &Pose2D::operator -= ( const cv::Vec<double, 3> &s ) {
     cossin_uptodate_ = false;
     return *this;
 }
+/**
+* transforms a pose into the target frame
+* the orientation will be normalized between -PI and PI
+* @param target target frame
+* @return pose in target frame
+**/
+Pose2D Pose2D::transform_into( const Pose2D &target ) const{
+    return Pose2D(this->x() - target.x(), this->y() - target.y(), angle_normalize (this->theta() - target.theta()));
+}
 
 /**
  * enforces the recompuation of the cached value of cos(theta) and sin(theta),
