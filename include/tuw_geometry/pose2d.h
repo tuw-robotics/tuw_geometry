@@ -144,6 +144,14 @@ public:
     Point2D &transform_into_base ( const Point2D &src, Point2D &des ) const;
 
     /**
+    * transforms a pose into the target frame
+    * the orientation will be normalized between -PI and PI
+    * @param target target frame
+    * @return pose in target frame
+    **/
+    Pose2D transform_into( const Pose2D &target ) const;
+    
+    /**
      * get function for theta
      * @return theta component
      **/
@@ -213,13 +221,6 @@ public:
     **/
     Pose2D &operator -= ( const cv::Vec<double, 3> &s ) ;
     
-    /**
-    * transforms a pose into the target frame
-    * the orientation will be normalized between -PI and PI
-    * @param target target frame
-    * @return pose in target frame
-    **/
-    Pose2D transform_into( const Pose2D &target ) const;
 
     /**
      * Stream extraction
