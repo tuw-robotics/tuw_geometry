@@ -72,7 +72,7 @@ void Figure::setView ( const cv::Mat& view ) {
     if ( type == CV_8UC3 ) {
         view.copyTo ( view_ );
     } else if ( ( view.channels() == 1 ) && ( view.depth() == CV_8U ) ) {
-        cv::cvtColor ( view, view_, CV_GRAY2BGR );
+        cv::cvtColor ( view, view_, cv::COLOR_GRAY2BGR );
     }
 }
 
@@ -88,7 +88,7 @@ void Figure::drawBackground() {
 
     background_.create ( height(), width(), CV_8UC3 );
     if ( !background_filename_.empty() ) {
-        cv::Mat image = cv::imread ( background_filename_, CV_LOAD_IMAGE_COLOR );
+        cv::Mat image = cv::imread ( background_filename_, cv::IMREAD_COLOR );
         cv::resize ( image, background_, cv::Size ( background_.cols, background_.rows ), cv::INTER_AREA );
     } else {
         background_.setTo ( 0xFF );
@@ -107,12 +107,12 @@ void Figure::drawBackground() {
         }
         p0.set ( 0, max_y - grid_scale_y_/2.0 );
         sprintf ( txt, label_format_y_.c_str(), max_y );
-        cv::putText ( background_, txt, w2m ( p0 ).cv(), cv::FONT_HERSHEY_PLAIN, 0.6, white, 3, CV_AA );
-        cv::putText ( background_, txt, w2m ( p0 ).cv(), cv::FONT_HERSHEY_PLAIN, 0.6, gray, 1, CV_AA );
+        cv::putText ( background_, txt, w2m ( p0 ).cv(), cv::FONT_HERSHEY_PLAIN, 0.6, white, 3, cv::LINE_AA );
+        cv::putText ( background_, txt, w2m ( p0 ).cv(), cv::FONT_HERSHEY_PLAIN, 0.6, gray, 1, cv::LINE_AA  );
         p1.set ( 0, min_y + grid_scale_y_/2.0 );
         sprintf ( txt, label_format_y_.c_str(), min_y );
-        cv::putText ( background_, txt, w2m ( p1 ).cv(), cv::FONT_HERSHEY_PLAIN, 0.6, white, 3, CV_AA );
-        cv::putText ( background_, txt, w2m ( p1 ).cv(), cv::FONT_HERSHEY_PLAIN, 0.6, gray, 1, CV_AA );
+        cv::putText ( background_, txt, w2m ( p1 ).cv(), cv::FONT_HERSHEY_PLAIN, 0.6, white, 3, cv::LINE_AA  );
+        cv::putText ( background_, txt, w2m ( p1 ).cv(), cv::FONT_HERSHEY_PLAIN, 0.6, gray, 1, cv::LINE_AA  );
 
         double min_x = round ( WorldScopedMaps::min_x() /grid_scale_x_ ) *  grid_scale_x_;
         double max_x = round ( WorldScopedMaps::max_x() /grid_scale_x_ ) *  grid_scale_x_;
@@ -127,12 +127,12 @@ void Figure::drawBackground() {
         }
         p0.set ( max_x - grid_scale_x_/2.0, 0 );
         sprintf ( txt, label_format_x_.c_str(), max_x );
-        cv::putText ( background_, txt, w2m ( p0 ).cv(), cv::FONT_HERSHEY_PLAIN, 0.6, white, 3, CV_AA );
-        cv::putText ( background_, txt, w2m ( p0 ).cv(), cv::FONT_HERSHEY_PLAIN, 0.6, gray, 1, CV_AA );
+        cv::putText ( background_, txt, w2m ( p0 ).cv(), cv::FONT_HERSHEY_PLAIN, 0.6, white, 3, cv::LINE_AA  );
+        cv::putText ( background_, txt, w2m ( p0 ).cv(), cv::FONT_HERSHEY_PLAIN, 0.6, gray, 1, cv::LINE_AA  );
         p1.set ( min_x + grid_scale_x_/2.0, 0 );
         sprintf ( txt, label_format_x_.c_str(), min_x );
-        cv::putText ( background_, txt, w2m ( p1 ).cv(), cv::FONT_HERSHEY_PLAIN, 0.6, white, 3, CV_AA );
-        cv::putText ( background_, txt, w2m ( p1 ).cv(), cv::FONT_HERSHEY_PLAIN, 0.6, gray, 1, CV_AA );
+        cv::putText ( background_, txt, w2m ( p1 ).cv(), cv::FONT_HERSHEY_PLAIN, 0.6, white, 3, cv::LINE_AA  );
+        cv::putText ( background_, txt, w2m ( p1 ).cv(), cv::FONT_HERSHEY_PLAIN, 0.6, gray, 1, cv::LINE_AA  );
     }
 }
 void Figure::clear () {

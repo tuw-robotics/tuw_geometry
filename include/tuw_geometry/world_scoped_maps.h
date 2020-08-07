@@ -1,6 +1,5 @@
 #ifndef WORLD_SCOPED_MAPS_H
 #define WORLD_SCOPED_MAPS_H
-#include <opencv/cv.h>
 #include <opencv2/core/core.hpp>
 #include <opencv2/core/core_c.h>
 #include <opencv2/imgproc/imgproc.hpp>
@@ -92,7 +91,7 @@ public:
      * @param lineType line type --> @see opencv
      **/
     template <typename T>
-    void line ( T &map, const Point2D &p0, const Point2D &p1, const cv::Scalar &color, int thickness=1, int lineType = CV_AA ) const {
+    void line ( T &map, const Point2D &p0, const Point2D &p1, const cv::Scalar &color, int thickness=1, int lineType = cv::LINE_AA ) const {
         cv::line ( map, w2m ( p0 ).cv(), w2m ( p1 ).cv(), color, thickness, lineType );
     }
     /**
@@ -105,7 +104,7 @@ public:
      * @param lineType line type --> @see opencv
      **/
     template <typename T>
-    void circle ( T &map, const Point2D &p, int radius, const cv::Scalar &color, int thickness=1, int lineType = CV_AA ) const{
+    void circle ( T &map, const Point2D &p, int radius, const cv::Scalar &color, int thickness=1, int lineType = cv::LINE_AA ) const{
         cv::circle ( map, w2m ( p ).cv(), radius, color, thickness, lineType );
     }
     

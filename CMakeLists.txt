@@ -13,11 +13,25 @@ find_package(catkin REQUIRED COMPONENTS
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
-find_package(OpenCV REQUIRED)
 find_package(Boost REQUIRED COMPONENTS python)
 find_package(PythonLibs 2.7 REQUIRED)
-find_package(Eigen3 QUIET)
 
+set(_opencv_version 4)
+find_package(OpenCV 4 QUIET)
+if(NOT OpenCV_FOUND)
+  message(STATUS "Did not find OpenCV 4, trying OpenCV 3")
+  set(_opencv_version 3)
+endif()
+
+find_package(OpenCV ${_opencv_version} REQUIRED
+  COMPONENTS
+    opencv_core
+    opencv_imgproc
+    opencv_imgcodecs
+  CONFIG
+)
+
+find_package(Eigen3 QUIET)
 if(NOT EIGEN3_FOUND)
   find_package(cmake_modules REQUIRED)
   find_package(Eigen REQUIRED)
@@ -133,9 +147,10 @@ catkin_package(
 ## Your package locations should be listed before other locations
 # include_directories(include)
 include_directories(
-  ${catkin_INCLUDE_DIRS}
   ${PYTHON_INCLUDE_DIRS}
+  ${OpenCV_INCLUDE_DIRS}
   ${Eigen3_INCLUDE_DIRS}
+  ${catkin_INCLUDE_DIRS}
   ./include/
 )
 

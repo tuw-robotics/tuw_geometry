@@ -35,7 +35,6 @@
 #include <opencv2/core/core.hpp>
 #include <opencv2/core/core_c.h>
 #include <opencv2/opencv.hpp>
-#include <opencv/cv.hpp>
 
 using namespace cv;
 using namespace std;
@@ -44,7 +43,7 @@ using namespace tuw;
 
 
 LayeredFigure::LayeredFigure( const std::string &_title ) : Figure(_title), view_idx_(0), sizeLayers_(0) {
-    namedWindow( title(), CV_WINDOW_AUTOSIZE | CV_GUI_EXPANDED);
+    namedWindow( title(), cv::WINDOW_AUTOSIZE | cv::WINDOW_GUI_EXPANDED);
     std::string namet1 = "MapLayer";
     
 //     cv::setMouseCallback ( title(), GlobalInterface::onMouseMap, this );
@@ -65,7 +64,7 @@ void LayeredFigure::init ( int width_pixel, int height_pixel,
     if(sizeLayers_ != layeredMaps.sizeLayers()+1){
 	sizeLayers_ = layeredMaps.sizeLayers()+1;
 	destroyWindow(title());
-	namedWindow( title(), CV_WINDOW_AUTOSIZE | CV_GUI_EXPANDED);
+	namedWindow( title(), cv::WINDOW_AUTOSIZE | cv::WINDOW_GUI_EXPANDED);
 	std::string namet1 = "MapLayer";
 	createTrackbar( namet1, title(), &view_idx_, sizeLayers_, LayeredFigure::callbackTrkbar1 );
     }

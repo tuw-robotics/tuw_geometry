@@ -35,7 +35,6 @@
 #include <opencv2/core/core.hpp>
 #include <opencv2/core/core_c.h>
 #include <opencv2/opencv.hpp>
-#include <opencv/cv.hpp>
 
 using namespace tuw;
 using namespace std;
@@ -138,11 +137,11 @@ void LayeredMaps::computeDistanceField ( Mat& _mDst, Mat& _mSrc, const double& _
     Mat srcMap; 
     _mSrc.convertTo(srcMap, CV_8U);
     /// Distance Transform
-    int maskSize0 = CV_DIST_MASK_PRECISE;
+    int maskSize0 = cv::DIST_MASK_PRECISE;
     int voronoiType = -1;
-    int distType0 = CV_DIST_L2;//CV_DIST_L1;
-    int maskSize = voronoiType >= 0 ? CV_DIST_MASK_5 : maskSize0;
-    int distType = voronoiType >= 0 ? CV_DIST_L2     : distType0;
+    int distType0 = cv::DIST_L2;//CV_DIST_L1;
+    int maskSize = voronoiType >= 0 ? cv::DIST_MASK_5 : maskSize0;
+    int distType = voronoiType >= 0 ? cv::DIST_L2     : distType0;
     Mat destMap_f,  labels;  
 //     destMap_f.create ( width(), height(), CV_32F );
     if ( voronoiType < 0 ){ cv::distanceTransform ( srcMap, destMap_f, distType, maskSize ); }
@@ -162,7 +161,7 @@ void LayeredMaps::computeDistanceField ( Mat& _mDst, Mat& _mSrc, const double& _
         for (int j = 0; j < nCols; ++j) { if (_flipDistance) { p_d[j] = (float_t)(       distance2probabilityTriangle ( p_d[j], threshold )   ); }
 	                                  else               { p_d[j] = (float_t)( (1. - distance2probabilityTriangle ( p_d[j], threshold ) ) ); } }
     }
-    if ( ( _mDst.channels() != 1 ) && ( _mDst.channels() != 5 ) )  { cvtColor(destMap_f, _mDst, CV_GRAY2BGR ); }
+    if ( ( _mDst.channels() != 1 ) && ( _mDst.channels() != 5 ) )  { cvtColor(destMap_f, _mDst, cv::COLOR_GRAY2BGR ); }
     else                                                           { _mDst = destMap_f;                        }
     
 }

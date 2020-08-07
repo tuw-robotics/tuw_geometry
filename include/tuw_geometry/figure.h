@@ -1,6 +1,5 @@
 #ifndef FIGURE_H
 #define FIGURE_H
-#include <opencv/cv.h>
 #include <opencv2/core/core.hpp>
 #include <opencv2/core/core_c.h>
 #include <tuw_geometry/pose2d.h>
@@ -101,7 +100,7 @@ public:
      * @param thickness line thickness --> @see opencv
      * @param lineType line type --> @see opencv
      **/
-    void line ( const Point2D &p0, const Point2D &p1, const cv::Scalar &color, int thickness=1, int lineType = CV_AA );
+    void line ( const Point2D &p0, const Point2D &p1, const cv::Scalar &color, int thickness=1, int lineType = cv::LINE_AA );
     using WorldScopedMaps::line;
     /**
      * draws a circle given in the visualization space (meter, ....) into the foreground image
@@ -111,7 +110,7 @@ public:
      * @param thickness line thickness --> @see opencv
      * @param lineType line type --> @see opencv
      **/
-    void circle ( const Point2D &p, int radius, const cv::Scalar &color, int thickness=1, int lineType = CV_AA );
+    void circle ( const Point2D &p, int radius, const cv::Scalar &color, int thickness=1, int lineType = cv::LINE_AA );
     using WorldScopedMaps::circle;
     /**
      * draws a symbol (dot) given in the visualization space (meter, ....) into a pixel map
@@ -135,7 +134,7 @@ public:
      * @param thickness line thickness --> @see opencv
      * @param lineType line type --> @see opencv
      **/
-    void symbol ( cv::Mat &view, const Pose2D &p, double radius, const cv::Scalar &color, int thickness=1, int lineType = CV_AA );
+    void symbol ( cv::Mat &view, const Pose2D &p, double radius, const cv::Scalar &color, int thickness=1, int lineType = cv::LINE_AA );
     /**
      * draws a symbol (pose) given in the visualization space (meter, ....) into the foreground image
      * @param p location
@@ -144,7 +143,7 @@ public:
      * @param thickness line thickness --> @see opencv
      * @param lineType line type --> @see opencv
      **/
-    void symbol ( const Pose2D &p, double radius, const cv::Scalar &color, int thickness=1, int lineType = CV_AA );
+    void symbol ( const Pose2D &p, double radius, const cv::Scalar &color, int thickness=1, int lineType = cv::LINE_AA );
     /**
      * draws a text (pose) given in the visualization space (meter, ....) into the image
      * @param view image
@@ -156,7 +155,7 @@ public:
      * @param thickness line thickness --> @see opencv
      * @param lineType line type --> @see opencv
      **/
-    void putText ( cv::Mat &view, const std::string& text, const Point2D &p, int fontFace = cv::FONT_HERSHEY_PLAIN, double fontScale = 0.6, cv::Scalar color = cv::Scalar ( 128,0,0 ), int thickness=1, int lineType=CV_AA, bool bottomLeftOrigin=false );
+    void putText ( cv::Mat &view, const std::string& text, const Point2D &p, int fontFace = cv::FONT_HERSHEY_PLAIN, double fontScale = 0.6, cv::Scalar color = cv::Scalar ( 128,0,0 ), int thickness=1, int lineType=cv::LINE_AA, bool bottomLeftOrigin=false );
     /**
      * draws a text (pose) given in the visualization space (meter, ....) into the foreground image
      * @param text text
@@ -167,7 +166,7 @@ public:
      * @param thickness line thickness --> @see opencv
      * @param lineType line type --> @see opencv
      **/
-    void putText ( const std::string& text, const Point2D &p, int fontFace = cv::FONT_HERSHEY_PLAIN, double fontScale = 0.6, cv::Scalar color = cv::Scalar ( 128,0,0 ), int thickness=1, int lineType=CV_AA, bool bottomLeftOrigin=false );
+    void putText ( const std::string& text, const Point2D &p, int fontFace = cv::FONT_HERSHEY_PLAIN, double fontScale = 0.6, cv::Scalar color = cv::Scalar ( 128,0,0 ), int thickness=1, int lineType=cv::LINE_AA, bool bottomLeftOrigin=false );
    
     /**
      * overwrites the foreground with the background
