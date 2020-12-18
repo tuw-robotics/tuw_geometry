@@ -98,7 +98,7 @@ public:
      * @param thickness line thickness --> @see opencv. Negative thickness means that a filled circle is to be drawn.
      * @param lineType line type --> @see opencv
      **/
-    void circle (const Point2D &p, double radius, int8_t value, int thickness=1, int lineType = CV_AA ) {        
+    void circle (const Point2D &p, double radius, int8_t value, int thickness=1, int lineType = cv::LINE_AA ) {        
         cv::circle ( data_, w2m ( p ).cv(), scale_w2m(radius), cv::Scalar(value), thickness, lineType );
     }
     void erode (double distance, const GridMap &src = GridMap()) {  
