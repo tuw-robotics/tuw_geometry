@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8.3)
+cmake_minimum_required(VERSION  3.0.2)
 project(tuw_geometry)
 add_compile_options(-std=c++14) ## for c++ 2014
 
