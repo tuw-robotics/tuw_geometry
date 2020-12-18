@@ -115,6 +115,6 @@ Point2D LineSegment2D::closestPointTo(const Point2D& p) const {
  * @return distance to line between the segment endpoints or the distance to the nearest endpoints **/
 double LineSegment2D::distanceTo ( const Point2D &p ) const {
     double dx, dy;
-    distanceTo ( p, dx, dy );
+    return distanceTo ( p, dx, dy );
 }
 
