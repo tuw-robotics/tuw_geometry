@@ -50,7 +50,7 @@ LayeredFigure::LayeredFigure( const std::string &_title ) : Figure(_title), view
     createTrackbar( namet1, title(), &view_idx_, layeredMaps.sizeLayers()+1, LayeredFigure::callbackTrkbar1 );
 }
 
-void LayeredFigure::callbackTrkbar1( int flags, void* param ) {
+void LayeredFigure::callbackTrkbar1( int , void*  ) {
     
 }
 

@@ -3,7 +3,6 @@
 using namespace tuw;
 
 Point2D::Point2D() : cv::Vec<double, 3 > ( 0,0,1 ) {} ;
-Point2D::Point2D ( const Point2D &p ) : cv::Vec<double,3> ( p ) {};
 Point2D::Point2D ( const cv::Point &p ) : cv::Vec<double,3> ( p.x,p.y,1. ) {};
 Point2D::Point2D ( double x, double y ) : cv::Vec<double,3> ( x, y, 1. ) {};
 Point2D::Point2D ( double x, double y, double h ) : cv::Vec<double,3> ( x, y, h ) {};

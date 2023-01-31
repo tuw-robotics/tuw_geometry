@@ -23,11 +23,6 @@ public:
      **/
     Point2D(); 
     /**
-     * copy constructor
-     * @param p source
-     **/
-    Point2D ( const Point2D &p );
-    /**
      * constructor
      * @param p source
      **/
@@ -50,9 +45,9 @@ public:
      * @param p
      **/
     Point2D ( const Polar2D& p );
-    template<typename T> Point2D ( const cv::Vec<T,3> &p ) : cv::Vec<double,3> ( p ) {};
-    template<typename T> Point2D ( const cv::Vec<T,2> &p ) : cv::Vec<double,3> ( p ) {};
-    template<typename T> Point2D ( const cv::Point_<T> &p ) : cv::Vec<double,3> ( p.x,p.y,1. ) {};
+    template<typename T> Point2D ( const cv::Vec<T,3> &p ) : cv::Vec<double,3> ( p ) {}
+    template<typename T> Point2D ( const cv::Vec<T,2> &p ) : cv::Vec<double,3> ( p ) {}
+    template<typename T> Point2D ( const cv::Point_<T> &p ) : cv::Vec<double,3> ( p.x,p.y,1. ) {}
 
     /**
      * sets values

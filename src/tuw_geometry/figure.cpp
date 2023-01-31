@@ -166,8 +166,8 @@ void Figure::symbol ( const Pose2D &p, double radius, const cv::Scalar &color, i
 }
 
 void Figure::symbol ( cv::Mat &view, const Pose2D &p, double radius, const cv::Scalar &color, int thickness, int lineType ) {
-    circle ( p.position(), radius * (scale_x() + scale_y())/2., color, thickness, lineType );
-    line ( p.position(), p.point_ahead ( radius ), color, thickness, lineType );
+    circle (view, p.position(), radius * (scale_x() + scale_y())/2., color, thickness, lineType );
+    line (view, p.position(), p.point_ahead ( radius ), color, thickness, lineType );
 
 }
 void Figure::putText ( const std::string& text, const Point2D &p, int fontFace, double fontScale, cv::Scalar color, int thickness, int lineType, bool bottomLeftOrigin ) {
@@ -181,9 +181,9 @@ void Figure::appendToView ( const cv::Mat& _mat, const cv::Scalar& _colMin, cons
     if( view().empty() || _mat.empty() || !initialized() ) { return; }
     
     CV_Assert ( _mat.depth() == CV_8U );
-    int channels = _mat.channels();
     int nRows    = _mat.rows;
-    int nCols    = _mat.cols * channels;
+    // int channels = _mat.channels();
+    // int nCols    = _mat.cols * channels;
 
     uint8_t const* p_s; cv::Vec3b* p_d;
     for(int i = 0; i < nRows; ++i) {

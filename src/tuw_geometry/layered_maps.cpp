@@ -155,7 +155,7 @@ void LayeredMaps::computeDistanceField ( Mat& _mDst, Mat& _mSrc, const double& _
     if (destMap_f.isContinuous()) { nCols *= nRows; nRows = 1; }
 
     float threshold = _radius * scale_x ();
-    float_t* p_d; float* p_s;
+    float_t* p_d;
     for(int i = 0; i < nRows; ++i) {
         p_d = destMap_f.ptr<float_t>(i);
         for (int j = 0; j < nCols; ++j) { if (_flipDistance) { p_d[j] = (float_t)(       distance2probabilityTriangle ( p_d[j], threshold )   ); }

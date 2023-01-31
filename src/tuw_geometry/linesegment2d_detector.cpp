@@ -5,7 +5,7 @@ using namespace tuw;
 LineSegment2DDetector::LineSegment2DDetector(){
 }
 void LineSegment2DDetector::LineSegment::updatePoints(const std::vector<Point2D> &points) {
-    if((idx0_ < idx1_) && (idx0_ >= 0) && (idx1_ <  points.size())) {
+    if((idx0_ < idx1_) && (idx1_ <  points.size())) {
         points_.clear();
         points_.reserve(idx1_-idx0_+1);
         for(unsigned int i = idx0_; i <= idx1_; i++) {
@@ -14,7 +14,7 @@ void LineSegment2DDetector::LineSegment::updatePoints(const std::vector<Point2D>
     }
 }
 bool LineSegment2DDetector::LineSegment::isSupportPoint(int idx) {
-    if( (idx < idx0_) || (idx > idx1_)) {
+    if( (static_cast<unsigned int>(idx) < idx0_) || (static_cast<unsigned int>(idx) > idx1_)) {
         return false;
     } else {
         return true;

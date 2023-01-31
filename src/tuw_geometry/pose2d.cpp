@@ -15,7 +15,8 @@ Pose2D::Pose2D ( const cv::Vec<double, 3> &s ) : position_ ( s ( 0 ),s ( 1 ) ), 
   **/
 Pose2D &Pose2D::set ( double x, double y, double phi ) {
     angle_normalize ( phi, -M_PI, +M_PI );
-    position_ = cv::Vec<double, 3> ( x, y, 1 ), orientation_ = phi;
+    position_.set( x, y, 1 );
+    orientation_ = phi;
     cossin_uptodate_ = false;
     return *this;
 }
@@ -27,7 +28,8 @@ Pose2D &Pose2D::set ( double x, double y, double phi ) {
  **/
 Pose2D &Pose2D::set ( const Point2D &position, const Point2D &point_ahead ) {
     position_.set ( position.x(), position.y() );
-    double dx = point_ahead.x() - position.x(), dy = point_ahead.y() - position.y();
+    double dx = point_ahead.x() - position.x();
+    double dy = point_ahead.y() - position.y();
     orientation_ = atan2 ( dy,dx );
     cossin_uptodate_ = false;
     return *this;
@@ -37,7 +39,8 @@ Pose2D &Pose2D::set ( const Point2D &position, const Point2D &point_ahead ) {
   * @return this reference
   **/
 Pose2D &Pose2D::set ( const Pose2D &p ) {
-    position_ = p.position_, orientation_ = p.orientation_;
+    position_ = p.position_;
+    orientation_ = p.orientation_;
     cossin_uptodate_ = false;
     return *this;
 }
@@ -271,5 +274,5 @@ std::string Pose2D::str(const char* format) const
 bool Pose2D::equal( const Pose2D& o, double tolerance) const {
       double d_position = cv::norm(o.position() - this->position());
       double d_angle = angle_difference(o.theta(),this->theta());
-      return (d_angle < tolerance) && (fabs(d_angle) < tolerance);
+      return (d_position < tolerance) && (fabs(d_angle) < tolerance);
 }

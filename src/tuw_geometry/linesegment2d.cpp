@@ -48,7 +48,7 @@ const Point2D &LineSegment2D::p1() const {
 const Line2D &LineSegment2D::line() const {
     return *this;
 }
-const double LineSegment2D::length() const {
+double LineSegment2D::length() const {
     return p0_.distanceTo ( p1_ );
 }
 /// comparison operator @return true on equal

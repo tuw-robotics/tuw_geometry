@@ -77,7 +77,7 @@ public:
     /**
      * @return length of the line
      **/
-    const double length() const;
+    double length() const;
     /**
      * comparison operator
      * @return true on equal
