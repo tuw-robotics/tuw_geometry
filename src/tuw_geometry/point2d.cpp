@@ -1,6 +1,6 @@
-#include "tuw_geometry/point2d.h"
+#include "tuw_geometry/point2d.hpp"
 
-#include "tuw_geometry/polar2d.h"
+#include "tuw_geometry/polar2d.hpp"
 using namespace tuw;
 
 Point2D::Point2D()

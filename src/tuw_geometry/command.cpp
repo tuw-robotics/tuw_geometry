@@ -1,4 +1,4 @@
-#include "tuw_geometry/command.h"
+#include "tuw_geometry/command.hpp"
 using namespace tuw;
 
 Command::Command()

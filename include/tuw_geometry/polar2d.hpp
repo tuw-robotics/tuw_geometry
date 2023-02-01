@@ -1,7 +1,7 @@
 #ifndef POLAR2D_H
 #define POLAR2D_H
 
-#include <tuw_geometry/point2d.h>
+#include <tuw_geometry/point2d.hpp>
 
 #include <memory>
 

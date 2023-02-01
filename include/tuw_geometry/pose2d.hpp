@@ -1,7 +1,7 @@
 #ifndef POSE2D_H
 #define POSE2D_H
 
-#include <tuw_geometry/point2d.h>
+#include <tuw_geometry/point2d.hpp>
 
 #include <memory>
 #include <opencv2/core/core.hpp>

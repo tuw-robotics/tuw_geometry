@@ -1,4 +1,4 @@
-#include "tuw_geometry/linesegment2d_detector.h"
+#include "tuw_geometry/linesegment2d_detector.hpp"
 
 using namespace tuw;
 

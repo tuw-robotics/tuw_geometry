@@ -3,7 +3,7 @@
 
 #include <cstdio>
 
-#include "tuw_geometry/polar2d.h"
+#include "tuw_geometry/polar2d.hpp"
 
 namespace tuw
 {

@@ -1,13 +1,13 @@
 #ifndef TUW_GEOMETRY
 #define TUW_GEOMETRY
 
-#include <tuw_geometry/command.h>
-#include <tuw_geometry/figure.h>
-#include <tuw_geometry/line2d.h>
-#include <tuw_geometry/linesegment2d.h>
-#include <tuw_geometry/point2d.h>
-#include <tuw_geometry/polar2d.h>
-#include <tuw_geometry/pose2d.h>
+#include <tuw_geometry/command.hpp>
+#include <tuw_geometry/figure.hpp>
+#include <tuw_geometry/line2d.hpp>
+#include <tuw_geometry/linesegment2d.hpp>
+#include <tuw_geometry/point2d.hpp>
+#include <tuw_geometry/polar2d.hpp>
+#include <tuw_geometry/pose2d.hpp>
 
 #include <map>
 #include <string>

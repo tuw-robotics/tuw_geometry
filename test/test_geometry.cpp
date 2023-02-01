@@ -30,7 +30,7 @@
 
 #include "gtest/gtest.h"
 #include "rclcpp/rclcpp.hpp"
-#include "tuw_geometry/tuw_geometry.h"
+#include "tuw_geometry/tuw_geometry.hpp"
 
 TEST(Point2D, TestDistanceTo)
 {

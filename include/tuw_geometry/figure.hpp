@@ -1,8 +1,8 @@
 #ifndef FIGURE_H
 #define FIGURE_H
 #include <opencv2/core/core_c.h>
-#include <tuw_geometry/pose2d.h>
-#include <tuw_geometry/world_scoped_maps.h>
+#include <tuw_geometry/pose2d.hpp>
+#include <tuw_geometry/world_scoped_maps.hpp>
 
 #include <opencv2/core/core.hpp>
 

@@ -1,4 +1,4 @@
-#include "tuw_geometry/pose2d.h"
+#include "tuw_geometry/pose2d.hpp"
 using namespace tuw;
 
 Pose2D::Pose2D()

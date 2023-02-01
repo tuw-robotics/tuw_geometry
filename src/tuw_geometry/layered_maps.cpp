@@ -31,7 +31,7 @@
  ***************************************************************************/
 
 #include <opencv2/core/core_c.h>
-#include <tuw_geometry/layered_maps.h>
+#include <tuw_geometry/layered_maps.hpp>
 
 #include <opencv2/core/core.hpp>
 #include <opencv2/opencv.hpp>

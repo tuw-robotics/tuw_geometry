@@ -1,5 +1,5 @@
 
-#include <tuw_geometry/figure.h>
+#include <tuw_geometry/figure.hpp>
 #include <opencv2/highgui.hpp>
 
 int main(int , char ** )

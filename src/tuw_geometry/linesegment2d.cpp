@@ -1,4 +1,4 @@
-#include "tuw_geometry/linesegment2d.h"
+#include "tuw_geometry/linesegment2d.hpp"
 
 using namespace tuw;
 LineSegment2D::LineSegment2D() {}

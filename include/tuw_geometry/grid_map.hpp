@@ -33,7 +33,7 @@
 #ifndef TUW_GRID_MAP_H
 #define TUW_GRID_MAP_H
 
-#include <tuw_geometry/world_scoped_maps.h>
+#include <tuw_geometry/world_scoped_maps.hpp>
 
 #include <memory>
 

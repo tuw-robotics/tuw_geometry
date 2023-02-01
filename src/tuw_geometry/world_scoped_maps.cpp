@@ -1,6 +1,6 @@
 #include <tgmath.h>
-#include <tuw_geometry/utils.h>
-#include <tuw_geometry/world_scoped_maps.h>
+#include <tuw_geometry/utils.hpp>
+#include <tuw_geometry/world_scoped_maps.hpp>
 
 #include <boost/lexical_cast.hpp>
 #include <cfloat>

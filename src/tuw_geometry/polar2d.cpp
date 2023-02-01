@@ -1,4 +1,4 @@
-#include <tuw_geometry/polar2d.h>
+#include <tuw_geometry/polar2d.hpp>
 
 #include <memory>
 

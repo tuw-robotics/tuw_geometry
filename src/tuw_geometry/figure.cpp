@@ -1,4 +1,4 @@
-#include "tuw_geometry/figure.h"
+#include "tuw_geometry/figure.hpp"
 
 #include <tgmath.h>
 

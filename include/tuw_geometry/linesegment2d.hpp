@@ -1,7 +1,7 @@
 #ifndef LINESEGMENT2D_H
 #define LINESEGMENT2D_H
 
-#include "tuw_geometry/line2d.h"
+#include "tuw_geometry/line2d.hpp"
 
 namespace tuw
 {

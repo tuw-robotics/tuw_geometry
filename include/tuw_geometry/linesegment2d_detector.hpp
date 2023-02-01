@@ -3,7 +3,7 @@
 
 #include <memory>
 
-#include "tuw_geometry/linesegment2d.h"
+#include "tuw_geometry/linesegment2d.hpp"
 
 namespace tuw
 {

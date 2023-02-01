@@ -1,7 +1,7 @@
 #ifndef WORLD_SCOPED_MAPS_H
 #define WORLD_SCOPED_MAPS_H
 #include <opencv2/core/core_c.h>
-#include <tuw_geometry/pose2d.h>
+#include <tuw_geometry/pose2d.hpp>
 
 #include <opencv2/core/core.hpp>
 #include <opencv2/imgproc/imgproc.hpp>

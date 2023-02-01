@@ -1,7 +1,7 @@
 #ifndef POINT2D_H
 #define POINT2D_H
 
-#include <tuw_geometry/utils.h>
+#include <tuw_geometry/utils.hpp>
 
 #include <memory>
 #include <opencv2/core/core.hpp>
