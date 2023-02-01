@@ -201,9 +201,8 @@ public:
        * @param tolerance
        **/
     bool equal(const Point2D & o, double tolerance = 0.0001) const;
-  }
-
-};  // namespace tuw
+  };
+}  // namespace tuw
 
 /**
  * overloads the * operator to allow the mutlipication fo the homogeneous point class with an opencv matrix

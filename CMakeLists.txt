@@ -46,12 +46,29 @@ target_link_libraries(${PROJECT_NAME}
 # which is appropriate when building the dll but not consuming it.
 target_compile_definitions(tuw_geometry PRIVATE "TUW_GEOMETRY_BUILDING_LIBRARY")
 
+add_executable(example_figure src/main_example_figure.cpp)
+target_include_directories(example_figure PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>)
+target_compile_features(example_figure PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
+target_link_libraries(example_figure
+  rclcpp::rclcpp
+  ${PROJECT_NAME}
+  ${sensor_msgs_TARGETS}
+  ${std_msgs_TARGETS}
+  rclcpp_components::component
+  ${OpenCV_LIBS})
+
+install(TARGETS example_figure
+  DESTINATION lib/${PROJECT_NAME}
+)
+
 install(
   DIRECTORY include/
   DESTINATION include
 )
 install(
-  TARGETS tuw_geometry
+  TARGETS tuw_geometry 
   EXPORT export_${PROJECT_NAME}
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib

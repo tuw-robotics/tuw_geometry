@@ -19,3 +19,10 @@ double & Command::w() {return this->val[1];}
 const double & Command::w() const {return this->val[1];}
 
 void Command::set(double v, double w) {this->val[0] = v, this->val[1] = w;}
+
+
+std::ostream & operator<<(std::ostream & os, const tuw::Command & o)
+{
+  os << "[" << o.v() << ", " << o.w() << "]";
+  return os;
+}

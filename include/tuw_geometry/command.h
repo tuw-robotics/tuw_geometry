@@ -24,6 +24,14 @@ public:
     Command(const Command & o);
 
     /**
+       * Stream extraction
+       * @param os outputstream
+       * @param o object
+       * @return stream
+       **/
+    friend std::ostream & operator << (std::ostream & os, const Command & o);
+
+    /**
        * @return linear velocity
        **/
     double & v();
@@ -47,18 +55,8 @@ public:
        * @param w angular velocity
        **/
     void set(double v, double w);
-    /**
-       * Stream extraction
-       * @param os outputstream
-       * @param o object
-       * @return stream
-       **/
-    friend std::ostream & operator << (std::ostream & os, const Command & o)
-        {
-        os << "[" << o.v() << ", " << o.w() << "]";
-        return os;
-      };
-  }
-};  // namespace tuw
+  };
+}  // namespace tuw
 
+std::ostream & operator << (std::ostream & os, const tuw::Command & o);
 #endif  //COMMAND_H
