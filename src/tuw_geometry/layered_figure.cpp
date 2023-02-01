@@ -30,57 +30,58 @@
  *   POSSIBILITY OF SUCH DAMAGE.                                           *
  ***************************************************************************/
 
+#include <opencv2/core/core_c.h>
 #include <tuw_geometry/layered_figure.h>
 
 #include <opencv2/core/core.hpp>
-#include <opencv2/core/core_c.h>
 #include <opencv2/opencv.hpp>
 
 using namespace cv;
 using namespace std;
 using namespace tuw;
 
+LayeredFigure::LayeredFigure(const std::string & _title)
+: Figure(_title), view_idx_(0), sizeLayers_(0)
+{
+  namedWindow(title(), cv::WINDOW_AUTOSIZE | cv::WINDOW_GUI_EXPANDED);
+  std::string namet1 = "MapLayer";
 
+  //     cv::setMouseCallback ( title(), GlobalInterface::onMouseMap, this );
+  createTrackbar(
+    namet1, title(), &view_idx_, layeredMaps.sizeLayers() + 1, LayeredFigure::callbackTrkbar1);
+}
 
-LayeredFigure::LayeredFigure( const std::string &_title ) : Figure(_title), view_idx_(0), sizeLayers_(0) {
-    namedWindow( title(), cv::WINDOW_AUTOSIZE | cv::WINDOW_GUI_EXPANDED);
+void LayeredFigure::callbackTrkbar1(int, void *) {}
+
+void LayeredFigure::init(
+  int width_pixel, int height_pixel, double min_y, double max_y, double min_x, double max_x,
+  double rotation, double grid_scale_x, double grid_scale_y, const string & background_image)
+{
+  tuw::Figure::init(
+    width_pixel, height_pixel, min_y, max_y, min_x, max_x, rotation, grid_scale_x, grid_scale_y,
+    background_image);
+  layeredMaps.initLayers(width_pixel, height_pixel, min_y, max_y, min_x, max_x, rotation);
+
+  if (sizeLayers_ != layeredMaps.sizeLayers() + 1) {
+    sizeLayers_ = layeredMaps.sizeLayers() + 1;
+    destroyWindow(title());
+    namedWindow(title(), cv::WINDOW_AUTOSIZE | cv::WINDOW_GUI_EXPANDED);
     std::string namet1 = "MapLayer";
-    
-//     cv::setMouseCallback ( title(), GlobalInterface::onMouseMap, this );
-    createTrackbar( namet1, title(), &view_idx_, layeredMaps.sizeLayers()+1, LayeredFigure::callbackTrkbar1 );
+    createTrackbar(namet1, title(), &view_idx_, sizeLayers_, LayeredFigure::callbackTrkbar1);
+  }
 }
 
-void LayeredFigure::callbackTrkbar1( int , void*  ) {
-    
+void LayeredFigure::outputPlot()
+{
+  if (view_idx_ > 0) {
+    // 	setView(layeredMaps.mapLayer(view_idx_-1));
+    appendToView(layeredMaps.mapLayer(view_idx_ - 1), black, white, 0);
+  }
+  imshow(title(), view());
+  //     switch (view_idx_) {
+  // 	case  (0): imshow ( title(), view()                            ); break;
+  // 	default  : imshow ( title(), layeredMaps.mapLayer(view_idx_-1) ); break;
+  //     }
+  waitKey(10);
+  clear();
 }
-
-void LayeredFigure::init ( int width_pixel, int height_pixel, 
-			   double min_y, double max_y, 
-			   double min_x, double max_x, double rotation, 
-			   double grid_scale_x, double grid_scale_y, const string& background_image ) {
-    tuw::Figure::init ( width_pixel, height_pixel, min_y, max_y, min_x, max_x, rotation, grid_scale_x, grid_scale_y, background_image );
-    layeredMaps.initLayers(width_pixel, height_pixel, min_y, max_y, min_x, max_x, rotation);
-    
-    if(sizeLayers_ != layeredMaps.sizeLayers()+1){
-	sizeLayers_ = layeredMaps.sizeLayers()+1;
-	destroyWindow(title());
-	namedWindow( title(), cv::WINDOW_AUTOSIZE | cv::WINDOW_GUI_EXPANDED);
-	std::string namet1 = "MapLayer";
-	createTrackbar( namet1, title(), &view_idx_, sizeLayers_, LayeredFigure::callbackTrkbar1 );
-    }
-}
-
-void LayeredFigure::outputPlot() {
-    if(view_idx_>0) {
-// 	setView(layeredMaps.mapLayer(view_idx_-1));
-	appendToView(layeredMaps.mapLayer(view_idx_-1), black, white, 0);
-    }
-    imshow ( title(), view()                            );
-//     switch (view_idx_) {
-// 	case  (0): imshow ( title(), view()                            ); break;
-// 	default  : imshow ( title(), layeredMaps.mapLayer(view_idx_-1) ); break;
-//     }
-    waitKey( 10 );
-    clear();
-}
-
