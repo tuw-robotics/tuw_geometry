@@ -49,14 +49,14 @@ void Figure::setLabel(const std::string & label_format_x, const std::string & la
 {
   label_format_x_ = label_format_x, label_format_y_ = label_format_y;
 }
-const std::string & Figure::backgroundFileName() const { return background_filename_; }
-const cv::Mat & Figure::view() const { return view_; }
-cv::Mat & Figure::view() { return view_; }
-const cv::Mat & Figure::background() const { return background_; }
-cv::Mat & Figure::background() { return background_; }
+const std::string & Figure::backgroundFileName() const {return background_filename_;}
+const cv::Mat & Figure::view() const {return view_;}
+cv::Mat & Figure::view() {return view_;}
+const cv::Mat & Figure::background() const {return background_;}
+cv::Mat & Figure::background() {return background_;}
 void Figure::setView(const cv::Mat & view)
 {
-  if (view.empty()) return;
+  if (view.empty()) {return;}
   view_.create(view.cols, view.rows, CV_8UC3);
   int depth = view.depth(), cn = view.channels();
   int type = CV_MAKETYPE(depth, cn);
@@ -96,10 +96,11 @@ void Figure::drawBackground()
       p0.x() = round(max_x() / grid_scale_x_) * grid_scale_x_;
       p1.y() = p0.y();
       p1.x() = round(min_x() / grid_scale_x_) * grid_scale_x_;
-      if (fabs(p0.y()) > FLT_MIN)
+      if (fabs(p0.y()) > FLT_MIN) {
         WorldScopedMaps::line(background_, p0, p1, gray_bright, 1, 8);
-      else
+      } else {
         WorldScopedMaps::line(background_, p0, p1, gray, 1, 8);
+      }
     }
     p0.set(0, max_y - grid_scale_y_ / 2.0);
     sprintf(txt, label_format_y_.c_str(), max_y);
@@ -118,10 +119,11 @@ void Figure::drawBackground()
       p1.y() = round(WorldScopedMaps::min_y() / grid_scale_y_) * grid_scale_y_;
       pm0 = w2m(p0);
       pm1 = w2m(p1);
-      if (fabs(p0.x()) > FLT_MIN)
+      if (fabs(p0.x()) > FLT_MIN) {
         WorldScopedMaps::line(background_, p0, p1, gray_bright, 1, 8);
-      else
+      } else {
         WorldScopedMaps::line(background_, p0, p1, gray, 1, 8);
+      }
     }
     p0.set(max_x - grid_scale_x_ / 2.0, 0);
     sprintf(txt, label_format_x_.c_str(), max_x);
@@ -145,15 +147,15 @@ void Figure::line(
   WorldScopedMaps::line(view_, p0, p1, color, thickness, lineType);
 }
 
-void Figure::symbol(const Point2D & p, const cv::Scalar & color) { symbol(view_, p, color); }
+void Figure::symbol(const Point2D & p, const cv::Scalar & color) {symbol(view_, p, color);}
 void Figure::symbol(cv::Mat & view, const Point2D & p, const cv::Scalar & color)
 {
   cv::Point pi = w2m(p).cv();
-  if ((pi.x < 0) || (pi.x >= view.cols) || (pi.y < 0) || (pi.y >= view.rows)) return;
+  if ((pi.x < 0) || (pi.x >= view.cols) || (pi.y < 0) || (pi.y >= view.rows)) {return;}
   cv::Vec3b & pixel = view.at<cv::Vec3b>(pi);
   pixel[0] = color[0], pixel[1] = color[1], pixel[2] = color[2];
 }
-const std::string Figure::title() const { return title_; }
+const std::string Figure::title() const {return title_;}
 
 void Figure::circle(
   const Point2D & p, int radius, const cv::Scalar & color, int thickness, int lineType)
@@ -205,7 +207,8 @@ void Figure::appendToView(
   cv::Vec3b * p_d;
   for (int i = 0; i < nRows; ++i) {
     for (p_s = _mat.ptr<const uint8_t>(i), p_d = view().ptr<cv::Vec3b>(i);
-         p_s != _mat.ptr<uint8_t>(i + 1); p_d++, p_s++) {
+      p_s != _mat.ptr<uint8_t>(i + 1); p_d++, p_s++)
+    {
       if ((*p_d == cv::Vec3b(255, 255, 255)) && (*p_s < 255 - _truncateLayerVal)) {
         double scale = *p_s / (255. - (double)_truncateLayerVal);
         *p_d = cv::Vec3b(

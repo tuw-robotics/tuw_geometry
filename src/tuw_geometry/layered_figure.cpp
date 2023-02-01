@@ -74,13 +74,13 @@ void LayeredFigure::init(
 void LayeredFigure::outputPlot()
 {
   if (view_idx_ > 0) {
-    // 	setView(layeredMaps.mapLayer(view_idx_-1));
+    //  setView(layeredMaps.mapLayer(view_idx_-1));
     appendToView(layeredMaps.mapLayer(view_idx_ - 1), black, white, 0);
   }
   imshow(title(), view());
   //     switch (view_idx_) {
-  // 	case  (0): imshow ( title(), view()                            ); break;
-  // 	default  : imshow ( title(), layeredMaps.mapLayer(view_idx_-1) ); break;
+  //    case  (0): imshow ( title(), view()                            ); break;
+  //    default  : imshow ( title(), layeredMaps.mapLayer(view_idx_-1) ); break;
   //     }
   waitKey(10);
   clear();

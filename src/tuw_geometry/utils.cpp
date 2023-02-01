@@ -1,4 +1,3 @@
-
 #include <tuw_geometry/utils.h>
 
 #include <iomanip>

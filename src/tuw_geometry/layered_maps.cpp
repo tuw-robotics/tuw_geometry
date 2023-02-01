@@ -50,9 +50,9 @@ void LayeredMaps::initLayers(
   initLayers();
 }
 
-size_t LayeredMaps::sizeLayers() const { return mapLayers_.size(); }
+size_t LayeredMaps::sizeLayers() const {return mapLayers_.size();}
 
-void LayeredMaps::resizeLayers(const size_t & _n) { mapLayers_.resize(_n); }
+void LayeredMaps::resizeLayers(const size_t & _n) {mapLayers_.resize(_n);}
 
 void LayeredMaps::initLayers()
 {
@@ -68,10 +68,10 @@ void LayeredMaps::clearLayers()
     clearLayer(i);
   }
 }
-void LayeredMaps::clearLayer(const size_t & _layer) { mapLayers_[_layer].setTo(1); }
+void LayeredMaps::clearLayer(const size_t & _layer) {mapLayers_[_layer].setTo(1);}
 
-cv::Mat & LayeredMaps::mapLayer(const size_t & _layer) { return mapLayers_[_layer]; }
-const cv::Mat & LayeredMaps::mapLayer(const size_t & _layer) const { return mapLayers_[_layer]; }
+cv::Mat & LayeredMaps::mapLayer(const size_t & _layer) {return mapLayers_[_layer];}
+const cv::Mat & LayeredMaps::mapLayer(const size_t & _layer) const {return mapLayers_[_layer];}
 
 double LayeredMaps::getVal(
   const size_t & _layer, const Point2D & _worldPos, Interpolation _interpolationType) const
@@ -97,11 +97,11 @@ double LayeredMaps::getVal(
       const double f11 = mapLayer(_layer).at<float_t>(mapPos_row_i + 1, mapPos_col_i + 1);
 
       const double mapPosRed_row = mapPos_row_d - mapPos_row_i,
-                   mapPosRed_col = mapPos_col_d - mapPos_col_i;
+        mapPosRed_col = mapPos_col_d - mapPos_col_i;
 
       retVal = f00 * (1 - mapPosRed_row) * (1 - mapPosRed_col) +
-               f10 * mapPosRed_row * (1 - mapPosRed_col) +
-               f01 * (1 - mapPosRed_row) * mapPosRed_col + f11 * mapPosRed_row * mapPosRed_col;
+        f10 * mapPosRed_row * (1 - mapPosRed_col) +
+        f01 * (1 - mapPosRed_row) * mapPosRed_col + f11 * mapPosRed_row * mapPosRed_col;
       break;
   }
   return retVal;
