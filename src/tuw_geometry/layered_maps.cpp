@@ -76,14 +76,14 @@ const cv::Mat & LayeredMaps::mapLayer(const size_t & _layer) const {return mapLa
 double LayeredMaps::getVal(
   const size_t & _layer, const Point2D & _worldPos, Interpolation _interpolationType) const
 {
+  double retVal = -100;
   Point2D mapPos = w2m(_worldPos);
   if (!mapPos.inside(0, 0, mapLayer(_layer).rows - 1, mapLayer(_layer).cols - 1)) {
-    return -100;
+    return retVal;
   }
   const double mapPos_row_d = mapPos.y(), mapPos_col_d = mapPos.x();
   const int mapPos_row_i = int(mapPos_row_d), mapPos_col_i = int(mapPos_col_d);
 
-  double retVal;
   switch (_interpolationType) {
     case SIMPLE:
       retVal = mapLayer(_layer).at<float_t>(mapPos_row_i, mapPos_col_i);
