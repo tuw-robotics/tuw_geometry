@@ -271,5 +271,5 @@ std::string Pose2D::str(const char* format) const
 bool Pose2D::equal( const Pose2D& o, double tolerance) const {
       double d_position = cv::norm(o.position() - this->position());
       double d_angle = angle_difference(o.theta(),this->theta());
-      return (d_angle < tolerance) && (fabs(d_angle) < tolerance);
+      return (d_position < tolerance) && (fabs(d_angle) < tolerance);
 }
