@@ -35,12 +35,13 @@ target_compile_features(tuw_geometry PUBLIC c_std_99 cxx_std_17)  # Require C99 
 target_include_directories(tuw_geometry PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>)
-target_link_libraries(${PROJECT_NAME}
-  rclcpp::rclcpp
-  ${sensor_msgs_TARGETS}
-  ${std_msgs_TARGETS}
-  rclcpp_components::component
-  ${OpenCV_LIBS})
+ament_target_dependencies(${PROJECT_NAME}
+  rclcpp
+  rclcpp_components
+  sensor_msgs
+  std_msgs
+  OpenCV)
+
 
   # Causes the visibility macros to use dllexport rather than dllimport,
 # which is appropriate when building the dll but not consuming it.
@@ -53,10 +54,10 @@ target_include_directories(example_figure PUBLIC
 target_compile_features(example_figure PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
 target_link_libraries(example_figure
   rclcpp::rclcpp
+  rclcpp_components::component
   ${PROJECT_NAME}
   ${sensor_msgs_TARGETS}
   ${std_msgs_TARGETS}
-  rclcpp_components::component
   ${OpenCV_LIBS})
 
 install(TARGETS example_figure
