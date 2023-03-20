@@ -2,8 +2,8 @@
 Changelog for package tuw_geometry
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.0.4 (2023-03-20)
+------------------
 * Error on returnvalue in LayeredMaps::getVal( fixed
 * header files renamed to hpp
 * figure sample added
