@@ -144,6 +144,14 @@ public:
        **/
     Point2D & transform_into_base(const Point2D & src, Point2D & des) const;
 
+     /**
+       * transforms a point from pose target space into pose base space
+       * @note you have to update the cached cos and sin values in advance
+       * @see Pose2D::update_cached_cos_sin
+       * @param src point in pose target space
+       * @return point in pose base space
+       **/
+    Point2D transform_into_base(const Point2D & src) const;
     /**
       * transforms a pose into the target frame
       * the orientation will be normalized between -PI and PI
