@@ -1,5 +1,5 @@
-#ifndef TUW_GEOMETRY
-#define TUW_GEOMETRY
+#ifndef TUW_GEOMETRY__TUW_GEOMETRY_HPP
+#define TUW_GEOMETRY__TUW_GEOMETRY_HPP
 
 #include <tuw_geometry/command.hpp>
 #include <tuw_geometry/figure.hpp>
@@ -20,4 +20,4 @@ namespace tuw
 
 }  // namespace tuw
 
-#endif  // TUW_GEOMETRY
+#endif  // TUW_GEOMETRY__TUW_GEOMETRY_HPP

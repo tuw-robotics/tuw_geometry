@@ -1,5 +1,5 @@
-#ifndef POLAR2D_H
-#define POLAR2D_H
+#ifndef TUW_GEOMETRY__POLAR2D_HPP
+#define TUW_GEOMETRY__POLAR2D_HPP
 
 #include <tuw_geometry/point2d.hpp>
 
@@ -55,4 +55,4 @@ private:
   };
 
 }  // namespace tuw
-#endif  //POLAR2D_H
+#endif  //TUW_GEOMETRY__POLAR2D_HPP

@@ -30,8 +30,8 @@
  *   POSSIBILITY OF SUCH DAMAGE.                                           *
  ***************************************************************************/
 
-#ifndef LAYERED_FIGURE_H
-#define LAYERED_FIGURE_H
+#ifndef TUW_GEOMETRY__LAYERED_FIGURE_HPP
+#define TUW_GEOMETRY__LAYERED_FIGURE_HPP
 
 #include <tuw_geometry/figure.hpp>
 #include <tuw_geometry/layered_maps.hpp>
@@ -71,4 +71,4 @@ protected:
   };
 
 }  // namespace tuw
-#endif  // LAYERED_FIGURE_H
+#endif  // TUW_GEOMETRY__LAYERED_FIGURE_HPP

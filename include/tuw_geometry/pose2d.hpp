@@ -1,5 +1,5 @@
-#ifndef POSE2D_H
-#define POSE2D_H
+#ifndef TUW_GEOMETRY__POSE2D_HPP
+#define TUW_GEOMETRY__POSE2D_HPP
 
 #include <tuw_geometry/point2d.hpp>
 
@@ -270,4 +270,4 @@ public:
   };
 
 }  // namespace tuw
-#endif  //POSE2D_H
+#endif  //TUW_GEOMETRY__POSE2D_HPP

@@ -1,5 +1,5 @@
-#ifndef LINE2D_H
-#define LINE2D_H
+#ifndef TUW_GEOMETRY__LINE2D_HPP
+#define TUW_GEOMETRY__LINE2D_HPP
 
 #include <cstdio>
 
@@ -161,4 +161,4 @@ public:
     Polar2D toPolar() const;
   };
 }      // namespace tuw
-#endif  // LINE2D_H
+#endif  // TUW_GEOMETRY__LINE2D_HPP

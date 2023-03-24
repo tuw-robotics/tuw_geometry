@@ -1,5 +1,5 @@
-#ifndef WORLD_SCOPED_MAPS_H
-#define WORLD_SCOPED_MAPS_H
+#ifndef TUW_GEOMETRY__WORLD_SCOPED_MAPS_HPP
+#define TUW_GEOMETRY__WORLD_SCOPED_MAPS_HPP
 #include <opencv2/core/core_c.h>
 #include <tuw_geometry/pose2d.hpp>
 
@@ -229,4 +229,4 @@ public:
   };
 
 }  // namespace tuw
-#endif  // WORLD_SCOPED_MAPS_H
+#endif  // TUW_GEOMETRY__WORLD_SCOPED_MAPS_HPP

@@ -1,5 +1,5 @@
-#ifndef TUW_GEOMETRY_UTILS
-#define TUW_GEOMETRY_UTILS
+#ifndef TUW_GEOMETRY__UTILS_HPP
+#define TUW_GEOMETRY__UTILS_HPP
 
 #include <opencv2/core/mat.hpp>
 #include <opencv2/core/matx.hpp>
@@ -236,4 +236,4 @@ namespace tuw
   std::string format(const cv::Matx33d & m);
 }  // namespace tuw
 
-#endif  // TUW_GEOMETRY_UTILS
+#endif  // TUW_GEOMETRY__UTILS_HPP

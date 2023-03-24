@@ -1,5 +1,5 @@
-#ifndef POINT2D_H
-#define POINT2D_H
+#ifndef TUW_GEOMETRY__POINT2D_HPP
+#define TUW_GEOMETRY__POINT2D_HPP
 
 #include <tuw_geometry/utils.hpp>
 
@@ -219,4 +219,4 @@ namespace cv
     return reinterpret_cast < const tuw::Point2D & > (c);
   }
 }  // namespace cv
-#endif  //POINT2D_H
+#endif  //TUW_GEOMETRY__POINT2D_HPP

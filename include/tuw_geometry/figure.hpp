@@ -1,5 +1,5 @@
-#ifndef FIGURE_H
-#define FIGURE_H
+#ifndef TUW_GEOMETRY__FIGURE_HPP
+#define TUW_GEOMETRY__FIGURE_HPP
 #include <opencv2/core/core_c.h>
 #include <tuw_geometry/pose2d.hpp>
 #include <tuw_geometry/world_scoped_maps.hpp>
@@ -236,4 +236,4 @@ public:
     static const cv::Scalar niceDirtyPink;
   };
 }  // namespace tuw
-#endif  // FIGRUE_H
+#endif  // TUW_GEOMETRY__FIGRUE_HPP

@@ -1,5 +1,5 @@
-#ifndef LINEFILTER_H
-#define LINEFILTER_H
+#ifndef TUW_GEOMETRY__LINEFILTER_HPP
+#define TUW_GEOMETRY__LINEFILTER_HPP
 
 #include <memory>
 
@@ -73,4 +73,4 @@ private:
   };
 
 };      // namespace tuw
-#endif  // LINE2DFILTER_H
+#endif  // TUW_GEOMETRY__LINE2DFILTER_HPP

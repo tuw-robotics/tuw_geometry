@@ -1,5 +1,5 @@
-#ifndef COMMAND_H
-#define COMMAND_H
+#ifndef TUW_GEOMETRY__COMMAND_HPP
+#define TUW_GEOMETRY__COMMAND_HPP
 
 #include <memory>
 #include <opencv2/core/core.hpp>
@@ -59,4 +59,4 @@ public:
 }  // namespace tuw
 
 std::ostream & operator << (std::ostream & os, const tuw::Command & o);
-#endif  //COMMAND_H
+#endif  //TUW_GEOMETRY__COMMAND_HPP

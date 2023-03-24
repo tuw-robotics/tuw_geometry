@@ -30,8 +30,8 @@
  *   POSSIBILITY OF SUCH DAMAGE.                                           *
  ***************************************************************************/
 
-#ifndef LAYERED_MAPS_H
-#define LAYERED_MAPS_H
+#ifndef TUW_GEOMETRY__LAYERED_MAPS_HPP
+#define TUW_GEOMETRY__LAYERED_MAPS_HPP
 
 #include <tuw_geometry/world_scoped_maps.hpp>
 
@@ -84,4 +84,4 @@ private:
     std::vector < cv::Mat > mapLayers_;
   };
 }  // namespace tuw
-#endif  // LAYERED_MAPS_H
+#endif  // TUW_GEOMETRY__LAYERED_MAPS_HPP

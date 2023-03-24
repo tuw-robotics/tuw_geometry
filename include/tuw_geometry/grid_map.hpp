@@ -30,8 +30,8 @@
  *   POSSIBILITY OF SUCH DAMAGE.                                           *
  ***************************************************************************/
 
-#ifndef TUW_GRID_MAP_H
-#define TUW_GRID_MAP_H
+#ifndef TUW_GEOMETRY__GRID_MAP_HPP
+#define TUW_GEOMETRY__GRID_MAP_HPP
 
 #include <tuw_geometry/world_scoped_maps.hpp>
 
@@ -160,4 +160,4 @@ private:
     T threshold_free_;
   };
 }  // namespace tuw
-#endif  // TUW_GRID_MAP_H
+#endif  // TUW_GEOMETRY__GRID_MAP_HPP

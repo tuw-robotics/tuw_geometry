@@ -1,5 +1,5 @@
-#ifndef LINESEGMENT2D_H
-#define LINESEGMENT2D_H
+#ifndef TUW_GEOMETRY__LINESEGMENT2D_HPP
+#define TUW_GEOMETRY__LINESEGMENT2D_HPP
 
 #include "tuw_geometry/line2d.hpp"
 
@@ -136,4 +136,4 @@ public:
   };
 
 };      // namespace tuw
-#endif  // LINESEGMENT2D_H
+#endif  // TUW_GEOMETRY__LINESEGMENT2D_HPP
