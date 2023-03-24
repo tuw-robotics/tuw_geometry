@@ -2,7 +2,6 @@
 #include <tuw_geometry/utils.hpp>
 #include <tuw_geometry/world_scoped_maps.hpp>
 
-#include <boost/lexical_cast.hpp>
 #include <cfloat>
 #include <iomanip>
 #include <opencv2/highgui/highgui.hpp>
