@@ -2,8 +2,8 @@
 Changelog for package tuw_geometry
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.0.5 (2023-03-24)
+------------------
 * boost lexical_cast removed
 * Contributors: Markus Bader
 
