@@ -156,17 +156,30 @@ Pose2D Pose2D::inv() const
 }
 /**
   * transforms a point from pose target space into pose base space
+  * @note you have to update the cached cos and sin values in advance
+  * @see Pose2D::update_cached_cos_sin
   * @param src point in pose target space
   * @param des point in pose base space
   * @return ref point in pose base space
   **/
 Point2D & Pose2D::transform_into_base(const Point2D & src, Point2D & des) const
 {
-  //update_cached_cos_sin();
   des.set(
     src.x() * costheta_ - src.y() * sintheta_ + src.h() * x(),
     src.x() * sintheta_ + src.y() * costheta_ + src.h() * y(), src.h());
   return des;
+}
+/**
+  * transforms a point from pose target space into pose base space
+  * @note you have to update the cached cos and sin values in advance
+  * @see Pose2D::update_cached_cos_sin
+  * @param src point in pose target space
+  * @return point in pose base space
+  **/
+Point2D Pose2D::transform_into_base(const Point2D & src) const
+{
+  Point2D des;
+  return transform_into_base(src, des);
 }
 
 /**

@@ -133,21 +133,40 @@ namespace tuw
 /**
  * Quaternion to an euler roll angle
  * @see https://en.wikipedia.org/wiki/Conversion_between_quaternions_and_Euler_angles
+ * @param q Quaterion with x,y,z and w public members
+ * @param roll angle to compute
+ * @return angle to computed
  **/
   template < typename Quaternion >
-  void QuaternionToRoll(const Quaternion & q, double & roll)
+  double &QuaternionToRoll(const Quaternion & q, double & roll)
   {
     // roll (x-axis rotation)
     double sinr = +2.0 * (q.w * q.x + q.y * q.z);
     double cosr = +1.0 - 2.0 * (q.x * q.x + q.y * q.y);
     roll = atan2(sinr, cosr);
+    return roll;
+  }
+/**
+ * Quaternion to an euler roll angle
+ * @see https://en.wikipedia.org/wiki/Conversion_between_quaternions_and_Euler_angles
+ * @param q Quaterion with x,y,z and w public members
+ * @return angle to computed
+ **/
+  template < typename Quaternion >
+  double QuaternionToRoll(const Quaternion & q)
+  {
+    double roll;
+    return QuaternionToYaw(q, roll);
   }
 /**
  * Quaternion to an euler pitch angle
  * @see https://en.wikipedia.org/wiki/Conversion_between_quaternions_and_Euler_angles
+ * @param q Quaterion with x,y,z and w public members
+ * @param pitch angle to compute
+ * @return angle to computed
  **/
   template < typename Quaternion >
-  void QuaternionToPitch(const Quaternion & q, double & pitch)
+  double &QuaternionToPitch(const Quaternion & q, double & pitch)
   {
     // pitch (y-axis rotation)
     double sinp = +2.0 * (q.w * q.y - q.z * q.x);
@@ -156,18 +175,48 @@ namespace tuw
     } else {
       pitch = asin(sinp);
     }
+    return pitch;
+  }
+/**
+ * Quaternion to an euler pitch angle
+ * @see https://en.wikipedia.org/wiki/Conversion_between_quaternions_and_Euler_angles
+ * @param q Quaterion with x,y,z and w public members
+ * @param pitch angle to compute
+ * @return angle to computed
+ **/
+  template < typename Quaternion >
+  double QuaternionToPitch(const Quaternion & q)
+  {
+    double pitch;
+    return QuaternionToYaw(q, pitch);
   }
 /**
  * Quaternion to an euler yaw angle
  * @see https://en.wikipedia.org/wiki/Conversion_between_quaternions_and_Euler_angles
+ * @param q Quaterion with x,y,z and w public members
+ * @param yaw angle to compute
+ * @return angle to computed
  **/
   template < typename Quaternion >
-  void QuaternionToYaw(const Quaternion & q, double & yaw)
+  double &QuaternionToYaw(const Quaternion & q, double & yaw)
   {
     // yaw (z-axis rotation)
     double siny = +2.0 * (q.w * q.z + q.x * q.y);
     double cosy = +1.0 - 2.0 * (q.y * q.y + q.z * q.z);
     yaw = atan2(siny, cosy);
+    return yaw;
+  }
+/**
+ * Quaternion to an euler yaw angle
+ * @see https://en.wikipedia.org/wiki/Conversion_between_quaternions_and_Euler_angles
+ * @param q Quaterion with x,y,z and w public members
+ * @return yaw angle to compute
+ **/
+  template < typename Quaternion >
+  double QuaternionToYaw(const Quaternion & q)
+  {
+    double yaw;
+    return QuaternionToYaw(q, yaw);
   }
 
 /**
