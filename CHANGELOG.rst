@@ -2,6 +2,11 @@
 Changelog for package tuw_geometry
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* boost lexical_cast removed
+* Contributors: Markus Bader
+
 0.0.4 (2023-03-20)
 ------------------
 * Error on returnvalue in LayeredMaps::getVal( fixed
