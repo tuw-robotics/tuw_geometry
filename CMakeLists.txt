@@ -70,7 +70,7 @@ install(
   DESTINATION include
 )
 install(
-  TARGETS tuw_geometry 
+  TARGETS tuw_geometry
   EXPORT export_${PROJECT_NAME}
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib
