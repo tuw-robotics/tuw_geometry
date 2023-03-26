@@ -42,33 +42,33 @@
 namespace tuw
 {
 
-  class LayeredFigure;
-  using LayeredFigurePtr = std::shared_ptr < LayeredFigure >;
-  using LayeredFigureConstPtr = std::shared_ptr < const LayeredFigure >;
-  class LayeredFigure: public Figure
-  {
+class LayeredFigure;
+using LayeredFigurePtr = std::shared_ptr<LayeredFigure>;
+using LayeredFigureConstPtr = std::shared_ptr<const LayeredFigure>;
+class LayeredFigure : public Figure
+{
 public:
-    //special class member functions
-    LayeredFigure(const std::string & title);
-    virtual ~LayeredFigure() = default;
-    LayeredFigure(const LayeredFigure &) = default;
-    LayeredFigure & operator = (const LayeredFigure &) = default;
-    LayeredFigure(LayeredFigure &&) = default;
-    LayeredFigure & operator = (LayeredFigure &&) = default;
+  //special class member functions
+  LayeredFigure(const std::string & title);
+  virtual ~LayeredFigure() = default;
+  LayeredFigure(const LayeredFigure &) = default;
+  LayeredFigure & operator=(const LayeredFigure &) = default;
+  LayeredFigure(LayeredFigure &&) = default;
+  LayeredFigure & operator=(LayeredFigure &&) = default;
 
-    void outputPlot();
-    void init(
-      int width_pixel, int height_pixel, double min_y, double max_y, double min_x, double max_x,
-      double rotation = 0, double grid_scale_x = -1, double grid_scale_y = -1,
-      const std::string & background_image = std::string()) override;
+  void outputPlot();
+  void init(
+    int width_pixel, int height_pixel, double min_y, double max_y, double min_x, double max_x,
+    double rotation = 0, double grid_scale_x = -1, double grid_scale_y = -1,
+    const std::string & background_image = std::string()) override;
 
-    LayeredMaps layeredMaps;
+  LayeredMaps layeredMaps;
 
 protected:
-    int view_idx_;
-    size_t sizeLayers_;
-    static void callbackTrkbar1(int flags, void * param);
-  };
+  int view_idx_;
+  size_t sizeLayers_;
+  static void callbackTrkbar1(int flags, void * param);
+};
 
 }  // namespace tuw
 #endif  // TUW_GEOMETRY__LAYERED_FIGURE_HPP
