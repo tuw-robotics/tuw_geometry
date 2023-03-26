@@ -2,6 +2,16 @@
 Changelog for package tuw_geometry
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* lint_cmake error fixed
+* uncrustify reformated
+* minor
+* 2D sample class added
+* Merge branch 'humble' into ros2
+* quaternion support enhanced
+* Contributors: Markus Bader
+
 0.0.5 (2023-03-24)
 ------------------
 * boost lexical_cast removed
