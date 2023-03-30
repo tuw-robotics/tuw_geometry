@@ -22,7 +22,7 @@ add_library(${PROJECT_NAME} SHARED
   src/${PROJECT_NAME}/polar2d.cpp
   src/${PROJECT_NAME}/pose2d.cpp
   src/${PROJECT_NAME}/line2d.cpp
-  src/${PROJECT_NAME}/command.cpp
+  src/${PROJECT_NAME}/command2d.cpp
   src/${PROJECT_NAME}/linesegment2d.cpp
   src/${PROJECT_NAME}/linesegment2d_detector.cpp
   src/${PROJECT_NAME}/figure.cpp
@@ -54,7 +54,6 @@ target_include_directories(example_figure PUBLIC
 target_compile_features(example_figure PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
 target_link_libraries(example_figure
   rclcpp::rclcpp
-  rclcpp_components::component
   ${PROJECT_NAME}
   ${sensor_msgs_TARGETS}
   ${std_msgs_TARGETS}
