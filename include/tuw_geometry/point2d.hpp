@@ -68,7 +68,7 @@ public:
      * @param p
      * @return this reference
      **/
-  Point2D & set(const Point2D &p);
+  Point2D & set(const Point2D & p);
 
   /**
      * sets values

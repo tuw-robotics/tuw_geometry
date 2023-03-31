@@ -19,7 +19,7 @@ Point2D::Point2D(const Polar2D & p)
  * @param p
  * @return this reference
  **/
-Point2D & Point2D::set(const Point2D &p)
+Point2D & Point2D::set(const Point2D & p)
 {
   this->val[0] = p.x(), this->val[1] = p.y();
   return *this;
