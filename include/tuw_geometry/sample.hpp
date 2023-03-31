@@ -66,7 +66,7 @@ public:
   /**  get
    * @return object
    **/
-  const T &get() const
+  const T & get() const
   {
     return *this;
   }
@@ -74,7 +74,7 @@ public:
   /**  get
    * @return object
    **/
-  T &get()
+  T & get()
   {
     return *this;
   }
