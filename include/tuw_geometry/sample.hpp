@@ -63,6 +63,22 @@ public:
     set(*s, s->weight_);
   }
 
+  /**  get
+   * @return object
+   **/
+  const T &get() const
+  {
+    return *this;
+  }
+
+  /**  get
+   * @return object
+   **/
+  T &get()
+  {
+    return *this;
+  }
+
   /** @return idx  **/
   const unsigned int & idx() const
   {
