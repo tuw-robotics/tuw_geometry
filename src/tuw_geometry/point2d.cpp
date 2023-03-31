@@ -13,7 +13,17 @@ Point2D::Point2D(double x, double y, double h)
 : cv::Vec<double, 3>(x, y, h) {}
 Point2D::Point2D(const Polar2D & p)
 : cv::Vec<double, 3>(p.rho() * cos(p.alpha()), p.rho() * sin(p.alpha()), 1) {}
+
 /**
+ * sets values
+ * @param p
+ * @return this reference
+ **/
+Point2D & Point2D::set(const Point2D &p)
+{
+  this->val[0] = p.x(), this->val[1] = p.y();
+  return *this;
+}/**
  * sets values
  * @param x
  * @param y

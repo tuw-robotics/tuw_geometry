@@ -65,6 +65,13 @@ public:
 
   /**
      * sets values
+     * @param p
+     * @return this reference
+     **/
+  Point2D & set(const Point2D &p);
+
+  /**
+     * sets values
      * @param x
      * @param y
      * @return this reference
