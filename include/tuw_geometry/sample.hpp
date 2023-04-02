@@ -122,8 +122,8 @@ public:
 };
 
 class Pose2D;
-using SamplePose2D = std::shared_ptr<Pose2D>;
-using SamplePose2DPtr = std::shared_ptr<Sample<Pose2D>>;
-using SamplePose2DConstPtr = std::shared_ptr<Sample<Pose2D> const>;
+using SamplePose2D = Sample<Pose2D>;
+using SamplePose2DPtr = std::shared_ptr<SamplePose2D>;
+using SamplePose2DConstPtr = std::shared_ptr<SamplePose2D const>;
 }
 #endif // TUW_GEOMETRY__SAMPLE_HPP
