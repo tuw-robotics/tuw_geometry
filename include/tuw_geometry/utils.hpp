@@ -114,7 +114,7 @@ void EulerYawToQuaternion(double yaw, Quaternion & q)
  * @see https://en.wikipedia.org/wiki/Conversion_between_quaternions_and_Euler_angles
  **/
 template<typename Quaternion>
-void EulerToQuaternion(double pitch, double roll, double yaw, const Quaternion & q)
+void EulerToQuaternion(double pitch, double roll, double yaw, Quaternion & q)
 {
   double cy = cos(yaw * 0.5);
   double sy = sin(yaw * 0.5);
