@@ -134,6 +134,8 @@ public:
     return os;
   }
 };
-
+using LineSegments2D = std::vector<LineSegment2D>;
+using LineSegments2DPtr = std::shared_ptr<LineSegments2D>;
+using LineSegments2DConstPtr = std::shared_ptr<LineSegments2D const>;
 }       // namespace tuw
 #endif  // TUW_GEOMETRY__LINESEGMENT2D_HPP

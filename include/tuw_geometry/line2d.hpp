@@ -160,5 +160,8 @@ public:
   **/
   Polar2D toPolar() const;
 };
+using Lines2D = std::vector<Line2D>;
+using Lines2DPtr = std::shared_ptr<Lines2D>;
+using Lines2DConstPtr = std::shared_ptr<Lines2D const>;
 }      // namespace tuw
 #endif  // TUW_GEOMETRY__LINE2D_HPP

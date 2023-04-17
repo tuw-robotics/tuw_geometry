@@ -53,6 +53,9 @@ private:
   using Point2D::x;
   using Point2D::y;
 };
+using Polars2D = std::vector<Polar2D>;
+using Polars2DPtr = std::shared_ptr<Polars2D>;
+using Polars2DConstPtr = std::shared_ptr<Polars2D const>;
 
 }  // namespace tuw
 #endif  //TUW_GEOMETRY__POLAR2D_HPP

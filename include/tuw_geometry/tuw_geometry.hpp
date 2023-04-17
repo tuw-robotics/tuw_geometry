@@ -9,6 +9,7 @@
 #include <tuw_geometry/polar2d.hpp>
 #include <tuw_geometry/pose2d.hpp>
 #include <tuw_geometry/sample.hpp>
+#include <tuw_geometry/stamp.hpp>
 
 #include <map>
 #include <string>

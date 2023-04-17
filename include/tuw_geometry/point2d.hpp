@@ -212,6 +212,9 @@ public:
      **/
   bool equal(const Point2D & o, double tolerance = 0.0001) const;
 };
+using Points2D = std::vector<Point2D>;
+using Points2DPtr = std::shared_ptr<Points2D>;
+using Points2DConstPtr = std::shared_ptr<Points2D const>;
 }  // namespace tuw
 
 /**

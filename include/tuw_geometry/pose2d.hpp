@@ -268,6 +268,9 @@ public:
     EulerYawToQuaternion(theta(), des.orientation);
   }
 };
+using Poses2D = std::vector<Pose2D>;
+using Poses2DPtr = std::shared_ptr<Poses2D>;
+using Poses2DConstPtr = std::shared_ptr<Poses2D const>;
 
 }  // namespace tuw
 #endif  //TUW_GEOMETRY__POSE2D_HPP
