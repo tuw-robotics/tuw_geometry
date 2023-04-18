@@ -41,6 +41,23 @@ TEST(Point2D, TestDistanceTo)
   EXPECT_NEAR(1.41421, p0.distanceTo(p2), 0.001);
 }
 
+TEST(StampedData, TestCompare)
+{
+  using namespace std::chrono_literals;
+  auto t = std::chrono::steady_clock::now();
+  tuw::StampedData<tuw::Point2D> p0(tuw::Point2D(0.0, 0.0));
+  p0.stamp = t;
+  tuw::StampedData<tuw::Point2D> p1(tuw::Point2D(1.0, 0.0));
+  p1.stamp = t + 1ms;
+  tuw::StampedData<tuw::Point2D> p2(tuw::Point2D(1.0, 1.0));
+  p2.stamp = t;
+  ASSERT_NE(p0, p1);
+  ASSERT_EQ(p0, p2);
+  ASSERT_TRUE(p0 < p1);
+  ASSERT_TRUE(p1 > p0);
+}
+
+
 int main(int argc, char ** argv)
 {
   rclcpp::init(argc, argv);
