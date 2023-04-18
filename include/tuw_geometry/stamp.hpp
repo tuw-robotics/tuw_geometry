@@ -9,7 +9,7 @@ class Stamp
 public:
   std::chrono::microseconds stamp;
   tuw::Tf2D tf;
-  T z;
+  T data;
   friend bool operator<(const Stamp<T> & l, const Stamp<T> & r)
   {
     return l.stamp < r.stamp;
