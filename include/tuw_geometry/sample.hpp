@@ -35,7 +35,7 @@ public:
    * @param weight
    **/
   Sample(const T & o, double weight = 0)
-  : T(o), weight_(weight_) {}
+  : T(o), weight_(weight) {}
 
   /**  set sample
    * @param p
