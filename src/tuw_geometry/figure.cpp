@@ -53,6 +53,8 @@ const cv::Mat & Figure::view() const {return view_;}
 cv::Mat & Figure::view() {return view_;}
 const cv::Mat & Figure::background() const {return background_;}
 cv::Mat & Figure::background() {return background_;}
+const cv::Mat & Figure::background_image() const {return background_image_;}
+cv::Mat & Figure::background_image() {return background_image_;}
 void Figure::setView(const cv::Mat & view)
 {
   if (view.empty()) {return;}
@@ -73,19 +75,21 @@ void Figure::init(
   WorldScopedMaps::init(width_pixel, height_pixel, min_x, max_x, min_y, max_y, rotation);
   grid_scale_x_ = grid_scale_x, grid_scale_y_ = grid_scale_y;
   background_filename_ = background_image;
+  if (!background_filename_.empty()) {
+      background_image_ = cv::imread(background_filename_, cv::IMREAD_COLOR);
+  } else {
+    background_image_.create(height(), width(), CV_8UC3);
+    background_image_.setTo(0xFF);
+  }
   drawBackground();
   clear();
 }
 
+  
+
 void Figure::drawBackground()
 {
-  background_.create(height(), width(), CV_8UC3);
-  if (!background_filename_.empty()) {
-    cv::Mat image = cv::imread(background_filename_, cv::IMREAD_COLOR);
-    cv::resize(image, background_, cv::Size(background_.cols, background_.rows), cv::INTER_AREA);
-  } else {
-    background_.setTo(0xFF);
-  }
+  cv::resize(background_image_, background_, cv::Size(height(), width()), cv::INTER_AREA);
   if ((grid_scale_y_ > 0) && (grid_scale_x_ > 0)) {
     char txt[0xFF];
     Point2D p0, p1, pm0, pm1;

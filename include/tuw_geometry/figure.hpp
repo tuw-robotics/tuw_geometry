@@ -21,11 +21,11 @@ class Figure : public WorldScopedMaps
   std::string label_format_x_;          /// label format string
   std::string label_format_y_;          /// label format string
   cv::Mat view_;                        /// canvas
-  cv::Mat background_;                  /// background data, grid or image
+  cv::Mat background_;                  /// background data, grid with image
+  cv::Mat background_image_;            /// background image
   std::string background_filename_;     /// if empty no file will be used
-  double grid_scale_x_, grid_scale_y_;   /// dimension of the drawn grid, if -1 no grid will be drawn
+  double grid_scale_x_, grid_scale_y_;  /// dimension of the drawn grid, if -1 no grid will be drawn
 
-  void drawBackground();   /// draws the background image
 
 public:
   //special class member functions
@@ -91,6 +91,14 @@ public:
      * @return the matrix related to the background canvas
      **/
   cv::Mat & background();
+  /**
+     * @return the matrix related to the background image
+     **/
+  const cv::Mat & background_image() const;
+  /**
+     * @return the matrix related to the background image
+     **/
+  cv::Mat & background_image();
   /**
      * can be used to clone an image into the foreground independent to the image format (gray, color, ...)
      * @param view source image
@@ -186,6 +194,12 @@ public:
     const std::string & text, const Point2D & p, int fontFace = cv::FONT_HERSHEY_PLAIN,
     double fontScale = 0.6, cv::Scalar color = cv::Scalar(128, 0, 0), int thickness = 1,
     int lineType = cv::LINE_AA, bool bottomLeftOrigin = false);
+
+  /**
+     * draws the background cavas
+     * it is normly called in init but if the background images changes it has to called again
+     **/
+  void drawBackground();                    
 
   /**
      * overwrites the foreground with the background
