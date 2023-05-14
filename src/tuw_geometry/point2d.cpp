@@ -126,7 +126,7 @@ double Point2D::distanceTo(const Point2D & p) const
  **/
 const cv::Point_<double> & Point2D::cv() const
 {
-  return (cv::Point_<double>&) * this;
+  return reinterpret_cast<const cv::Point_<double> &>(*this);
 }
 /**
  * returns a cv::Point_<double> reference
@@ -134,7 +134,7 @@ const cv::Point_<double> & Point2D::cv() const
  **/
 cv::Point_<double> & Point2D::cv()
 {
-  return (cv::Point_<double>&) * this;
+  return reinterpret_cast<cv::Point_<double> &>(*this);
 }
 /**
  * angle form origin to point (alpha in polar space)
