@@ -26,7 +26,6 @@ class Figure : public WorldScopedMaps
   std::string background_filename_;     /// if empty no file will be used
   double grid_scale_x_, grid_scale_y_;  /// dimension of the drawn grid, if -1 no grid will be drawn
 
-
 public:
   //special class member functions
   /**
@@ -199,7 +198,7 @@ public:
      * draws the background cavas
      * it is normly called in init but if the background images changes it has to called again
      **/
-  void drawBackground();                    
+  void drawBackground();
 
   /**
      * overwrites the foreground with the background

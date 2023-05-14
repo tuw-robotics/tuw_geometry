@@ -76,7 +76,7 @@ void Figure::init(
   grid_scale_x_ = grid_scale_x, grid_scale_y_ = grid_scale_y;
   background_filename_ = background_image;
   if (!background_filename_.empty()) {
-      background_image_ = cv::imread(background_filename_, cv::IMREAD_COLOR);
+    background_image_ = cv::imread(background_filename_, cv::IMREAD_COLOR);
   } else {
     background_image_.create(height(), width(), CV_8UC3);
     background_image_.setTo(0xFF);
@@ -85,7 +85,6 @@ void Figure::init(
   clear();
 }
 
-  
 
 void Figure::drawBackground()
 {
