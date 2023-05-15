@@ -2,8 +2,8 @@
 Changelog for package tuw_geometry
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.0.9 (2023-05-15)
+------------------
 * connand2d files added
 * Contributors: Markus Bader
 
