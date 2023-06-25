@@ -2,6 +2,12 @@
 Changelog for package tuw_geometry
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* docs updated
+* Doxyfile added
+* Contributors: Markus Bader
+
 0.0.9 (2023-05-15)
 ------------------
 * connand2d files added
