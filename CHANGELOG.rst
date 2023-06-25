@@ -2,8 +2,8 @@
 Changelog for package tuw_geometry
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.1.1 (2023-06-25)
+------------------
 * docs updated
 * Doxyfile added
 * Contributors: Markus Bader
