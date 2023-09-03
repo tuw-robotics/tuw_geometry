@@ -32,23 +32,22 @@
 #include "rclcpp/rclcpp.hpp"
 #include "tuw_geometry/tuw_geometry.hpp"
 
-TEST(Plane3D, create)
+TEST(Plane3D, intersectionLine)
 {
-  cv::Vec3d p1(0, 0, 0);
-  cv::Vec3d p2(1, 0, 0);
-  cv::Vec3d p3(0, 1, 0);
-  tuw::Plane3D plane;
-  plane.create(p1, p2, p3);
+  tuw::Plane3D planeA;
+  planeA.create(cv::Vec3d(0, 0, 0), cv::Vec3d(1, 0, 0), cv::Vec3d(0, 1, 0));
 
   cv::Vec3d pi;
-  plane.intersectionLine(cv::Vec3d( 1,  1,  1), cv::Vec3d(-1, -1, -1), pi);
+  planeA.intersectionLine(cv::Vec3d( 1,  1,  1), cv::Vec3d(-1, -1, -1), pi);
 
   ASSERT_TRUE(pi[0] == 0);
   ASSERT_TRUE(pi[1] == 0);
   ASSERT_TRUE(pi[2] == 0);
 
 
-  plane.intersectionLine(cv::Vec3d( 4,  5,  1), cv::Vec3d(2, 3, -1), pi);
+  tuw::Plane3D planeB;
+  planeB.create(cv::Vec3d(0, 0, 0), cv::Vec3d(0, 0, 1));
+  planeB.intersectionLine(cv::Vec3d( 4,  5,  1), cv::Vec3d(2, 3, -1), pi);
 
   ASSERT_TRUE(pi[0] == 3);
   ASSERT_TRUE(pi[1] == 4);
