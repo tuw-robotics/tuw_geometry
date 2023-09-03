@@ -22,6 +22,7 @@ add_library(${PROJECT_NAME} SHARED
   src/${PROJECT_NAME}/polar2d.cpp
   src/${PROJECT_NAME}/pose2d.cpp
   src/${PROJECT_NAME}/line2d.cpp
+  src/${PROJECT_NAME}/plane3d.cpp
   src/${PROJECT_NAME}/command2d.cpp
   src/${PROJECT_NAME}/linesegment2d.cpp
   src/${PROJECT_NAME}/linesegment2d_detector.cpp

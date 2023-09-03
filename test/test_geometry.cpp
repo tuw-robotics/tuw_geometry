@@ -32,6 +32,49 @@
 #include "rclcpp/rclcpp.hpp"
 #include "tuw_geometry/tuw_geometry.hpp"
 
+TEST(Plane3D, create)
+{
+  cv::Vec3d p1(0, 0, 0);
+  cv::Vec3d p2(1, 0, 0);
+  cv::Vec3d p3(0, 1, 0);
+  tuw::Plane3D plane;
+  plane.create(p1, p2, p3);
+
+  cv::Vec3d pi;
+  plane.intersectionLine(cv::Vec3d( 1,  1,  1), cv::Vec3d(-1, -1, -1), pi);
+
+  std::cout << "ground plane: " << plane << std::endl;
+  std::cout << "intersectionLine " << pi << std::endl;
+
+  ASSERT_TRUE(pi[0] == 0);
+  ASSERT_TRUE(pi[1] == 0);
+  ASSERT_TRUE(pi[2] == 0);
+
+
+  plane.intersectionLine(cv::Vec3d( 4,  5,  1), cv::Vec3d(2, 3, -1), pi);
+  std::cout << "intersectionLine " << pi << std::endl;
+
+  ASSERT_TRUE(pi[0] == 3);
+  ASSERT_TRUE(pi[1] == 4);
+  ASSERT_TRUE(pi[2] == 0);
+
+}
+
+TEST(VectorCV, Carsting1)
+{
+  cv::Vec<double, 4>a(1,2,3,4);
+  cv::Vec<double, 3>b(5,6,7);
+  // std::cout << "a: " << a << ", b: " << b << std::endl;
+  cv::Vec<double, 3> &c = reinterpret_cast<cv::Vec<double, 3>&>(a);
+  c = b;
+  // std::cout << "col: " << c.cols << ", rows: " << c.rows << std::endl;
+  // std::cout << "a: " << a << ", b: " << b << std::endl;
+
+  ASSERT_TRUE(a[0] == b[0]);
+  ASSERT_TRUE(a[1] == b[1]);
+  ASSERT_TRUE(a[2] == b[2]);
+}
+
 TEST(Point2D, TestDistanceTo)
 {
   tuw::Point2D p0(0.0, 0.0);

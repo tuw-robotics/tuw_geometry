@@ -8,6 +8,8 @@
 #include <tuw_geometry/point2d.hpp>
 #include <tuw_geometry/polar2d.hpp>
 #include <tuw_geometry/pose2d.hpp>
+#include <tuw_geometry/plane3d.hpp>
+#include <tuw_geometry/line3d.hpp>
 #include <tuw_geometry/sample.hpp>
 #include <tuw_geometry/stamped_data.hpp>
 
