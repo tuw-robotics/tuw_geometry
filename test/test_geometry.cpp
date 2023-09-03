@@ -43,16 +43,12 @@ TEST(Plane3D, create)
   cv::Vec3d pi;
   plane.intersectionLine(cv::Vec3d( 1,  1,  1), cv::Vec3d(-1, -1, -1), pi);
 
-  std::cout << "ground plane: " << plane << std::endl;
-  std::cout << "intersectionLine " << pi << std::endl;
-
   ASSERT_TRUE(pi[0] == 0);
   ASSERT_TRUE(pi[1] == 0);
   ASSERT_TRUE(pi[2] == 0);
 
 
   plane.intersectionLine(cv::Vec3d( 4,  5,  1), cv::Vec3d(2, 3, -1), pi);
-  std::cout << "intersectionLine " << pi << std::endl;
 
   ASSERT_TRUE(pi[0] == 3);
   ASSERT_TRUE(pi[1] == 4);
