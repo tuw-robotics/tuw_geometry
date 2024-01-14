@@ -60,9 +60,9 @@ TEST(VectorCV, Carsting1)
   cv::Vec<double, 4> a(1, 2, 3, 4);
   cv::Vec<double, 3> b(5, 6, 7);
   // std::cout << "a: " << a << ", b: " << b << std::endl;
-  //cv::Vec<double, 3> &c = reinterpret_cast<cv::Vec<double, 3>&>(a);
-  cv::Vec<double, 3> & c = (cv::Vec<double, 3> &)a;
-  c = b;
+  cv::Vec<double, 3> *c = reinterpret_cast<cv::Vec<double, 3>*>(&a);
+  //cv::Vec<double, 3> & c = (cv::Vec<double, 3> &)a;
+  *c = b;
   // std::cout << "col: " << c.cols << ", rows: " << c.rows << std::endl;
   // std::cout << "a: " << a << ", b: " << b << std::endl;
 
