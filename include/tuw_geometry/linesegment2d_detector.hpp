@@ -47,9 +47,10 @@ public:
     **/
   class LineSegment : public LineSegment2D
   {
-  public:
+public:
     /// constructor
-    LineSegment() : LineSegment2D(), id_(0) {}
+    LineSegment()
+    : LineSegment2D(), id_(0) {}
     void set(unsigned int idx0, unsigned int idx1, const std::vector<Point2D> & points);
     void updatePoints(const std::vector<Point2D> & points);
     bool isSupportPoint(int idx);

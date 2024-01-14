@@ -258,7 +258,7 @@ public:
     * Used to copy the Pose2D object into a ros geometry_msgs::Pose
     * @param copy t
     **/
-  template <typename T>
+  template<typename T>
   void copyToROSPose(T & des) const
   {
     des.position.x = x();

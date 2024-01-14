@@ -46,16 +46,19 @@ public:
      * @param p
      **/
   Point2D(const Polar2D & p);
-  template <typename T>
-  Point2D(const cv::Vec<T, 3> & p) : cv::Vec<double, 3>(p)
+  template<typename T>
+  Point2D(const cv::Vec<T, 3> & p)
+  : cv::Vec<double, 3>(p)
   {
   }
-  template <typename T>
-  Point2D(const cv::Vec<T, 2> & p) : cv::Vec<double, 3>(p)
+  template<typename T>
+  Point2D(const cv::Vec<T, 2> & p)
+  : cv::Vec<double, 3>(p)
   {
   }
-  template <typename T>
-  Point2D(const cv::Point_<T> & p) : cv::Vec<double, 3>(p.x, p.y, 1.)
+  template<typename T>
+  Point2D(const cv::Point_<T> & p)
+  : cv::Vec<double, 3>(p.x, p.y, 1.)
   {
   }
 
@@ -221,7 +224,7 @@ using Points2DConstPtr = std::shared_ptr<Points2D const>;
  **/
 namespace cv
 {
-template <typename _Tp>
+template<typename _Tp>
 static inline tuw::Point2D operator*(const Matx<_Tp, 3, 3> & a, const tuw::Point2D & b)
 {
   Matx<_Tp, 3, 1> c(a, b, Matx_MatMulOp());

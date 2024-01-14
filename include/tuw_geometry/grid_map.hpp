@@ -39,7 +39,7 @@
 namespace tuw
 {
 
-template <class T>
+template<class T>
 class GridMap : public WorldScopedMaps
 {
 public:
@@ -60,21 +60,21 @@ public:
   GridMap(GridMap &&) = default;
   GridMap & operator=(GridMap &&) = default;
 
-  template <typename MapMetaData, class ARRAY>
+  template<typename MapMetaData, class ARRAY>
   void init(const MapMetaData & metadata, ARRAY * data)
   {
     WorldScopedMaps::init(metadata);
     data_ = cv::Mat_<T>(height(), width(), data);
     read_only_ = false;
   }
-  template <typename MapMetaData, class ARRAY>
+  template<typename MapMetaData, class ARRAY>
   void init(MapMetaData & metadata, ARRAY & data)
   {
     WorldScopedMaps::init(metadata);
     data_ = cv::Mat_<T>(height(), width(), (T *)&data[0]);
     read_only_ = false;
   }
-  template <typename MapMetaData>
+  template<typename MapMetaData>
   void init(const MapMetaData & metadata, const T & data, bool copy = false)
   {
     WorldScopedMaps::init(metadata);
@@ -111,14 +111,14 @@ public:
     cv::Mat I(rows(), cols(), CV_8U, data_.ptr(0));
     cv::dilate(I, I, element);
   }
-  T & operator()(double x, double y) { return data_(w2m(x, y).cv()); }
-  const T & operator()(double x, double y) const { return data_(w2m(x, y).cv()); }
-  T & operator()(const Point2D & _world_coordinates) { return data_(w2m(_world_coordinates).cv()); }
+  T & operator()(double x, double y) {return data_(w2m(x, y).cv());}
+  const T & operator()(double x, double y) const {return data_(w2m(x, y).cv());}
+  T & operator()(const Point2D & _world_coordinates) {return data_(w2m(_world_coordinates).cv());}
   const T & operator()(const Point2D & _world_coordinates) const
   {
     return data_(w2m(_world_coordinates).cv());
   }
-  T & get(const Point2D & _world_coordinates) { return data_(w2m(_world_coordinates).cv()); }
+  T & get(const Point2D & _world_coordinates) {return data_(w2m(_world_coordinates).cv());}
   const T & get(const Point2D & _world_coordinates) const
   {
     return data_(w2m(_world_coordinates).cv());
@@ -135,17 +135,17 @@ public:
     T v = data_(p.cv());
     return (v > SPACE_NA) && (v < threshold_free_);
   }
-  const cv::Mat_<T> & mat() const { return data_; }
-  void setThresholdOccupied(const T & threshold) { threshold_occupyied_ = threshold; }
-  const T & getThresholdOccupied() { return threshold_occupyied_; }
-  void setThresholdFree(const T & threshold) { threshold_free_ = threshold; }
-  const T & getThresholdFree() { return threshold_free_; }
-  void setThresholdUnknown(const T & threshold) { threshold_unknown_ = threshold; }
-  const T & getThresholdUnknown() { return threshold_unknown_; }
-  int rows() const { return data_.rows; }
-  int cols() const { return data_.cols; }
-  T & grid(int row, int col) { return data_(row, col); }
-  const T & grid(int row, int col) const { return data_(row, col); }
+  const cv::Mat_<T> & mat() const {return data_;}
+  void setThresholdOccupied(const T & threshold) {threshold_occupyied_ = threshold;}
+  const T & getThresholdOccupied() {return threshold_occupyied_;}
+  void setThresholdFree(const T & threshold) {threshold_free_ = threshold;}
+  const T & getThresholdFree() {return threshold_free_;}
+  void setThresholdUnknown(const T & threshold) {threshold_unknown_ = threshold;}
+  const T & getThresholdUnknown() {return threshold_unknown_;}
+  int rows() const {return data_.rows;}
+  int cols() const {return data_.cols;}
+  T & grid(int row, int col) {return data_(row, col);}
+  const T & grid(int row, int col) const {return data_(row, col);}
 
 private:
   bool read_only_;

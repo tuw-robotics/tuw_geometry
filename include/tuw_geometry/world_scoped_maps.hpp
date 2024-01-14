@@ -55,7 +55,7 @@ public:
      * used to initialize the figure based on a ROS nav_msgs/MapMetaData
      * @param T nav_msgs/MapMetaData
      **/
-  template <typename T>
+  template<typename T>
   void init(const T & metadata)
   {
     width_pixel_ = metadata.width, height_pixel_ = metadata.height;
@@ -97,7 +97,7 @@ public:
      * @param thickness line thickness --> @see opencv
      * @param lineType line type --> @see opencv
      **/
-  template <typename T>
+  template<typename T>
   void line(
     T & map, const Point2D & p0, const Point2D & p1, const cv::Scalar & color, int thickness = 1,
     int lineType = cv::LINE_AA) const
@@ -113,7 +113,7 @@ public:
      * @param thickness line thickness --> @see opencv
      * @param lineType line type --> @see opencv
      **/
-  template <typename T>
+  template<typename T>
   void circle(
     T & map, const Point2D & p, int radius, const cv::Scalar & color, int thickness = 1,
     int lineType = cv::LINE_AA) const
@@ -126,7 +126,7 @@ public:
      * @param map opencv matrix
      * @param p location
      **/
-  template <typename T>
+  template<typename T>
   cv::Scalar_<T> get(cv::Mat_<T> & map, const Point2D & p) const
   {
     return map.at(w2m(p).cv());

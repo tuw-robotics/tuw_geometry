@@ -48,13 +48,13 @@ void Figure::setLabel(const std::string & label_format_x, const std::string & la
 {
   label_format_x_ = label_format_x, label_format_y_ = label_format_y;
 }
-const std::string & Figure::backgroundFileName() const { return background_filename_; }
-const cv::Mat & Figure::view() const { return view_; }
-cv::Mat & Figure::view() { return view_; }
-const cv::Mat & Figure::background() const { return background_; }
-cv::Mat & Figure::background() { return background_; }
-const cv::Mat & Figure::background_image() const { return background_image_; }
-cv::Mat & Figure::background_image() { return background_image_; }
+const std::string & Figure::backgroundFileName() const {return background_filename_;}
+const cv::Mat & Figure::view() const {return view_;}
+cv::Mat & Figure::view() {return view_;}
+const cv::Mat & Figure::background() const {return background_;}
+cv::Mat & Figure::background() {return background_;}
+const cv::Mat & Figure::background_image() const {return background_image_;}
+cv::Mat & Figure::background_image() {return background_image_;}
 void Figure::setView(const cv::Mat & view)
 {
   if (view.empty()) {
@@ -150,7 +150,7 @@ void Figure::line(
   WorldScopedMaps::line(view_, p0, p1, color, thickness, lineType);
 }
 
-void Figure::symbol(const Point2D & p, const cv::Scalar & color) { symbol(view_, p, color); }
+void Figure::symbol(const Point2D & p, const cv::Scalar & color) {symbol(view_, p, color);}
 void Figure::symbol(cv::Mat & view, const Point2D & p, const cv::Scalar & color)
 {
   cv::Point pi = w2m(p).cv();
@@ -160,7 +160,7 @@ void Figure::symbol(cv::Mat & view, const Point2D & p, const cv::Scalar & color)
   cv::Vec3b & pixel = view.at<cv::Vec3b>(pi);
   pixel[0] = color[0], pixel[1] = color[1], pixel[2] = color[2];
 }
-const std::string Figure::title() const { return title_; }
+const std::string Figure::title() const {return title_;}
 
 void Figure::circle(
   const Point2D & p, int radius, const cv::Scalar & color, int thickness, int lineType)
@@ -212,7 +212,8 @@ void Figure::appendToView(
   cv::Vec3b * p_d;
   for (int i = 0; i < nRows; ++i) {
     for (p_s = _mat.ptr<const uint8_t>(i), p_d = view().ptr<cv::Vec3b>(i);
-         p_s != _mat.ptr<uint8_t>(i + 1); p_d++, p_s++) {
+      p_s != _mat.ptr<uint8_t>(i + 1); p_d++, p_s++)
+    {
       if ((*p_d == cv::Vec3b(255, 255, 255)) && (*p_s < 255 - _truncateLayerVal)) {
         double scale = *p_s / (255. - (double)_truncateLayerVal);
         *p_d = cv::Vec3b(

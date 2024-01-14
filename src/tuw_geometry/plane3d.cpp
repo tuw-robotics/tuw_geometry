@@ -7,7 +7,8 @@
 using namespace tuw;
 Plane3D::Plane3D() {}
 
-Plane3D::Plane3D(const Plane3D & plane) : cv::Vec4d(plane) {}
+Plane3D::Plane3D(const Plane3D & plane)
+: cv::Vec4d(plane) {}
 
 void Plane3D::create(const cv::Vec3d & p1, const cv::Vec3d & p2, const cv::Vec3d & p3)
 {
@@ -27,7 +28,7 @@ void Plane3D::create(const cv::Vec3d & p, const cv::Vec3d & normal)
   val[3] = -(n.dot(p));
 }
 
-const cv::Vec3d & Plane3D::normal() const { return *((cv::Vec3d *)this); }
+const cv::Vec3d & Plane3D::normal() const {return *((cv::Vec3d *)this);}
 
 bool Plane3D::intersectionLine(
   const cv::Vec3d & p1, const cv::Vec3d & p2, cv::Vec3d & intersection, float epsilon) const

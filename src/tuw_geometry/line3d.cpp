@@ -4,4 +4,5 @@
 
 using namespace tuw;
 Line3D::Line3D() {}
-Line3D::Line3D(const Line3D & l) : cv::Vec<double, 4>(l) {}
+Line3D::Line3D(const Line3D & l)
+: cv::Vec<double, 4>(l) {}

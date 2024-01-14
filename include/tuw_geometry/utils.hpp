@@ -65,7 +65,7 @@ inline double angle_difference(double alpha0, double angle1)
  * Euler Pitch to Quaternion roation arount Y
  * @see https://en.wikipedia.org/wiki/Conversion_between_quaternions_and_Euler_angles
  **/
-template <typename Quaternion>
+template<typename Quaternion>
 void EulerPitchToQuaternion(double pitch, Quaternion & q)
 {
   double cp = cos(pitch * 0.5);
@@ -81,7 +81,7 @@ void EulerPitchToQuaternion(double pitch, Quaternion & q)
  * Euler Roll to Quaternion roation arount X
  * @see https://en.wikipedia.org/wiki/Conversion_between_quaternions_and_Euler_angles
  **/
-template <typename Quaternion>
+template<typename Quaternion>
 void EulerToQuaternion(double roll, const Quaternion & q)
 {
   double cr = cos(roll * 0.5);
@@ -97,7 +97,7 @@ void EulerToQuaternion(double roll, const Quaternion & q)
  * Euler Yaw to Quaternion rotation around Z
  * @see https://en.wikipedia.org/wiki/Conversion_between_quaternions_and_Euler_angles
  **/
-template <typename Quaternion>
+template<typename Quaternion>
 void EulerYawToQuaternion(double yaw, Quaternion & q)
 {
   double cy = cos(yaw * 0.5);
@@ -113,7 +113,7 @@ void EulerYawToQuaternion(double yaw, Quaternion & q)
  * Euler to Quaternion
  * @see https://en.wikipedia.org/wiki/Conversion_between_quaternions_and_Euler_angles
  **/
-template <typename Quaternion>
+template<typename Quaternion>
 void EulerToQuaternion(double pitch, double roll, double yaw, Quaternion & q)
 {
   double cy = cos(yaw * 0.5);
@@ -137,7 +137,7 @@ void EulerToQuaternion(double pitch, double roll, double yaw, Quaternion & q)
  * @param roll angle to compute
  * @return angle to computed
  **/
-template <typename Quaternion>
+template<typename Quaternion>
 double & QuaternionToRoll(const Quaternion & q, double & roll)
 {
   // roll (x-axis rotation)
@@ -152,7 +152,7 @@ double & QuaternionToRoll(const Quaternion & q, double & roll)
  * @param q Quaterion with x,y,z and w public members
  * @return angle to computed
  **/
-template <typename Quaternion>
+template<typename Quaternion>
 double QuaternionToRoll(const Quaternion & q)
 {
   double roll;
@@ -165,7 +165,7 @@ double QuaternionToRoll(const Quaternion & q)
  * @param pitch angle to compute
  * @return angle to computed
  **/
-template <typename Quaternion>
+template<typename Quaternion>
 double & QuaternionToPitch(const Quaternion & q, double & pitch)
 {
   // pitch (y-axis rotation)
@@ -184,7 +184,7 @@ double & QuaternionToPitch(const Quaternion & q, double & pitch)
  * @param pitch angle to compute
  * @return angle to computed
  **/
-template <typename Quaternion>
+template<typename Quaternion>
 double QuaternionToPitch(const Quaternion & q)
 {
   double pitch;
@@ -197,7 +197,7 @@ double QuaternionToPitch(const Quaternion & q)
  * @param yaw angle to compute
  * @return angle to computed
  **/
-template <typename Quaternion>
+template<typename Quaternion>
 double & QuaternionToYaw(const Quaternion & q, double & yaw)
 {
   // yaw (z-axis rotation)
@@ -212,7 +212,7 @@ double & QuaternionToYaw(const Quaternion & q, double & yaw)
  * @param q Quaterion with x,y,z and w public members
  * @return yaw angle to compute
  **/
-template <typename Quaternion>
+template<typename Quaternion>
 double QuaternionToYaw(const Quaternion & q)
 {
   double yaw;
@@ -223,7 +223,7 @@ double QuaternionToYaw(const Quaternion & q)
  * Quaternion to euler angles
  * @see https://en.wikipedia.org/wiki/Conversion_between_quaternions_and_Euler_angles
  **/
-template <typename Quaternion>
+template<typename Quaternion>
 void QuaternionToEuler(const Quaternion & q, double & roll, double & pitch, double & yaw)
 {
   QuaternionToRoll(q, roll), QuaternionToPitch(q, pitch), QuaternionToYaw(q, yaw);

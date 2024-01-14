@@ -8,67 +8,70 @@ namespace tuw
 /**
    * Class to describe a particle used in the particle filter localization
    */
-template <class T>
+template<class T>
 class Sample;
-template <class T>
+template<class T>
 using SamplePtr = std::shared_ptr<Sample<T>>;
-template <class T>
+template<class T>
 using SampleConstPtr = std::shared_ptr<Sample<T> const>;
 
-template <class T>
+template<class T>
 class Sample : public T
 {
   double weight_;     /// weight
   unsigned int idx_;  /// index (for debugging)
 
 public:
-  Sample() : T(), weight_(0), idx_(0) {}
+  Sample()
+  : T(), weight_(0), idx_(0) {}
   /**  copy constructor
    * @param s
    **/
-  Sample(const Sample<T> & s) : T(s), weight_(s.weight_) {}
+  Sample(const Sample<T> & s)
+  : T(s), weight_(s.weight_) {}
 
   /**  constructor
    * @param o
    * @param weight
    **/
-  Sample(const T & o, double weight = 0) : T(o), weight_(weight) {}
+  Sample(const T & o, double weight = 0)
+  : T(o), weight_(weight) {}
 
   /**  set sample
    * @param p
    * @param weight
    **/
-  void set(const T & o, double weight = 0) { T::set(o), weight_ = weight; }
+  void set(const T & o, double weight = 0) {T::set(o), weight_ = weight;}
 
   /**  set sample
    * @param s
    **/
-  void set(const T & s) { set(s, s.weight_); }
+  void set(const T & s) {set(s, s.weight_);}
 
   /**  set sample
    * @param s
    **/
 
-  void set(const SamplePtr<T> & s) { set(*s, s->weight_); }
+  void set(const SamplePtr<T> & s) {set(*s, s->weight_);}
 
   /**  get
    * @return object
    **/
-  const T & get() const { return *this; }
+  const T & get() const {return *this;}
 
   /**  get
    * @return object
    **/
-  T & get() { return *this; }
+  T & get() {return *this;}
 
   /** @return idx  **/
-  const unsigned int & idx() const { return idx_; }
+  const unsigned int & idx() const {return idx_;}
   /** @return idx  **/
-  unsigned int & idx() { return idx_; }
+  unsigned int & idx() {return idx_;}
   /** @return weight  **/
-  const double & weight() const { return weight_; }
+  const double & weight() const {return weight_;}
   /** @return weight  **/
-  double & weight() { return weight_; }
+  double & weight() {return weight_;}
   /** Stream extraction
    * @param os outputstream
    * @param o object
