@@ -1,6 +1,5 @@
-#include <tuw_geometry/tuw_geometry.hpp>
-
 #include <iomanip>
+#include <tuw_geometry/tuw_geometry.hpp>
 
 using namespace tuw;
 

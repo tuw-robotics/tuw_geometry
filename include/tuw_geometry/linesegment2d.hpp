@@ -6,7 +6,7 @@
 namespace tuw
 {
 
-class LineSegment2D;   /// Prototype
+class LineSegment2D;  /// Prototype
 using LineSegment2DPtr = std::shared_ptr<LineSegment2D>;
 using LineSegment2DConstPtr = std::shared_ptr<LineSegment2D const>;
 
@@ -16,7 +16,7 @@ using LineSegment2DConstPtr = std::shared_ptr<LineSegment2D const>;
 class LineSegment2D : public Line2D
 {
 protected:
-  Point2D p0_, p1_;   /// the lines endpoints
+  Point2D p0_, p1_;  /// the lines endpoints
 
 public:
   /// constructor
@@ -137,5 +137,5 @@ public:
 using LineSegments2D = std::vector<LineSegment2D>;
 using LineSegments2DPtr = std::shared_ptr<LineSegments2D>;
 using LineSegments2DConstPtr = std::shared_ptr<LineSegments2D const>;
-}       // namespace tuw
+}  // namespace tuw
 #endif  // TUW_GEOMETRY__LINESEGMENT2D_HPP

@@ -1,14 +1,14 @@
 #ifndef TUW_GEOMETRY__WORLD_SCOPED_MAPS_HPP
 #define TUW_GEOMETRY__WORLD_SCOPED_MAPS_HPP
 #include <opencv2/core/core_c.h>
-#include <tuw_geometry/pose2d.hpp>
 
 #include <opencv2/core/core.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
+#include <tuw_geometry/pose2d.hpp>
 
 namespace tuw
 {
-class WorldScopedMaps;   /// Prototype
+class WorldScopedMaps;  /// Prototype
 using WorldScopedMapsPtr = std::shared_ptr<WorldScopedMaps>;
 using WorldScopedMapsConstPtr = std::shared_ptr<WorldScopedMaps const>;
 
@@ -20,13 +20,13 @@ class WorldScopedMaps
   cv::Matx33d Mw2m_;                                 ///< transformation world to map
   cv::Matx33d Mm2w_;                                 ///< transformation map to world
   int width_pixel_, height_pixel_;                   ///< dimensions of the canvas in pixel
-  double min_x_, max_x_, min_y_, max_y_, rotation_;   ///< area and rotation of the visualized space
+  double min_x_, max_x_, min_y_, max_y_, rotation_;  ///< area and rotation of the visualized space
   double dx_, dy_;                                   ///< dimension of the visualized space
   double ox_, oy_;                                   ///< image offset
   double mx_, my_;                                   ///< offset of the visualized space
   double sx_, sy_;                                   ///< scale
 
-  void init();   ///< initializes the transformation matrices
+  void init();  ///< initializes the transformation matrices
 
 public:
   //special class member functions
@@ -55,7 +55,7 @@ public:
      * used to initialize the figure based on a ROS nav_msgs/MapMetaData
      * @param T nav_msgs/MapMetaData
      **/
-  template<typename T>
+  template <typename T>
   void init(const T & metadata)
   {
     width_pixel_ = metadata.width, height_pixel_ = metadata.height;
@@ -72,9 +72,9 @@ public:
     double ca = cos(rotation_), sa = sin(rotation_);
     mx_ = metadata.origin.position.x;
     my_ = metadata.origin.position.y;
-    cv::Matx<double, 3, 3> Tw(1, 0, -mx_, 0, 1, -my_, 0, 0, 1);      // translation
-    cv::Matx<double, 3, 3> Sc(sx_, 0, 0, 0, sy_, 0, 0, 0, 1);      // scaling
-    cv::Matx<double, 3, 3> R(ca, -sa, 0, sa, ca, 0, 0, 0, 1);      // rotation
+    cv::Matx<double, 3, 3> Tw(1, 0, -mx_, 0, 1, -my_, 0, 0, 1);  // translation
+    cv::Matx<double, 3, 3> Sc(sx_, 0, 0, 0, sy_, 0, 0, 0, 1);    // scaling
+    cv::Matx<double, 3, 3> R(ca, -sa, 0, sa, ca, 0, 0, 0, 1);    // rotation
     Mw2m_ = R * Sc * Tw;
     Mm2w_ = Mw2m_.inv();
     Point2D p = m2w(width_pixel_, height_pixel_);
@@ -97,7 +97,7 @@ public:
      * @param thickness line thickness --> @see opencv
      * @param lineType line type --> @see opencv
      **/
-  template<typename T>
+  template <typename T>
   void line(
     T & map, const Point2D & p0, const Point2D & p1, const cv::Scalar & color, int thickness = 1,
     int lineType = cv::LINE_AA) const
@@ -113,7 +113,7 @@ public:
      * @param thickness line thickness --> @see opencv
      * @param lineType line type --> @see opencv
      **/
-  template<typename T>
+  template <typename T>
   void circle(
     T & map, const Point2D & p, int radius, const cv::Scalar & color, int thickness = 1,
     int lineType = cv::LINE_AA) const
@@ -126,7 +126,7 @@ public:
      * @param map opencv matrix
      * @param p location
      **/
-  template<typename T>
+  template <typename T>
   cv::Scalar_<T> get(cv::Mat_<T> & map, const Point2D & p) const
   {
     return map.at(w2m(p).cv());

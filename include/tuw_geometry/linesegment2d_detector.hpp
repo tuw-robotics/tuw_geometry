@@ -8,7 +8,7 @@
 namespace tuw
 {
 
-class LineSegment2DDetectorParameter;   /// Prototype
+class LineSegment2DDetectorParameter;  /// Prototype
 using LineSegment2DDetectorParameterPtr = std::shared_ptr<LineSegment2DDetectorParameter>;
 using LineSegment2DDetectorParameterConstPtr =
   std::shared_ptr<LineSegment2DDetectorParameter const>;
@@ -33,7 +33,7 @@ public:
   int min_points_per_unit;
 };
 
-class LineSegment2DDetector;   /// Prototype
+class LineSegment2DDetector;  /// Prototype
 using LineSegment2DDetectorPtr = std::shared_ptr<LineSegment2DDetector>;
 using LineSegment2DDetectorConstPtr = std::shared_ptr<LineSegment2DDetector const>;
 /**
@@ -47,12 +47,9 @@ public:
     **/
   class LineSegment : public LineSegment2D
   {
-public:
+  public:
     /// constructor
-    LineSegment()
-    : LineSegment2D(), id_(0)
-    {
-    }
+    LineSegment() : LineSegment2D(), id_(0) {}
     void set(unsigned int idx0, unsigned int idx1, const std::vector<Point2D> & points);
     void updatePoints(const std::vector<Point2D> & points);
     bool isSupportPoint(int idx);
@@ -74,5 +71,5 @@ private:
   std::vector<LineSegment> segments_;
 };
 
-}       // namespace tuw
+}  // namespace tuw
 #endif  // TUW_GEOMETRY__LINE2DFILTER_HPP

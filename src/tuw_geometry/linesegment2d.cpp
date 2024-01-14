@@ -2,17 +2,22 @@
 
 using namespace tuw;
 LineSegment2D::LineSegment2D() {}
-LineSegment2D::LineSegment2D(const LineSegment2D & l)
-: Line2D(l.line()), p0_(l.p0()), p1_(l.p1()) {}
+LineSegment2D::LineSegment2D(const LineSegment2D & l) : Line2D(l.line()), p0_(l.p0()), p1_(l.p1())
+{
+}
 LineSegment2D::LineSegment2D(const Point2D & p0, const Point2D & p1)
-: Line2D(p0, p1, true), p0_(p0), p1_(p1) {}
+: Line2D(p0, p1, true), p0_(p0), p1_(p1)
+{
+}
 LineSegment2D::LineSegment2D(
   const double & x0, const double & y0, const double & x1, const double & y1)
-: Line2D(x0, y0, x1, y1, true), p0_(x0, y0), p1_(x1, y1) {}
-const double & LineSegment2D::x0() const {return p0_.x();}
-const double & LineSegment2D::y0() const {return p0_.y();}
-const double & LineSegment2D::x1() const {return p1_.x();}
-const double & LineSegment2D::y1() const {return p1_.y();}
+: Line2D(x0, y0, x1, y1, true), p0_(x0, y0), p1_(x1, y1)
+{
+}
+const double & LineSegment2D::x0() const { return p0_.x(); }
+const double & LineSegment2D::y0() const { return p0_.y(); }
+const double & LineSegment2D::x1() const { return p1_.x(); }
+const double & LineSegment2D::y1() const { return p1_.y(); }
 double LineSegment2D::angle() const
 {
   double dx = p1_.x() - p0_.x();
@@ -25,10 +30,10 @@ Point2D LineSegment2D::pc() const
   double dy = p1_.y() - p0_.y();
   return Point2D(p0_.x() + dx / 2., p0_.y() + dy / 2.);
 }
-const Point2D & LineSegment2D::p0() const {return p0_;}
-const Point2D & LineSegment2D::p1() const {return p1_;}
-const Line2D & LineSegment2D::line() const {return *this;}
-double LineSegment2D::length() const {return p0_.distanceTo(p1_);}
+const Point2D & LineSegment2D::p0() const { return p0_; }
+const Point2D & LineSegment2D::p1() const { return p1_; }
+const Line2D & LineSegment2D::line() const { return *this; }
+double LineSegment2D::length() const { return p0_.distanceTo(p1_); }
 /// comparison operator @return true on equal
 bool LineSegment2D::operator==(const LineSegment2D & o) const
 {

@@ -21,7 +21,7 @@ bool LineSegment2DDetector::LineSegment::isSupportPoint(int idx)
     return true;
   }
 }
-unsigned int LineSegment2DDetector::LineSegment::nrSupportPoint() {return idx1_ - idx0_ + 2;}
+unsigned int LineSegment2DDetector::LineSegment::nrSupportPoint() { return idx1_ - idx0_ + 2; }
 void LineSegment2DDetector::LineSegment::set(
   unsigned int idx0, unsigned int idx1, const std::vector<Point2D> & points)
 {

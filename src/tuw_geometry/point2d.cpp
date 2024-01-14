@@ -3,16 +3,14 @@
 #include "tuw_geometry/polar2d.hpp"
 using namespace tuw;
 
-Point2D::Point2D()
-: cv::Vec<double, 3>(0, 0, 1) {}
-Point2D::Point2D(const cv::Point & p)
-: cv::Vec<double, 3>(p.x, p.y, 1.) {}
-Point2D::Point2D(double x, double y)
-: cv::Vec<double, 3>(x, y, 1.) {}
-Point2D::Point2D(double x, double y, double h)
-: cv::Vec<double, 3>(x, y, h) {}
+Point2D::Point2D() : cv::Vec<double, 3>(0, 0, 1) {}
+Point2D::Point2D(const cv::Point & p) : cv::Vec<double, 3>(p.x, p.y, 1.) {}
+Point2D::Point2D(double x, double y) : cv::Vec<double, 3>(x, y, 1.) {}
+Point2D::Point2D(double x, double y, double h) : cv::Vec<double, 3>(x, y, h) {}
 Point2D::Point2D(const Polar2D & p)
-: cv::Vec<double, 3>(p.rho() * cos(p.alpha()), p.rho() * sin(p.alpha()), 1) {}
+: cv::Vec<double, 3>(p.rho() * cos(p.alpha()), p.rho() * sin(p.alpha()), 1)
+{
+}
 
 /**
  * sets values
@@ -23,7 +21,7 @@ Point2D & Point2D::set(const Point2D & p)
 {
   this->val[0] = p.x(), this->val[1] = p.y();
   return *this;
-}/**
+} /**
  * sets values
  * @param x
  * @param y
@@ -49,68 +47,68 @@ Point2D & Point2D::set(double x, double y, double h)
  * translational x component
  * @return rotation
  **/
-const double & Point2D::x() const {return this->val[0];}
+const double & Point2D::x() const { return this->val[0]; }
 /**
  * translational x component
  * @return rotation
  **/
-double & Point2D::x() {return this->val[0];}
+double & Point2D::x() { return this->val[0]; }
 /**
  * translational y component
  * @return y component
  **/
-const double & Point2D::y() const {return this->val[1];}
+const double & Point2D::y() const { return this->val[1]; }
 /**
  * translational y component
  * @return y component
  **/
-double & Point2D::y() {return this->val[1];}
+double & Point2D::y() { return this->val[1]; }
 /**
  * homogeneous component
   * @return rotation
   **/
-const double & Point2D::h() const {return this->val[2];}
+const double & Point2D::h() const { return this->val[2]; }
 /**
  * homogeneous component
   * @return rotation
   **/
-double & Point2D::h() {return this->val[2];}
+double & Point2D::h() { return this->val[2]; }
 
 /**
  * set funktion for x
  * @param x component
  **/
-void Point2D::set_x(double v) {this->x() = v;}
+void Point2D::set_x(double v) { this->x() = v; }
 /**
  * get function for x
  * @return x component
  **/
-double Point2D::get_x() const {return this->x();}
+double Point2D::get_x() const { return this->x(); }
 /**
  * set funktion for y
  * @param y component
  **/
-void Point2D::set_y(double v) {this->y() = v;}
+void Point2D::set_y(double v) { this->y() = v; }
 /**
  * get function for y
  * @return y component
  **/
-double Point2D::get_y() const {return this->y();}
+double Point2D::get_y() const { return this->y(); }
 /**
  * set funktion for h
  * @param h component
  **/
-void Point2D::set_h(double v) {this->h() = v;}
+void Point2D::set_h(double v) { this->h() = v; }
 /**
  * get function for h
  * @return h component
  **/
-double Point2D::get_h() const {return this->h();}
+double Point2D::get_h() const { return this->h(); }
 /**
  * vector without homogeneous component
  * @return state vector
  **/
-cv::Vec<double, 2> Point2D::vector() const {return cv::Vec<double, 2>(this->x(), this->y());}
+cv::Vec<double, 2> Point2D::vector() const { return cv::Vec<double, 2>(this->x(), this->y()); }
 /**
  * returns the distance to an other point
  * @return disance
@@ -132,17 +130,14 @@ const cv::Point_<double> & Point2D::cv() const
  * returns a cv::Point_<double> reference
  * @return cv
  **/
-cv::Point_<double> & Point2D::cv()
-{
-  return reinterpret_cast<cv::Point_<double> &>(*this);
-}
+cv::Point_<double> & Point2D::cv() { return reinterpret_cast<cv::Point_<double> &>(*this); }
 /**
  * angle form origin to point (alpha in polar space)
  * @see radius
  * @see Polar2D
  * @return angle between -PI and +PI
  **/
-double Point2D::angle() const {return atan2(this->val[1], this->val[0]);}
+double Point2D::angle() const { return atan2(this->val[1], this->val[0]); }
 /**
   * distance to origin (rho in polar space)
   * @see angle

@@ -44,7 +44,6 @@ TEST(Plane3D, intersectionLine)
   ASSERT_TRUE(pi[1] == 0);
   ASSERT_TRUE(pi[2] == 0);
 
-
   tuw::Plane3D planeB;
   planeB.create(cv::Vec3d(0, 0, 0), cv::Vec3d(0, 0, 1));
   planeB.intersectionLine(cv::Vec3d(4, 5, 1), cv::Vec3d(2, 3, -1), pi);
@@ -52,7 +51,6 @@ TEST(Plane3D, intersectionLine)
   ASSERT_TRUE(pi[0] == 3);
   ASSERT_TRUE(pi[1] == 4);
   ASSERT_TRUE(pi[2] == 0);
-
 }
 
 TEST(VectorCV, Carsting1)
@@ -60,7 +58,7 @@ TEST(VectorCV, Carsting1)
   cv::Vec<double, 4> a(1, 2, 3, 4);
   cv::Vec<double, 3> b(5, 6, 7);
   // std::cout << "a: " << a << ", b: " << b << std::endl;
-  cv::Vec<double, 3> *c = reinterpret_cast<cv::Vec<double, 3>*>(&a);
+  cv::Vec<double, 3> * c = reinterpret_cast<cv::Vec<double, 3> *>(&a);
   //cv::Vec<double, 3> & c = (cv::Vec<double, 3> &)a;
   *c = b;
   // std::cout << "col: " << c.cols << ", rows: " << c.rows << std::endl;
@@ -114,7 +112,6 @@ TEST(StampedData, TestCompare)
   ASSERT_TRUE(p0 < p1);
   ASSERT_TRUE(p1 > p0);
 }
-
 
 int main(int argc, char ** argv)
 {

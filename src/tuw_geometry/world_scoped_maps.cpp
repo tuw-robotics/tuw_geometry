@@ -1,11 +1,11 @@
 #include <tgmath.h>
-#include <tuw_geometry/utils.hpp>
-#include <tuw_geometry/world_scoped_maps.hpp>
 
 #include <cfloat>
 #include <iomanip>
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
+#include <tuw_geometry/utils.hpp>
+#include <tuw_geometry/world_scoped_maps.hpp>
 
 using namespace tuw;
 
@@ -14,7 +14,7 @@ WorldScopedMaps::WorldScopedMaps()
 {
 }
 
-bool WorldScopedMaps::initialized() {return (width_pixel_ != -1) && (height_pixel_ != -1);}
+bool WorldScopedMaps::initialized() { return (width_pixel_ != -1) && (height_pixel_ != -1); }
 
 void WorldScopedMaps::init()
 {
@@ -50,32 +50,32 @@ void WorldScopedMaps::init(
   init();
 }
 
-const cv::Matx33d & WorldScopedMaps::Mw2m() const {return Mw2m_;}
-const cv::Matx33d & WorldScopedMaps::Mm2w() const {return Mm2w_;}
-Point2D WorldScopedMaps::w2m(const Point2D & src) const {return Mw2m_ * src;}
-Point2D WorldScopedMaps::w2m(double x, double y) const {return w2m(Point2D(x, y));}
+const cv::Matx33d & WorldScopedMaps::Mw2m() const { return Mw2m_; }
+const cv::Matx33d & WorldScopedMaps::Mm2w() const { return Mm2w_; }
+Point2D WorldScopedMaps::w2m(const Point2D & src) const { return Mw2m_ * src; }
+Point2D WorldScopedMaps::w2m(double x, double y) const { return w2m(Point2D(x, y)); }
 Point2D & WorldScopedMaps::w2m(const Point2D & src, Point2D & des) const
 {
   des = Mw2m_ * src;
   return des;
 }
-Point2D WorldScopedMaps::m2w(const Point2D & src) const {return Mm2w_ * src;}
-Point2D WorldScopedMaps::m2w(double x, double y) const {return m2w(Point2D(x, y));}
+Point2D WorldScopedMaps::m2w(const Point2D & src) const { return Mm2w_ * src; }
+Point2D WorldScopedMaps::m2w(double x, double y) const { return m2w(Point2D(x, y)); }
 Point2D & WorldScopedMaps::m2w(const Point2D & src, Point2D & des) const
 {
   des = Mm2w_ * src;
   return des;
 }
-double WorldScopedMaps::max_x() const {return max_x_;}
-double WorldScopedMaps::min_x() const {return min_x_;}
-double WorldScopedMaps::scale_x() const {return sx_;}
-double WorldScopedMaps::max_y() const {return max_y_;}
-double WorldScopedMaps::min_y() const {return min_y_;}
-double WorldScopedMaps::scale_y() const {return sy_;}
-int WorldScopedMaps::width() const {return width_pixel_;}
-int WorldScopedMaps::height() const {return height_pixel_;}
+double WorldScopedMaps::max_x() const { return max_x_; }
+double WorldScopedMaps::min_x() const { return min_x_; }
+double WorldScopedMaps::scale_x() const { return sx_; }
+double WorldScopedMaps::max_y() const { return max_y_; }
+double WorldScopedMaps::min_y() const { return min_y_; }
+double WorldScopedMaps::scale_y() const { return sy_; }
+int WorldScopedMaps::width() const { return width_pixel_; }
+int WorldScopedMaps::height() const { return height_pixel_; }
 
-double WorldScopedMaps::scale_w2m(double v) const {return v * sx_;}
+double WorldScopedMaps::scale_w2m(double v) const { return v * sx_; }
 std::string WorldScopedMaps::infoHeader() const
 {
   char buffer[0x1FF];

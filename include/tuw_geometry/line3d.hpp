@@ -7,7 +7,7 @@
 
 namespace tuw
 {
-class Line3D;   /// Prototype
+class Line3D;  /// Prototype
 using Line3DPtr = std::shared_ptr<Line3D>;
 using Line3DConstPtr = std::shared_ptr<Line3D const>;
 
@@ -34,5 +34,5 @@ public:
 using Lines3D = std::vector<Line3D>;
 using Lines3DPtr = std::shared_ptr<Lines3D>;
 using Lines3DConstPtr = std::shared_ptr<Lines3D const>;
-}      // namespace tuw
+}  // namespace tuw
 #endif  // TUW_GEOMETRY__LINE3D_HPP

@@ -1,9 +1,8 @@
-#include <tuw_geometry/utils.hpp>
-
 #include <iomanip>
 #include <iostream>
 #include <sstream>
 #include <string>
+#include <tuw_geometry/utils.hpp>
 
 namespace tuw
 {

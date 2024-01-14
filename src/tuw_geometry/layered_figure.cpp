@@ -31,10 +31,10 @@
  ***************************************************************************/
 
 #include <opencv2/core/core_c.h>
-#include <tuw_geometry/layered_figure.hpp>
 
 #include <opencv2/core/core.hpp>
 #include <opencv2/opencv.hpp>
+#include <tuw_geometry/layered_figure.hpp>
 
 using namespace cv;
 using namespace std;

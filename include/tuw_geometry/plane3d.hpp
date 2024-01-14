@@ -1,14 +1,13 @@
 #ifndef TUW_GEOMETRY__PLANE3D_HPP
 #define TUW_GEOMETRY__PLANE3D_HPP
 
-#include <tuw_geometry/utils.hpp>
-
 #include <memory>
 #include <opencv2/core/core.hpp>
+#include <tuw_geometry/utils.hpp>
 
 namespace tuw
 {
-class Plane3D;     /// Prototype
+class Plane3D;  /// Prototype
 using Plane3DPtr = std::shared_ptr<Plane3D>;
 using Plane3DConstPtr = std::shared_ptr<Plane3D const>;
 
@@ -47,7 +46,6 @@ public:
        **/
   void create(const cv::Vec3d & p, const cv::Vec3d & n);
 
-
   /** Finds a line plane intersection
        * @param p1 line start
        * @param p2 line end
@@ -62,5 +60,5 @@ public:
 private:
   double mult();
 };
-}
-#endif // TUW_GEOMETRY__PLANE3D_HPP
+}  // namespace tuw
+#endif  // TUW_GEOMETRY__PLANE3D_HPP

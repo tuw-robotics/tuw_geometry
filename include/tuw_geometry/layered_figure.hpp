@@ -33,11 +33,10 @@
 #ifndef TUW_GEOMETRY__LAYERED_FIGURE_HPP
 #define TUW_GEOMETRY__LAYERED_FIGURE_HPP
 
-#include <tuw_geometry/figure.hpp>
-#include <tuw_geometry/layered_maps.hpp>
-
 #include <memory>
 #include <opencv2/opencv.hpp>
+#include <tuw_geometry/figure.hpp>
+#include <tuw_geometry/layered_maps.hpp>
 
 namespace tuw
 {

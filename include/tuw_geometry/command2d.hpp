@@ -6,7 +6,7 @@
 
 namespace tuw
 {
-class Command2D;   /// Prototype
+class Command2D;  /// Prototype
 using Command2DPtr = std::shared_ptr<Command2D>;
 using Command2DConstPtr = std::shared_ptr<Command2D const>;
 

@@ -33,9 +33,8 @@
 #ifndef TUW_GEOMETRY__LAYERED_MAPS_HPP
 #define TUW_GEOMETRY__LAYERED_MAPS_HPP
 
-#include <tuw_geometry/world_scoped_maps.hpp>
-
 #include <memory>
+#include <tuw_geometry/world_scoped_maps.hpp>
 
 namespace tuw
 {

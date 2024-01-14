@@ -1,14 +1,14 @@
 #ifndef TUW_GEOMETRY__FIGURE_HPP
 #define TUW_GEOMETRY__FIGURE_HPP
 #include <opencv2/core/core_c.h>
+
+#include <opencv2/core/core.hpp>
 #include <tuw_geometry/pose2d.hpp>
 #include <tuw_geometry/world_scoped_maps.hpp>
 
-#include <opencv2/core/core.hpp>
-
 namespace tuw
 {
-class Figure;   /// Prototype
+class Figure;  /// Prototype
 using FigurePtr = std::shared_ptr<Figure>;
 using FigureConstPtr = std::shared_ptr<Figure const>;
 
