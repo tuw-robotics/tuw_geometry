@@ -71,6 +71,23 @@ void Figure::setView(const cv::Mat & view)
 }
 
 void Figure::init(
+  int width_pixel, int height_pixel, cv::Matx33d Mw2m, double grid_scale_y, double grid_scale_x,
+  const std::string & background_image)
+{
+  WorldScopedMaps::init(width_pixel, height_pixel, Mw2m);
+  grid_scale_x_ = grid_scale_x, grid_scale_y_ = grid_scale_y;
+  background_filename_ = background_image;
+  if (!background_filename_.empty()) {
+    background_image_ = cv::imread(background_filename_, cv::IMREAD_COLOR);
+  } else {
+    background_image_.create(height(), width(), CV_8UC3);
+    background_image_.setTo(0xFF);
+  }
+  drawBackground();
+  clear();
+}
+
+void Figure::init(
   int width_pixel, int height_pixel, double min_x, double max_x, double min_y, double max_y,
   double rotation, double grid_scale_y, double grid_scale_x, const std::string & background_image)
 {
@@ -178,7 +195,9 @@ void Figure::symbol(
   cv::Mat & view, const Pose2D & p, double radius, const cv::Scalar & color, int thickness,
   int lineType)
 {
-  circle(view, p.position(), radius * (scale_x() + scale_y()) / 2., color, thickness, lineType);
+  circle(
+    view, p.position(), radius * (fabs(scale_x()) + fabs(scale_y())) / 2., color, thickness,
+    lineType);
   line(view, p.position(), p.point_ahead(radius), color, thickness, lineType);
 }
 void Figure::putText(

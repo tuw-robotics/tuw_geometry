@@ -57,6 +57,10 @@ public:
     double rotation = 0, double grid_scale_x = -1, double grid_scale_y = -1,
     const std::string & background_image = std::string());
 
+  virtual void init(
+    int width_pixel, int height_pixel, cv::Matx33d Mw2m, double grid_scale_y, double grid_scale_x,
+    const std::string & background_image);
+
   /**
      * @return title of the window
      **/
