@@ -16,6 +16,10 @@ find_package(std_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(OpenCV REQUIRED COMPONENTS core highgui imgcodecs imgproc videoio)
 
+# Geographiclib installs FindGeographicLib.cmake to this non-standard location
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "/usr/share/cmake/geographiclib/")
+find_package(GeographicLib REQUIRED)
+
 add_library(${PROJECT_NAME} SHARED
   src/${PROJECT_NAME}/utils.cpp
   src/${PROJECT_NAME}/point2d.cpp
@@ -29,6 +33,7 @@ add_library(${PROJECT_NAME} SHARED
   src/${PROJECT_NAME}/figure.cpp
   src/${PROJECT_NAME}/tuw_geometry.cpp
   src/${PROJECT_NAME}/world_scoped_maps.cpp
+  src/${PROJECT_NAME}/geo_map.cpp
   src/${PROJECT_NAME}/layered_maps.cpp
   src/${PROJECT_NAME}/layered_figure.cpp
 )
@@ -41,7 +46,8 @@ ament_target_dependencies(${PROJECT_NAME}
   rclcpp_components
   sensor_msgs
   std_msgs
-  OpenCV)
+  OpenCV
+  GeographicLib)
 
 
   # Causes the visibility macros to use dllexport rather than dllimport,
