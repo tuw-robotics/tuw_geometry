@@ -1,16 +1,15 @@
 #ifndef TUW_GEO_MAP__GEO_MAP_HPP_
 #define TUW_GEO_MAP__GEO_MAP_HPP_
 
-#include <memory>
 #include <opencv2/core/core.hpp>
 #include <tuw_geometry/pose2d.hpp>
-#include <vector>
 
 namespace tuw
 {
 /**
  * class to hold geographic meta data for a map
  * it allows to access pixels based on geo information
+ * In order to use it the GeographicLib must be installed (check the CMakeFile.txt)
  **/
 class GeoMapMetaData
 {
@@ -129,38 +128,102 @@ public:
   **/
   cv::Point g2m(cv::Vec3d & src) const;
 
+  /**
+   * map [pix] -> world [m]
+   * @param src x, y
+   * @param des x, y, z
+   * @return x, y, z
+  **/
   cv::Vec3d & map2world(const cv::Vec2d & src, cv::Vec3d & des) const;
+  /**
+   * map [pix] -> world [m]
+   * @param src x, y
+   * @param des x, y
+   * @return x, y
+  **/
   cv::Vec2d & map2world(const cv::Vec2d & src, cv::Vec2d & des) const;
+  /**
+   * map [pix] -> world [m]
+   * @param src x, y
+   * @return x, y
+  **/
   cv::Vec2d map2world(const cv::Vec2d & src) const;
+  /**
+   * world [m] -> utm [m]
+   * @param src x, y, z
+   * @param des x, y, z
+   * @return x, y, z
+  **/
   cv::Vec3d & world2utm(const cv::Vec3d & src, cv::Vec3d & des) const;
+  /**
+   * world [m] -> utm [m]
+   * @param src x, y, z
+   * @return x, y, z
+  **/
   cv::Vec3d world2utm(const cv::Vec3d & src) const;
+  /**
+   * utm [m] -> geo [latitude longitude altitude]
+   * @param src x, y, z
+   * @param des latitude longitude altitude
+   * @return latitude longitude altitude
+  **/
   cv::Vec3d & utm2lla(const cv::Vec3d & src, cv::Vec3d & des) const;
+  /**
+   * utm [m] -> geo [latitude longitude altitude]
+   * @param src x, y, z
+   * @return latitude longitude altitude
+  **/
   cv::Vec3d utm2lla(const cv::Vec3d & src) const;
-  cv::Vec3d & m2g(
-    const cv::Vec2d & src, cv::Vec3d & des) const;  /// map [pix] to latitude, longitude, altitude
-  cv::Vec3d & m2g(
-    const cv::Point & src, cv::Vec3d & des) const;  /// map [pix] to latitude, longitude, altitude
-  cv::Vec3d m2g(const cv::Point & src) const;       /// map [pix] to latitude, longitude, altitude
+  /**
+   * map [pix]  -> geo [latitude longitude altitude]
+   * @param src x, y
+   * @param des latitude longitude altitude
+   * @return latitude longitude altitude
+  **/
+  cv::Vec3d & m2g(const cv::Vec2d & src, cv::Vec3d & des) const; 
+  /**
+   * map [pix]  -> geo [latitude longitude altitude]
+   * @param src x, y
+   * @param des latitude longitude altitude
+   * @return latitude longitude altitude
+  **/
+  cv::Vec3d & m2g(const cv::Point & src, cv::Vec3d & des) const;
+  /**
+   * map [pix]  -> geo [latitude longitude altitude]
+   * @param src x, y
+   * @return latitude longitude altitude
+  **/
+  cv::Vec3d m2g(const cv::Point & src) const;
 
   /**
    * utm offset to map
    * @return x, y, z
   **/
   cv::Vec3d utm() {return utm_offset;}
+  /**
+   * utm zone
+   * @return utm zone id
+  **/
+  int zone() {return utm_zone;}
+
+  /**
+   * Northern Hemisphere
+   * @return true if map is on northern hemisphere
+  **/
+  bool is_north() {return utm_northp;}
+
+  /**
+   * Southern Hemisphere
+   * @return true if map is on southern hemisphere
+  **/
+  bool is_south() {return !utm_northp;}
 
 private:
-  cv::Vec3d utm_offset;
-  int utm_zone;
-  bool utm_northp;
-  cv::Matx33d Mw2m;
-  cv::Matx33d Mm2w;
-};
-
-class GeoMap
-{
-public:
-  GeoMap();
-  void init(const GeoMapMetaData & info);
+  cv::Vec3d utm_offset; /// utm offset to map
+  int utm_zone;         /// utm zone id
+  bool utm_northp;      /// true if map is on northern hemisphere
+  cv::Matx33d Mw2m;     /// Matrix world to map
+  cv::Matx33d Mm2w;     /// Matrix map to world
 };
 
 }  // namespace tuw

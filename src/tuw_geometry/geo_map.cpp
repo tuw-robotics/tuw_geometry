@@ -125,8 +125,6 @@ cv::Vec2d GeoMapMetaData::world2map(const cv::Vec2d & src) const
   return world2map(src, des);
 }
 
-GeoMap::GeoMap() {}
-
 cv::Point & GeoMapMetaData::g2m(const cv::Vec3d & src, cv::Point & des) const
 {
   cv::Vec2d pm = world2map(utm2world(lla2utm(src)));
