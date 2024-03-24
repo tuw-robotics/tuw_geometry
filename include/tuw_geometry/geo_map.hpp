@@ -119,8 +119,7 @@ public:
    * @param des x, y
    * @return x, y
   **/
-  cv::Point & g2m(
-    const cv::Vec3d & src, cv::Point & des) const;
+  cv::Point & g2m(const cv::Vec3d & src, cv::Point & des) const;
   /**
    * geo [latitude longitude altitude] -> map [pix]
    * @param src latitude longitude altitude
@@ -180,7 +179,7 @@ public:
    * @param des latitude longitude altitude
    * @return latitude longitude altitude
   **/
-  cv::Vec3d & m2g(const cv::Vec2d & src, cv::Vec3d & des) const; 
+  cv::Vec3d & m2g(const cv::Vec2d & src, cv::Vec3d & des) const;
   /**
    * map [pix]  -> geo [latitude longitude altitude]
    * @param src x, y
@@ -219,11 +218,11 @@ public:
   bool is_south() {return !utm_northp;}
 
 private:
-  cv::Vec3d utm_offset; /// utm offset to map
-  int utm_zone;         /// utm zone id
-  bool utm_northp;      /// true if map is on northern hemisphere
-  cv::Matx33d Mw2m;     /// Matrix world to map
-  cv::Matx33d Mm2w;     /// Matrix map to world
+  cv::Vec3d utm_offset;  /// utm offset to map
+  int utm_zone;          /// utm zone id
+  bool utm_northp;       /// true if map is on northern hemisphere
+  cv::Matx33d Mw2m;      /// Matrix world to map
+  cv::Matx33d Mm2w;      /// Matrix map to world
 };
 
 }  // namespace tuw
