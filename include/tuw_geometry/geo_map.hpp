@@ -6,6 +6,30 @@
 
 namespace tuw
 {
+
+/**
+ * class to hole world file data
+ * A world file is a six line plain text sidecar file used by geographic information systems (GIS)
+ * to georeference raster map images. The file specification was introduced by Esri
+ **/
+class WorldFile
+{
+public:
+  WorldFile();
+  double resolution_x;  /// pixel size in the x-direction in map units/pixel
+  double rotation_y;    /// rotation about y-axis
+  double rotation_x;    /// rotation about x-axis
+  double resolution_y;  /// pixel size in the y-direction in map units, almost always negative
+  double coordinate_x;  /// x-coordinate of the center of the upper left pixel
+  double coordinate_y;  /// y-coordinate of the center of the upper left pixel
+  /**
+   * reads a world file with six lines
+   * @param filename
+   * @return true on error otherwise false
+  **/
+  bool read_jgw(const std::string & filename);
+};
+
 /**
  * class to hold geographic meta data for a map
  * it allows to access pixels based on geo information
