@@ -198,6 +198,26 @@ public:
   **/
   cv::Vec3d utm2lla(const cv::Vec3d & src) const;
   /**
+   * map [pix]  -> utm [m]
+   * @param src x, y
+   * @param des x, y, z
+   * @return x, y, z
+  **/
+  cv::Vec3d & map2utm(const cv::Vec2d & src, cv::Vec3d & des) const;
+  /**
+   * map [pix]  -> utm [m]
+   * @param src x, y
+   * @param des x, y, z
+   * @return x, y, z
+  **/
+  cv::Vec3d & map2utm(const cv::Point & src, cv::Vec3d & des) const;
+  /**
+   * map [pix]  -> utm [m]
+   * @param src x, y
+   * @return x, y, z
+  **/
+  cv::Vec3d map2utm(const cv::Point & src) const;
+  /**
    * map [pix]  -> geo [latitude longitude altitude]
    * @param src x, y
    * @param des latitude longitude altitude

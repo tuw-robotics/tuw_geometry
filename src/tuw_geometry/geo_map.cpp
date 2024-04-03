@@ -210,6 +210,24 @@ cv::Vec3d GeoMapMetaData::world2utm(const cv::Vec3d & src) const
   return world2utm(src, des);
 }
 
+cv::Vec3d & GeoMapMetaData::map2utm(const cv::Vec2d & src, cv::Vec3d & des) const
+{
+  cv::Vec3d p_w;
+  return world2utm(map2world(src, p_w), des);
+}
+
+cv::Vec3d & GeoMapMetaData::map2utm(const cv::Point & src, cv::Vec3d & des) const
+{
+  cv::Vec2d tmp(src.x, src.y);
+  cv::Vec3d p_w;
+  return world2utm(map2world(tmp, p_w), des);
+}
+cv::Vec3d GeoMapMetaData::map2utm(const cv::Point & src) const
+{
+  cv::Vec3d des;
+  return map2utm(src, des);
+}
+
 cv::Vec3d & GeoMapMetaData::m2g(const cv::Vec2d & src, cv::Vec3d & des) const
 {
   cv::Vec3d p_w, p_utm;
