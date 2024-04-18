@@ -74,7 +74,7 @@ void Figure::init(
   int width_pixel, int height_pixel, cv::Matx33d Mw2m, double grid_scale_y, double grid_scale_x,
   const std::string & background_image)
 {
-  WorldScopedMaps::init(width_pixel, height_pixel, Mw2m);
+  MapHdl::init(width_pixel, height_pixel, Mw2m);
   grid_scale_x_ = grid_scale_x, grid_scale_y_ = grid_scale_y;
   background_filename_ = background_image;
   if (!background_filename_.empty()) {
@@ -91,7 +91,7 @@ void Figure::init(
   int width_pixel, int height_pixel, double min_x, double max_x, double min_y, double max_y,
   double rotation, double grid_scale_y, double grid_scale_x, const std::string & background_image)
 {
-  WorldScopedMaps::init(width_pixel, height_pixel, min_x, max_x, min_y, max_y, rotation);
+  MapHdl::init(width_pixel, height_pixel, min_x, max_x, min_y, max_y, rotation);
   grid_scale_x_ = grid_scale_x, grid_scale_y_ = grid_scale_y;
   background_filename_ = background_image;
   if (!background_filename_.empty()) {
@@ -110,8 +110,8 @@ void Figure::drawBackground()
   if ((grid_scale_y_ > 0) && (grid_scale_x_ > 0)) {
     char txt[0xFF];
     Point2D p0, p1, pm0, pm1;
-    double min_y = round(WorldScopedMaps::min_y() / grid_scale_y_) * grid_scale_y_;
-    double max_y = round(WorldScopedMaps::max_y() / grid_scale_y_) * grid_scale_y_;
+    double min_y = round(MapHdl::min_y() / grid_scale_y_) * grid_scale_y_;
+    double max_y = round(MapHdl::max_y() / grid_scale_y_) * grid_scale_y_;
     for (p0.y() = min_y; p0.y() <= max_y; p0.y() += grid_scale_y_) {
       p0.x() = round(max_x() / grid_scale_x_) * grid_scale_x_;
       p1.y() = p0.y();
@@ -131,12 +131,12 @@ void Figure::drawBackground()
     cv::putText(background_, txt, w2m(p1).cv(), cv::FONT_HERSHEY_PLAIN, 0.6, white, 3, cv::LINE_AA);
     cv::putText(background_, txt, w2m(p1).cv(), cv::FONT_HERSHEY_PLAIN, 0.6, gray, 1, cv::LINE_AA);
 
-    double min_x = round(WorldScopedMaps::min_x() / grid_scale_x_) * grid_scale_x_;
-    double max_x = round(WorldScopedMaps::max_x() / grid_scale_x_) * grid_scale_x_;
+    double min_x = round(MapHdl::min_x() / grid_scale_x_) * grid_scale_x_;
+    double max_x = round(MapHdl::max_x() / grid_scale_x_) * grid_scale_x_;
     for (p0.x() = min_x; p0.x() <= max_x; p0.x() += grid_scale_x_) {
-      p0.y() = round(WorldScopedMaps::max_y() / grid_scale_y_) * grid_scale_y_;
+      p0.y() = round(MapHdl::max_y() / grid_scale_y_) * grid_scale_y_;
       p1.x() = p0.x();
-      p1.y() = round(WorldScopedMaps::min_y() / grid_scale_y_) * grid_scale_y_;
+      p1.y() = round(MapHdl::min_y() / grid_scale_y_) * grid_scale_y_;
       pm0 = w2m(p0);
       pm1 = w2m(p1);
       if (fabs(p0.x()) > FLT_MIN) {

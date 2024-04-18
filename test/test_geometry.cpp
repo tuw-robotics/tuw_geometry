@@ -31,6 +31,7 @@
 #include "gtest/gtest.h"
 #include "rclcpp/rclcpp.hpp"
 #include "tuw_geometry/tuw_geometry.hpp"
+#include <opencv2/highgui.hpp>
 
 TEST(Plane3D, intersectionLine)
 {
@@ -111,6 +112,61 @@ TEST(StampedData, TestCompare)
   ASSERT_EQ(p0, p2);
   ASSERT_TRUE(p0 < p1);
   ASSERT_TRUE(p1 > p0);
+}
+
+
+TEST(MapHdl, TestOrigin)
+{
+
+   
+  { 
+    /// Origin is on the top left
+    tuw::WorldScopedMaps map;
+    cv::Mat view(cv::Size(600, 400), CV_8UC3, cv::Scalar(0xFF, 0xFF, 0xFF));
+
+    map.init(view.size(), 0.1, cv::Point2d(0.,0.), 0.);
+    cv::Point p0 = map.w2m(tuw::Point2D(0,0)).cv();
+    cv::Point p1 = map.w2m(tuw::Point2D(30,-20)).cv();
+    cv::Point p2 = map.w2m(tuw::Point2D(50,-10)).cv();
+    cv::line(view, p0, p1, cv::Scalar(0, 255, 0));
+    ASSERT_EQ(cv::Point(0,0), p0);  
+    ASSERT_EQ(cv::Point(300,200), p1);  
+    ASSERT_EQ(cv::Point(500,100), p2);  
+    cv::imshow("map", view);
+    cv::waitKey(1000);
+  }
+  {
+    /// Origin is on the bottom left
+    tuw::WorldScopedMaps map;
+    cv::Mat view(cv::Size(600, 400), CV_8UC3, cv::Scalar(0xFF, 0xFF, 0xFF));
+
+    map.init(view.size(), 0.1, cv::Point2d(0,-40.), 0.);
+    cv::Point p0 = map.w2m(tuw::Point2D(0,0)).cv();
+    cv::Point p1 = map.w2m(tuw::Point2D(30,20)).cv();
+    cv::Point p2 = map.w2m(tuw::Point2D(50,30)).cv();
+    cv::line(view, p0, p1, cv::Scalar(0, 255, 0));
+    ASSERT_EQ(cv::Point(0,400), p0);  
+    ASSERT_EQ(cv::Point(300,200), p1);  
+    ASSERT_EQ(cv::Point(500,100), p2);  
+    cv::imshow("map", view);
+    cv::waitKey(1000);
+  }
+  {
+    /// Origin is on at the center
+    tuw::WorldScopedMaps map;
+    cv::Mat view(cv::Size(600, 400), CV_8UC3, cv::Scalar(0xFF, 0xFF, 0xFF));
+
+    map.init(view.size(), 0.1, cv::Point2d(0,-40.), 0.);
+    cv::Point p0 = map.w2m(tuw::Point2D(0,0)).cv();
+    cv::Point p1 = map.w2m(tuw::Point2D(30,20)).cv();
+    cv::Point p2 = map.w2m(tuw::Point2D(50,30)).cv();
+    cv::line(view, p0, p1, cv::Scalar(0, 255, 0));
+    ASSERT_EQ(cv::Point(0,400), p0);  
+    ASSERT_EQ(cv::Point(300,200), p1);  
+    ASSERT_EQ(cv::Point(500,100), p2);  
+    cv::imshow("map", view);
+    cv::waitKey(1000);
+  }
 }
 
 int main(int argc, char ** argv)

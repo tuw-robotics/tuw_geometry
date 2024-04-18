@@ -32,6 +32,7 @@ add_library(${PROJECT_NAME} SHARED
   src/${PROJECT_NAME}/layered_maps.cpp
   src/${PROJECT_NAME}/layered_figure.cpp
   src/${PROJECT_NAME}/geo_map.cpp
+  src/${PROJECT_NAME}/map_handler.cpp
 )
 
 # Geographiclib installs FindGeographicLib.cmake to this non-standard location

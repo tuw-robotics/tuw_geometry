@@ -37,6 +37,13 @@ public:
  **/
 class GeoMapMetaData
 {
+private:
+  cv::Vec3d utm_offset;  /// utm offset to map
+  int utm_zone;          /// utm zone id
+  bool utm_northp;       /// true if map is on northern hemisphere
+  cv::Matx33d Mw2m;      /// Matrix world to map
+  cv::Matx33d Mm2w;      /// Matrix map to world
+  
 public:
   GeoMapMetaData();
   double resolution;  /// The map resolution [m/cell]
@@ -261,12 +268,6 @@ public:
   **/
   bool is_south() {return !utm_northp;}
 
-private:
-  cv::Vec3d utm_offset;  /// utm offset to map
-  int utm_zone;          /// utm zone id
-  bool utm_northp;       /// true if map is on northern hemisphere
-  cv::Matx33d Mw2m;      /// Matrix world to map
-  cv::Matx33d Mm2w;      /// Matrix map to world
 };
 
 }  // namespace tuw
