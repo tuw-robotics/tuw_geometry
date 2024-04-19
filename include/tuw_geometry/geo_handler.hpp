@@ -159,6 +159,33 @@ namespace tuw
       cv::Vec3d des;
       return lla2utm(src, des);
     }
+        
+    /**
+     * latitude longitude altitude -> map [pix]
+     * the utm map depents on the map init
+     * @param src latitude longitude altitude
+     * @return map x, y 
+     **/
+    cv::Point &lla2map(const cv::Vec3d &src, cv::Point &des) const
+    {
+      cv::Vec3d utm;
+      lla2utm(src, utm);
+      cv::Vec3d world;
+      utm2world(utm, world);
+      return this->w2m(world[0], world[1]).to(des);
+    }
+    /**
+     * latitude longitude altitude -> map [pix]
+     * the utm map depents on the map init
+     * @param src latitude longitude altitude
+     * @return map x, y 
+     **/
+    cv::Point lla2map(const cv::Vec3d &src) const
+    {
+      cv::Point des;
+      return lla2map(src, des);
+    }
+
     /**
      * utm -> world map [m]
      * the utm map depents on the map init
@@ -181,6 +208,30 @@ namespace tuw
     {
       cv::Vec3d des;
       return utm2world(src, des);
+    }
+    /**
+     * world map [m] -> utm 
+     * the utm map depents on the map init
+     * @param des world x, y, z
+     * @param src utm x, y, z
+     * @return x, y, z
+     **/
+    cv::Vec3d &world2utm(const cv::Vec3d &src, cv::Vec3d &des) const
+    {
+      des = src + utm_;
+      return des;
+    }
+    /**
+     * world map [m] -> utm 
+     * the utm map depents on the map init
+     * @param des world x, y, z
+     * @param src utm x, y, z
+     * @return x, y, z
+     **/
+    cv::Vec3d world2utm(const cv::Vec3d &src) const
+    {
+      cv::Vec3d des;
+      return world2utm(src, des);
     }
 
     /**
