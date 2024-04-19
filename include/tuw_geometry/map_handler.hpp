@@ -29,6 +29,12 @@ class MapHdl
   void init();  ///< initializes the transformation matrices
 
 public:
+
+   enum Origin {
+      TOP_LEFT,
+      BOTTOM_LEFT,
+      CENTER,
+   };
   //special class member functions
   MapHdl();
   virtual ~MapHdl() = default;
@@ -63,15 +69,27 @@ public:
     sy_ = ((double)height_pixel_) / dy_;
   }
 
+  /**
+   * @return map information as string to print
+  **/
+  std::string info_map() const;
 
   /**
      * used to initialize the figure
      * @param canvas_size pixel size of the canvas [pix]
      * @param resolution resolution size of a pixel [m/pix]
      * @param origin origin in relative to the top left [m]
-     * @param origin map rotation around the origin [rad]
      **/
-  void init(cv::Size canvas_size, double resolution, cv::Point2d origin, double rotation);
+  void init(cv::Size canvas_size, double resolution, cv::Point2d origin);
+
+
+  /**
+     * used to initialize the figure
+     * @param canvas_size pixel size of the canvas [pix]
+     * @param resolution resolution size of a pixel [m/pix]
+     * @param origin origin 
+     **/
+  void init(cv::Size canvas_size, double resolution, Origin origin);
 
   /**
      * used to initialize the figure
@@ -183,14 +201,31 @@ public:
      * @return canvas (image) height
      **/
   int height() const;
+
+  /**
+     * @return canvas (image) width
+     **/
+  int origin_x() const;
+  /**
+     * @return canvas (image) height
+     **/
+  int origin_y() const;
+  /**
+     * @return computed x resolution
+     **/
+  double resolution_x() const;
   /**
      * @return computed x scale
      **/
   double scale_x() const;
   /**
-     * @return computed y scale
-     **/
+   * @return computed y scale
+   **/
   double scale_y() const;
+  /**
+     * @return computed y resolution
+     **/
+  double resolution_y() const;
   /**
      * @return minimal x of the visualized space
      **/

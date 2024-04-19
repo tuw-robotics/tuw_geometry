@@ -1,4 +1,5 @@
 #include "tuw_geometry/geo_map.hpp"
+#include "tuw_geometry/geo_handler.hpp"
 
 #include <GeographicLib/UTMUPS.hpp>
 #include <fstream>
@@ -8,47 +9,6 @@
 
 using namespace tuw;
 
-WorldFile::WorldFile()
-: resolution_x(.0), rotation_y(.0), rotation_x(.0), coordinate_x(.0), coordinate_y(.0)
-{
-}
-
-/***
- * @return true on error
-*/
-bool WorldFile::read_jgw(const std::string & filename)
-{
-  std::vector<double> numbers;
-  std::ifstream geo_info_file(filename.c_str());
-  // Check if the file is open
-  if (!geo_info_file.is_open()) {
-    std::cerr << "Error opening the file!" << std::endl;
-    return true;  // Return an error code
-  }
-
-  // Read six lines
-  double num;
-  if (geo_info_file >> num) {
-    resolution_x = num;  /// Line 1
-  }
-  if (geo_info_file >> num) {
-    rotation_y = num;  /// Line 2
-  }
-  if (geo_info_file >> num) {
-    rotation_x = num;  /// Line 3
-  }
-  if (geo_info_file >> num) {
-    resolution_y = num;  /// Line 4
-  }
-  if (geo_info_file >> num) {
-    coordinate_x = num;  /// Line 5
-  }
-  if (geo_info_file >> num) {
-    coordinate_y = num;  /// Line 6
-  }
-  geo_info_file.close();
-  return false;
-}
 
 GeoMapMetaData::GeoMapMetaData()
 : resolution(1), size(0, 0), origin(), utm_offset(0, 0, 0), utm_zone(-1), Mw2m(cv::Matx33d::eye())

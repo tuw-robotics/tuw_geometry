@@ -33,6 +33,8 @@
 #include "tuw_geometry/tuw_geometry.hpp"
 #include <opencv2/highgui.hpp>
 
+int g_view_delay;   /// if bigger as zero a cv window is shown
+
 TEST(Plane3D, intersectionLine)
 {
   tuw::Plane3D planeA;
@@ -120,58 +122,75 @@ TEST(MapHdl, TestOrigin)
 
    
   { 
-    /// Origin is on the top left
+    /// Origin is the top left
     tuw::WorldScopedMaps map;
     cv::Mat view(cv::Size(600, 400), CV_8UC3, cv::Scalar(0xFF, 0xFF, 0xFF));
 
-    map.init(view.size(), 0.1, cv::Point2d(0.,0.), 0.);
-    cv::Point p0 = map.w2m(tuw::Point2D(0,0)).cv();
-    cv::Point p1 = map.w2m(tuw::Point2D(30,-20)).cv();
-    cv::Point p2 = map.w2m(tuw::Point2D(50,-10)).cv();
-    cv::line(view, p0, p1, cv::Scalar(0, 255, 0));
-    ASSERT_EQ(cv::Point(0,0), p0);  
-    ASSERT_EQ(cv::Point(300,200), p1);  
-    ASSERT_EQ(cv::Point(500,100), p2);  
-    cv::imshow("map", view);
-    cv::waitKey(1000);
+    map.init(view.size(), 0.1, tuw::WorldScopedMaps::TOP_LEFT);
+    tuw::Point2D p0( 0, 0); tuw::Point2D t0(  0   ,0);
+    tuw::Point2D p1(30,-20); tuw::Point2D t1(300,200);
+    tuw::Point2D p2(50,-10); tuw::Point2D t2(500,100);
+
+    map.line(view, p0, p1, cv::Scalar(0, 255, 0));
+    ASSERT_EQ(map.w2m(p0), t0);  
+    ASSERT_EQ(map.w2m(p1), t1);  
+    ASSERT_EQ(map.w2m(p2), t2);  
+    ASSERT_EQ(map.m2w(t0), p0);  
+    ASSERT_EQ(map.m2w(t1), p1);  
+    ASSERT_EQ(map.m2w(t2), p2);  
+    if(g_view_delay > 0) cv::imshow("map", view);
+    if(g_view_delay > 0) cv::waitKey(g_view_delay);
   }
   {
-    /// Origin is on the bottom left
+    /// Origin is the bottom left
     tuw::WorldScopedMaps map;
     cv::Mat view(cv::Size(600, 400), CV_8UC3, cv::Scalar(0xFF, 0xFF, 0xFF));
 
-    map.init(view.size(), 0.1, cv::Point2d(0,-40.), 0.);
-    cv::Point p0 = map.w2m(tuw::Point2D(0,0)).cv();
-    cv::Point p1 = map.w2m(tuw::Point2D(30,20)).cv();
-    cv::Point p2 = map.w2m(tuw::Point2D(50,30)).cv();
-    cv::line(view, p0, p1, cv::Scalar(0, 255, 0));
-    ASSERT_EQ(cv::Point(0,400), p0);  
-    ASSERT_EQ(cv::Point(300,200), p1);  
-    ASSERT_EQ(cv::Point(500,100), p2);  
-    cv::imshow("map", view);
-    cv::waitKey(1000);
+    map.init(view.size(), 0.1, tuw::WorldScopedMaps::BOTTOM_LEFT);
+    tuw::Point2D p0( 0, 0); tuw::Point2D t0(  0,400);
+    tuw::Point2D p1(30,20); tuw::Point2D t1(300,200);
+    tuw::Point2D p2(50,30); tuw::Point2D t2(500,100);
+
+    map.line(view, p0, p1, cv::Scalar(0, 255, 0));
+    ASSERT_EQ(map.w2m(p0), t0);  
+    ASSERT_EQ(map.w2m(p1), t1);  
+    ASSERT_EQ(map.w2m(p2), t2);  
+    ASSERT_EQ(map.m2w(t0), p0);  
+    ASSERT_EQ(map.m2w(t1), p1);  
+    ASSERT_EQ(map.m2w(t2), p2);  
+    if(g_view_delay > 0) cv::imshow("map", view);
+    if(g_view_delay > 0) cv::waitKey(g_view_delay);
   }
   {
-    /// Origin is on at the center
+    /// Origin is at the center
     tuw::WorldScopedMaps map;
     cv::Mat view(cv::Size(600, 400), CV_8UC3, cv::Scalar(0xFF, 0xFF, 0xFF));
 
-    map.init(view.size(), 0.1, cv::Point2d(0,-40.), 0.);
-    cv::Point p0 = map.w2m(tuw::Point2D(0,0)).cv();
-    cv::Point p1 = map.w2m(tuw::Point2D(30,20)).cv();
-    cv::Point p2 = map.w2m(tuw::Point2D(50,30)).cv();
-    cv::line(view, p0, p1, cv::Scalar(0, 255, 0));
-    ASSERT_EQ(cv::Point(0,400), p0);  
-    ASSERT_EQ(cv::Point(300,200), p1);  
-    ASSERT_EQ(cv::Point(500,100), p2);  
-    cv::imshow("map", view);
-    cv::waitKey(1000);
+    map.init(view.size(), 0.1, cv::Point2d(20,-40.));
+    tuw::Point2D p0( 0, 0); tuw::Point2D t0(200,400);
+    tuw::Point2D p1(30,20); tuw::Point2D t1(500,200);
+    tuw::Point2D p2(50,30); tuw::Point2D t2(700,100);
+    map.line(view, p0, p1, cv::Scalar(0, 255, 0));
+    ASSERT_EQ(map.w2m(p0), t0);  
+    ASSERT_EQ(map.w2m(p1), t1);  
+    ASSERT_EQ(map.w2m(p2), t2);  
+    ASSERT_EQ(map.m2w(t0), p0);  
+    ASSERT_EQ(map.m2w(t1), p1);  
+    ASSERT_EQ(map.m2w(t2), p2);  
+    if(g_view_delay > 0) cv::imshow("map", view);
+    if(g_view_delay > 0) cv::waitKey(g_view_delay);
   }
+}
+
+TEST(GeoMap, TestOrigin)
+{
+  
 }
 
 int main(int argc, char ** argv)
 {
   rclcpp::init(argc, argv);
   ::testing::InitGoogleTest(&argc, argv);
+  g_view_delay = 1000;
   return RUN_ALL_TESTS();
 }

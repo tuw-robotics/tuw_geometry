@@ -178,6 +178,28 @@ public:
      **/
   cv::Point_<double> & cv();
   /**
+     * copy to cv::Point
+     * @param des 
+     * @return cv::Point to des reference
+     **/
+  cv::Point& to(cv::Point &des) const;
+  /**
+     * copy to cv::Point
+     * @param des 
+     * @return cv::Point to des reference
+     **/
+  cv::Point& to(cv::Point &des);
+  /**
+     * returns a cv::Point 
+     * @return cv
+     **/
+  cv::Point p() const;
+  /**
+     * returns a cv::Point
+     * @return cv
+     **/
+  cv::Point p();
+  /**
      * checks if a point is within a rectangle
      * @param x0 top left x
      * @param y0 top left y
