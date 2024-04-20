@@ -33,8 +33,6 @@
 #include "tuw_geometry/tuw_geometry.hpp"
 #include <opencv2/highgui.hpp>
 
-int g_view_delay;   /// if bigger as zero a cv window is shown
-
 TEST(Plane3D, intersectionLine)
 {
   tuw::Plane3D planeA;
@@ -117,7 +115,7 @@ TEST(StampedData, TestCompare)
 }
 
 
-TEST(MapHdl, TestOrigin)
+TEST(WorldScopedMaps, TestOrigin)
 {
 
    
@@ -125,72 +123,72 @@ TEST(MapHdl, TestOrigin)
     /// Origin is the top left
     tuw::WorldScopedMaps map;
     cv::Mat view(cv::Size(600, 400), CV_8UC3, cv::Scalar(0xFF, 0xFF, 0xFF));
-
     map.init(view.size(), 0.1, tuw::WorldScopedMaps::TOP_LEFT);
     tuw::Point2D p0( 0, 0); tuw::Point2D t0(  0   ,0);
     tuw::Point2D p1(30,-20); tuw::Point2D t1(300,200);
     tuw::Point2D p2(50,-10); tuw::Point2D t2(500,100);
-
-    map.line(view, p0, p1, cv::Scalar(0, 255, 0));
     ASSERT_EQ(map.w2m(p0), t0);  
     ASSERT_EQ(map.w2m(p1), t1);  
     ASSERT_EQ(map.w2m(p2), t2);  
     ASSERT_EQ(map.m2w(t0), p0);  
     ASSERT_EQ(map.m2w(t1), p1);  
     ASSERT_EQ(map.m2w(t2), p2);  
-    if(g_view_delay > 0) cv::imshow("map", view);
-    if(g_view_delay > 0) cv::waitKey(g_view_delay);
+    //map.line(view, p0, p1, cv::Scalar(0, 255, 0));
+    //cv::imshow("map", view);
+    //cv::waitKey(1000);
   }
   {
     /// Origin is the bottom left
     tuw::WorldScopedMaps map;
     cv::Mat view(cv::Size(600, 400), CV_8UC3, cv::Scalar(0xFF, 0xFF, 0xFF));
-
     map.init(view.size(), 0.1, tuw::WorldScopedMaps::BOTTOM_LEFT);
     tuw::Point2D p0( 0, 0); tuw::Point2D t0(  0,400);
     tuw::Point2D p1(30,20); tuw::Point2D t1(300,200);
     tuw::Point2D p2(50,30); tuw::Point2D t2(500,100);
-
-    map.line(view, p0, p1, cv::Scalar(0, 255, 0));
     ASSERT_EQ(map.w2m(p0), t0);  
     ASSERT_EQ(map.w2m(p1), t1);  
     ASSERT_EQ(map.w2m(p2), t2);  
     ASSERT_EQ(map.m2w(t0), p0);  
     ASSERT_EQ(map.m2w(t1), p1);  
     ASSERT_EQ(map.m2w(t2), p2);  
-    if(g_view_delay > 0) cv::imshow("map", view);
-    if(g_view_delay > 0) cv::waitKey(g_view_delay);
+    //map.line(view, p0, p1, cv::Scalar(0, 255, 0));
+    //cv::imshow("map", view);
+    //cv::waitKey(1000);
   }
   {
     /// Origin is at the center
     tuw::WorldScopedMaps map;
     cv::Mat view(cv::Size(600, 400), CV_8UC3, cv::Scalar(0xFF, 0xFF, 0xFF));
-
     map.init(view.size(), 0.1, cv::Point2d(20,-40.));
     tuw::Point2D p0( 0, 0); tuw::Point2D t0(200,400);
     tuw::Point2D p1(30,20); tuw::Point2D t1(500,200);
     tuw::Point2D p2(50,30); tuw::Point2D t2(700,100);
-    map.line(view, p0, p1, cv::Scalar(0, 255, 0));
     ASSERT_EQ(map.w2m(p0), t0);  
     ASSERT_EQ(map.w2m(p1), t1);  
     ASSERT_EQ(map.w2m(p2), t2);  
     ASSERT_EQ(map.m2w(t0), p0);  
     ASSERT_EQ(map.m2w(t1), p1);  
-    ASSERT_EQ(map.m2w(t2), p2);  
-    if(g_view_delay > 0) cv::imshow("map", view);
-    if(g_view_delay > 0) cv::waitKey(g_view_delay);
+    ASSERT_EQ(map.m2w(t2), p2);
+    //map.line(view, p0, p1, cv::Scalar(0, 255, 0));
+    //cv::imshow("map", view);
+    //cv::waitKey(1000);
   }
 }
-
-TEST(GeoMap, TestOrigin)
+TEST(MapHdl, Transform)
 {
-  
+    tuw::MapHdl map;
+    map.init(400, 300, -10, 10, -10, 10, 0);
+    cv::Point2d p0( 0., 0.); cv::Point t0(200, 150);
+    cv::Point c0;
+    // tuw::Point2D p1 = map.w2m(tuw::Point2D(0.,0.));
+    map.w2m(p0, c0);
+    ASSERT_EQ(c0, t0);  
+
 }
 
 int main(int argc, char ** argv)
 {
   rclcpp::init(argc, argv);
   ::testing::InitGoogleTest(&argc, argv);
-  g_view_delay = 1000;
   return RUN_ALL_TESTS();
 }

@@ -173,6 +173,26 @@ public:
      **/
   Point2D & w2m(const Point2D & src, Point2D & des) const;
   /**
+     * transforms a point from the visualization space to image space (world -> map)
+     * @param src point in visualization space (world)
+     * @param des point in image space (map [pixel])
+     * @return reference to des
+     **/
+  cv::Point2d & w2m(const cv::Point2d & src, cv::Point2d & des) const;
+  /**
+     * transforms a point from the visualization space to image space (world -> map)
+     * @param src point in visualization space (world)
+     * @return point in image space (map [pixel])
+     **/
+  cv::Point2d w2m(const cv::Point2d & src) const;
+  /**
+     * transforms a point from the visualization space to image space (world -> map)
+     * @param src point in visualization space (world)
+     * @param des point in image space (map [pixel])
+     * @return reference to des
+     **/
+  cv::Point & w2m(const cv::Point2d & src, cv::Point & des) const;
+  /**
      * transforms a point from the image space to visualization space (map -> world)
      * @param src point in image space (map [pixel])
      * @return point in visualization space (world)
@@ -192,6 +212,26 @@ public:
      * @return reference to des
      **/
   Point2D & m2w(const Point2D & src, Point2D & des) const;
+  /**
+     * transforms a point from the image space to visualization space (map -> world)
+     * @param src point in image space (map [pixel])
+     * @param des  point in visualization space (world)
+     * @return reference to des
+     **/
+  cv::Point2d & m2w(const cv::Point2d & src, cv::Point2d & des) const;
+  /**
+     * transforms a point from the image space to visualization space (map -> world)
+     * @param src point in image space (map [pixel])
+     * @return point in visualization space (world)
+     **/
+  cv::Point2d m2w(const cv::Point2d & src) const;
+  /**
+     * transforms a point from the image space to visualization space (map -> world)
+     * @param src point in image space (map [pixel])
+     * @param des  point in visualization space (world)
+     * @return reference to des
+     **/
+  cv::Point2d & m2w(const cv::Point & src, cv::Point2d & des) const;
 
   /**
      * @return canvas (image) width

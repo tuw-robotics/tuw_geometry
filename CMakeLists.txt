@@ -31,19 +31,8 @@ add_library(${PROJECT_NAME} SHARED
   src/${PROJECT_NAME}/world_scoped_maps.cpp
   src/${PROJECT_NAME}/layered_maps.cpp
   src/${PROJECT_NAME}/layered_figure.cpp
-  src/${PROJECT_NAME}/geo_map.cpp
   src/${PROJECT_NAME}/map_handler.cpp
 )
-
-# Geographiclib installs FindGeographicLib.cmake to this non-standard location
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "/usr/share/cmake/geographiclib/")
-find_package(GeographicLib QUIET)
-if(GeographicLib_FOUND)
-  message(STATUS "GeographicLib found: building geo_map!")
-else()
-  message(ERROR "GeographicLib NOT found: not building geo_map!")
-endif()
-
 
 target_compile_features(tuw_geometry PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
 target_include_directories(tuw_geometry PUBLIC
@@ -55,7 +44,6 @@ ament_target_dependencies(${PROJECT_NAME}
   sensor_msgs
   std_msgs
   OpenCV
-  GeographicLib
 )
 
   # Causes the visibility macros to use dllexport rather than dllimport,

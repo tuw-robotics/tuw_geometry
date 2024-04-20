@@ -115,11 +115,45 @@ Point2D & MapHdl::w2m(const Point2D & src, Point2D & des) const
   des = Mw2m_ * src;
   return des;
 }
+cv::Point2d & MapHdl::w2m(const cv::Point2d & src, cv::Point2d & des) const
+{
+  des.x = Mw2m_(0,0) * src.x + Mw2m_(0,1) * src.y + Mw2m_(0,2);
+  des.y = Mw2m_(1,0) * src.x + Mw2m_(1,1) * src.y + Mw2m_(1,2);
+  return des;
+}
+cv::Point2d MapHdl::w2m(const cv::Point2d & src) const
+{
+  cv::Point2d des;
+  return w2m(src, des);
+}
+cv::Point & MapHdl::w2m(const cv::Point2d & src, cv::Point & des) const
+{
+  des.x = Mw2m_(0,0) * src.x + Mw2m_(0,1) * src.y + Mw2m_(0,2);
+  des.y = Mw2m_(1,0) * src.x + Mw2m_(1,1) * src.y + Mw2m_(1,2);
+  return des;
+}
 Point2D MapHdl::m2w(const Point2D & src) const {return Mm2w_ * src;}
 Point2D MapHdl::m2w(double x, double y) const {return m2w(Point2D(x, y));}
 Point2D & MapHdl::m2w(const Point2D & src, Point2D & des) const
 {
   des = Mm2w_ * src;
+  return des;
+}
+cv::Point2d & MapHdl::m2w(const cv::Point2d & src, cv::Point2d & des) const
+{
+  des.x = Mm2w_(0,0) * src.x + Mm2w_(0,1) * src.y + Mm2w_(0,2);
+  des.y = Mm2w_(1,0) * src.x + Mm2w_(1,1) * src.y + Mm2w_(1,2);
+  return des;
+}
+cv::Point2d MapHdl::m2w(const cv::Point2d & src) const
+{
+  cv::Point2d des;
+  return  w2m(src, des);;
+}
+cv::Point2d & MapHdl::m2w(const cv::Point & src, cv::Point2d & des) const
+{
+  des.x = Mm2w_(0,0) * src.x + Mm2w_(0,1) * src.y + Mm2w_(0,2);
+  des.y = Mm2w_(1,0) * src.x + Mm2w_(1,1) * src.y + Mm2w_(1,2);
   return des;
 }
 double MapHdl::max_x() const {return max_x_;}

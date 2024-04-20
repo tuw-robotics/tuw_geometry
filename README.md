@@ -1,7 +1,18 @@
 # tuw_geometry
 Classes to handle and visualize 2D and 3D objects such as points, poses, lines as well as a plot windows for debugging.
 
-
+## geo_handler
+If using the geo_handler.hpp one must link the GeographicLib. Under Ubuntu 22.04 this can be done by installing the libgeographic-dev using
+`sudo apt install libgeographic-dev`, by adding the following statement to your CMakeLists.txt and `<depend>geographiclib</depend>` to your package.xml.
+```
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "/usr/share/cmake/geographiclib/")
+find_package(GeographicLib QUIET)
+if(GeographicLib_FOUND)
+  message(STATUS "GeographicLib found: building geo_map!")
+else()
+  message(ERROR "GeographicLib NOT found: not building geo_map!")
+endif()
+```
 
 # doxygen
 ```

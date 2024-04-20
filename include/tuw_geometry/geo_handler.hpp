@@ -270,7 +270,6 @@ namespace tuw
       des[2] = src[2];
       return des;
     }
-
     /**
      * utm [m] -> geo [latitude longitude altitude]
      * @param src x, y, z
@@ -280,6 +279,23 @@ namespace tuw
     {
       cv::Vec3d des;
       return utm2lla(src, des);
+    }
+
+    /**
+     * map [pix] -> latitude longitude altitude
+     * the utm map depents on the map init
+     * @param src  map x, y [pix] 
+     * @param des  latitude longitude altitude
+     * @return latitude longitude altitude
+     **/
+    cv::Vec3d &map2lla(const cv::Point &src, cv::Vec3d &des) const
+    {
+      tuw::Point2D p_map(src.x, src.y);
+      tuw::Point2D p_world;
+      m2w(p_map, p_world);
+      cv::Vec3d utm = world2utm(cv::Vec3d(p_world.x(), p_world.y(), 0));
+      utm2lla(utm, des);
+      return des;
     }
   /**
    * utm offset to map
