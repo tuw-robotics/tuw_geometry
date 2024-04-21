@@ -177,12 +177,26 @@ TEST(WorldScopedMaps, TestOrigin)
 TEST(MapHdl, Transform)
 {
     tuw::MapHdl map;
-    map.init(400, 300, -10, 10, -10, 10, 0);
-    cv::Point2d p0( 0., 0.); cv::Point t0(200, 150);
-    cv::Point c0;
-    // tuw::Point2D p1 = map.w2m(tuw::Point2D(0.,0.));
-    map.w2m(p0, c0);
-    ASSERT_EQ(c0, t0);  
+    {
+      map.init(400, 300, -10, 10, -10, 10, 0);
+      std::vector<cv::Point2d> pw{{ 0.,  0.}, {-10, -10}}; 
+      std::vector<cv::Point>   pm{{200, 150}, {400,   0}};
+      for(size_t i = 0; i < pw.size(); i++){
+        ASSERT_EQ(map.w2m(pw[i]), pm[i]);  
+        ASSERT_NEAR(map.w2m(pw[i]).x, pm[i].x, 0.00001);  
+        ASSERT_NEAR(map.m2w(pm[i]).y, pw[i].y, 0.00001);
+      }
+    }  
+    {
+      map.init(400, 300, -10, 10, -10, 10, M_PI);
+      std::vector<cv::Point2d> pw{{ 0.,  0.}, {-10, -10}}; 
+      std::vector<cv::Point>   pm{{200, 150}, {  0, 300}};
+      for(size_t i = 0; i < pw.size(); i++){
+        ASSERT_EQ(map.w2m(pw[i]), pm[i]);  
+        ASSERT_NEAR(map.w2m(pw[i]).x, pm[i].x, 0.00001);  
+        ASSERT_NEAR(map.m2w(pm[i]).y, pw[i].y, 0.00001);
+      }
+    }  
 
 }
 

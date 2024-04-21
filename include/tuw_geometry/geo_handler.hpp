@@ -94,11 +94,12 @@ namespace tuw
     std::string info_geo() const
     {
       char txt[0x1FF];
-      cv::Vec3d origin_world_lla = utm2lla(utm_);
+      cv::Vec3d lla = utm2lla(utm_);
       sprintf(
-          txt, "GeoInfo: [%12.10f°, %12.10f°, %12.10fm] --> [%12.10fm, %12.10fm, %12.10fm] zone %d %s",
-          origin_world_lla[0], origin_world_lla[1], origin_world_lla[2], utm_[0], utm_[1],
-          utm_[2], zone_, (northp_ ? "north" : "south"));
+          txt, "GeoInfo: [%12.10f°, %12.10f°, %12.10fm] --> [%12.10fm, %12.10fm, %12.10fm] zone %d %s, origin [%5.2fm, %5.2fm]",
+          lla[0], lla[1], lla[2], utm_[0], utm_[1], 
+          utm_[2], zone_, (northp_ ? "north" : "south"),
+          origin_x(), origin_y());
       return txt;
     }
     /**
@@ -296,6 +297,17 @@ namespace tuw
       cv::Vec3d utm = world2utm(cv::Vec3d(p_world.x(), p_world.y(), 0));
       utm2lla(utm, des);
       return des;
+    }
+    /**
+     * map [pix] -> latitude longitude altitude
+     * the utm map depents on the map init
+     * @param src  map x, y [pix] 
+     * @return latitude longitude altitude
+     **/
+    cv::Vec3d map2lla(const cv::Point &src) const
+    {
+      cv::Vec3d des;
+      return map2lla(src, des);
     }
   /**
    * utm offset to map

@@ -184,7 +184,7 @@ public:
      * @param src point in visualization space (world)
      * @return point in image space (map [pixel])
      **/
-  cv::Point2d w2m(const cv::Point2d & src) const;
+  cv::Point w2m(const cv::Point2d & src) const;
   /**
      * transforms a point from the visualization space to image space (world -> map)
      * @param src point in visualization space (world)
@@ -224,7 +224,7 @@ public:
      * @param src point in image space (map [pixel])
      * @return point in visualization space (world)
      **/
-  cv::Point2d m2w(const cv::Point2d & src) const;
+  cv::Point2d m2w(const cv::Point & src) const;
   /**
      * transforms a point from the image space to visualization space (map -> world)
      * @param src point in image space (map [pixel])
@@ -241,15 +241,18 @@ public:
      * @return canvas (image) height
      **/
   int height() const;
-
   /**
-     * @return canvas (image) width
+     * @return canvas (image) size
      **/
-  int origin_x() const;
+  cv::Size size() const;
   /**
-     * @return canvas (image) height
-     **/
-  int origin_y() const;
+   * @return offest to the the zero x in [m]
+   **/
+  double origin_x() const;
+  /**
+   * @return offest to the the zero y in [m]
+   **/
+  double origin_y() const;
   /**
      * @return computed x resolution
      **/
