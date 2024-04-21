@@ -10,6 +10,4 @@
 using namespace tuw;
 
 WorldScopedMaps::WorldScopedMaps()
-: MapHdl()
-{
-}
+: MapHdl() {}

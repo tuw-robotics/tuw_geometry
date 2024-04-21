@@ -134,26 +134,23 @@ const cv::Point_<double> & Point2D::cv() const
  * returns a cv::Point_<double> reference
  * @return cv
  **/
-cv::Point_<double> & Point2D::cv() 
-{
-  return reinterpret_cast<cv::Point_<double> &>(*this);
-}
+cv::Point_<double> & Point2D::cv() {return reinterpret_cast<cv::Point_<double> &>(*this);}
 /**
  * copy to cv::Point
- * @param des 
+ * @param des
  * @return cv::Point to des reference
  **/
-cv::Point & Point2D::to(cv::Point &des) const
+cv::Point & Point2D::to(cv::Point & des) const
 {
   des.x = this->val[0], des.y = this->val[1];
   return des;
 }
 /**
  * copy to cv::Point
- * @param des 
+ * @param des
  * @return cv::Point to des reference
  **/
-cv::Point &Point2D::to(cv::Point &des)
+cv::Point & Point2D::to(cv::Point & des)
 {
   des.x = this->val[0], des.y = this->val[1];
   return des;
@@ -162,18 +159,12 @@ cv::Point &Point2D::to(cv::Point &des)
  * returns a cv::Point reference
  * @return cv
  **/
-cv::Point Point2D::p() const
-{
-  return cv::Point(this->val[0], this->val[1]);
-}
+cv::Point Point2D::p() const {return cv::Point(this->val[0], this->val[1]);}
 /**
  * returns a cv::Point reference
  * @return cv
  **/
-cv::Point Point2D::p()
-{
-  return cv::Point(this->val[0], this->val[1]);
-}
+cv::Point Point2D::p() {return cv::Point(this->val[0], this->val[1]);}
 /**
  * angle form origin to point (alpha in polar space)
  * @see radius

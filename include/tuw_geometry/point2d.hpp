@@ -179,18 +179,18 @@ public:
   cv::Point_<double> & cv();
   /**
      * copy to cv::Point
-     * @param des 
+     * @param des
      * @return cv::Point to des reference
      **/
-  cv::Point& to(cv::Point &des) const;
+  cv::Point & to(cv::Point & des) const;
   /**
      * copy to cv::Point
-     * @param des 
+     * @param des
      * @return cv::Point to des reference
      **/
-  cv::Point& to(cv::Point &des);
+  cv::Point & to(cv::Point & des);
   /**
-     * returns a cv::Point 
+     * returns a cv::Point
      * @return cv
      **/
   cv::Point p() const;

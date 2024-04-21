@@ -20,7 +20,7 @@ class MapHdl
   cv::Matx33d Mw2m_;                                 ///< transformation world to map
   cv::Matx33d Mm2w_;                                 ///< transformation map to world
   int width_pixel_, height_pixel_;                   ///< dimensions of the canvas in pixel
-  double min_x_, max_x_, min_y_, max_y_, rotation_;  ///< area and rotation of the visualized space 
+  double min_x_, max_x_, min_y_, max_y_, rotation_;  ///< area and rotation of the visualized space
   double dx_, dy_;                                   ///< dimension of the visualized space [m]
   double ox_, oy_;                                   ///< image offset [pix]
   double mx_, my_;                                   ///< offset of the visualized space [m]
@@ -29,12 +29,12 @@ class MapHdl
   void init();  ///< initializes the transformation matrices
 
 public:
-
-   enum Origin {
-      TOP_LEFT,
-      BOTTOM_LEFT,
-      CENTER,
-   };
+  enum Origin
+  {
+    TOP_LEFT,
+    BOTTOM_LEFT,
+    CENTER,
+  };
   //special class member functions
   MapHdl();
   virtual ~MapHdl() = default;
@@ -82,12 +82,11 @@ public:
      **/
   void init(cv::Size canvas_size, double resolution, cv::Point2d origin);
 
-
   /**
      * used to initialize the figure
      * @param canvas_size pixel size of the canvas [pix]
      * @param resolution resolution size of a pixel [m/pix]
-     * @param origin origin 
+     * @param origin origin
      **/
   void init(cv::Size canvas_size, double resolution, Origin origin);
 

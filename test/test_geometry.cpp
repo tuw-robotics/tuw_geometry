@@ -27,11 +27,11 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 #include <memory>
+#include <opencv2/highgui.hpp>
 
 #include "gtest/gtest.h"
 #include "rclcpp/rclcpp.hpp"
 #include "tuw_geometry/tuw_geometry.hpp"
-#include <opencv2/highgui.hpp>
 
 TEST(Plane3D, intersectionLine)
 {
@@ -114,25 +114,25 @@ TEST(StampedData, TestCompare)
   ASSERT_TRUE(p1 > p0);
 }
 
-
 TEST(WorldScopedMaps, TestOrigin)
 {
-
-   
-  { 
+  {
     /// Origin is the top left
     tuw::WorldScopedMaps map;
     cv::Mat view(cv::Size(600, 400), CV_8UC3, cv::Scalar(0xFF, 0xFF, 0xFF));
     map.init(view.size(), 0.1, tuw::WorldScopedMaps::TOP_LEFT);
-    tuw::Point2D p0( 0, 0); tuw::Point2D t0(  0   ,0);
-    tuw::Point2D p1(30,-20); tuw::Point2D t1(300,200);
-    tuw::Point2D p2(50,-10); tuw::Point2D t2(500,100);
-    ASSERT_EQ(map.w2m(p0), t0);  
-    ASSERT_EQ(map.w2m(p1), t1);  
-    ASSERT_EQ(map.w2m(p2), t2);  
-    ASSERT_EQ(map.m2w(t0), p0);  
-    ASSERT_EQ(map.m2w(t1), p1);  
-    ASSERT_EQ(map.m2w(t2), p2);  
+    tuw::Point2D p0(0, 0);
+    tuw::Point2D t0(0, 0);
+    tuw::Point2D p1(30, -20);
+    tuw::Point2D t1(300, 200);
+    tuw::Point2D p2(50, -10);
+    tuw::Point2D t2(500, 100);
+    ASSERT_EQ(map.w2m(p0), t0);
+    ASSERT_EQ(map.w2m(p1), t1);
+    ASSERT_EQ(map.w2m(p2), t2);
+    ASSERT_EQ(map.m2w(t0), p0);
+    ASSERT_EQ(map.m2w(t1), p1);
+    ASSERT_EQ(map.m2w(t2), p2);
     //map.line(view, p0, p1, cv::Scalar(0, 255, 0));
     //cv::imshow("map", view);
     //cv::waitKey(1000);
@@ -142,15 +142,18 @@ TEST(WorldScopedMaps, TestOrigin)
     tuw::WorldScopedMaps map;
     cv::Mat view(cv::Size(600, 400), CV_8UC3, cv::Scalar(0xFF, 0xFF, 0xFF));
     map.init(view.size(), 0.1, tuw::WorldScopedMaps::BOTTOM_LEFT);
-    tuw::Point2D p0( 0, 0); tuw::Point2D t0(  0,400);
-    tuw::Point2D p1(30,20); tuw::Point2D t1(300,200);
-    tuw::Point2D p2(50,30); tuw::Point2D t2(500,100);
-    ASSERT_EQ(map.w2m(p0), t0);  
-    ASSERT_EQ(map.w2m(p1), t1);  
-    ASSERT_EQ(map.w2m(p2), t2);  
-    ASSERT_EQ(map.m2w(t0), p0);  
-    ASSERT_EQ(map.m2w(t1), p1);  
-    ASSERT_EQ(map.m2w(t2), p2);  
+    tuw::Point2D p0(0, 0);
+    tuw::Point2D t0(0, 400);
+    tuw::Point2D p1(30, 20);
+    tuw::Point2D t1(300, 200);
+    tuw::Point2D p2(50, 30);
+    tuw::Point2D t2(500, 100);
+    ASSERT_EQ(map.w2m(p0), t0);
+    ASSERT_EQ(map.w2m(p1), t1);
+    ASSERT_EQ(map.w2m(p2), t2);
+    ASSERT_EQ(map.m2w(t0), p0);
+    ASSERT_EQ(map.m2w(t1), p1);
+    ASSERT_EQ(map.m2w(t2), p2);
     //map.line(view, p0, p1, cv::Scalar(0, 255, 0));
     //cv::imshow("map", view);
     //cv::waitKey(1000);
@@ -159,15 +162,18 @@ TEST(WorldScopedMaps, TestOrigin)
     /// Origin is at the center
     tuw::WorldScopedMaps map;
     cv::Mat view(cv::Size(600, 400), CV_8UC3, cv::Scalar(0xFF, 0xFF, 0xFF));
-    map.init(view.size(), 0.1, cv::Point2d(20,-40.));
-    tuw::Point2D p0( 0, 0); tuw::Point2D t0(200,400);
-    tuw::Point2D p1(30,20); tuw::Point2D t1(500,200);
-    tuw::Point2D p2(50,30); tuw::Point2D t2(700,100);
-    ASSERT_EQ(map.w2m(p0), t0);  
-    ASSERT_EQ(map.w2m(p1), t1);  
-    ASSERT_EQ(map.w2m(p2), t2);  
-    ASSERT_EQ(map.m2w(t0), p0);  
-    ASSERT_EQ(map.m2w(t1), p1);  
+    map.init(view.size(), 0.1, cv::Point2d(20, -40.));
+    tuw::Point2D p0(0, 0);
+    tuw::Point2D t0(200, 400);
+    tuw::Point2D p1(30, 20);
+    tuw::Point2D t1(500, 200);
+    tuw::Point2D p2(50, 30);
+    tuw::Point2D t2(700, 100);
+    ASSERT_EQ(map.w2m(p0), t0);
+    ASSERT_EQ(map.w2m(p1), t1);
+    ASSERT_EQ(map.w2m(p2), t2);
+    ASSERT_EQ(map.m2w(t0), p0);
+    ASSERT_EQ(map.m2w(t1), p1);
     ASSERT_EQ(map.m2w(t2), p2);
     //map.line(view, p0, p1, cv::Scalar(0, 255, 0));
     //cv::imshow("map", view);
@@ -176,28 +182,27 @@ TEST(WorldScopedMaps, TestOrigin)
 }
 TEST(MapHdl, Transform)
 {
-    tuw::MapHdl map;
-    {
-      map.init(400, 300, -10, 10, -10, 10, 0);
-      std::vector<cv::Point2d> pw{{ 0.,  0.}, {-10, -10}}; 
-      std::vector<cv::Point>   pm{{200, 150}, {400,   0}};
-      for(size_t i = 0; i < pw.size(); i++){
-        ASSERT_EQ(map.w2m(pw[i]), pm[i]);  
-        ASSERT_NEAR(map.w2m(pw[i]).x, pm[i].x, 0.00001);  
-        ASSERT_NEAR(map.m2w(pm[i]).y, pw[i].y, 0.00001);
-      }
-    }  
-    {
-      map.init(400, 300, -10, 10, -10, 10, M_PI);
-      std::vector<cv::Point2d> pw{{ 0.,  0.}, {-10, -10}}; 
-      std::vector<cv::Point>   pm{{200, 150}, {  0, 300}};
-      for(size_t i = 0; i < pw.size(); i++){
-        ASSERT_EQ(map.w2m(pw[i]), pm[i]);  
-        ASSERT_NEAR(map.w2m(pw[i]).x, pm[i].x, 0.00001);  
-        ASSERT_NEAR(map.m2w(pm[i]).y, pw[i].y, 0.00001);
-      }
-    }  
-
+  tuw::MapHdl map;
+  {
+    map.init(400, 300, -10, 10, -10, 10, 0);
+    std::vector<cv::Point2d> pw{{0., 0.}, {-10, -10}};
+    std::vector<cv::Point> pm{{200, 150}, {400, 0}};
+    for (size_t i = 0; i < pw.size(); i++) {
+      ASSERT_EQ(map.w2m(pw[i]), pm[i]);
+      ASSERT_NEAR(map.w2m(pw[i]).x, pm[i].x, 0.00001);
+      ASSERT_NEAR(map.m2w(pm[i]).y, pw[i].y, 0.00001);
+    }
+  }
+  {
+    map.init(400, 300, -10, 10, -10, 10, M_PI);
+    std::vector<cv::Point2d> pw{{0., 0.}, {-10, -10}};
+    std::vector<cv::Point> pm{{200, 150}, {0, 300}};
+    for (size_t i = 0; i < pw.size(); i++) {
+      ASSERT_EQ(map.w2m(pw[i]), pm[i]);
+      ASSERT_NEAR(map.w2m(pw[i]).x, pm[i].x, 0.00001);
+      ASSERT_NEAR(map.m2w(pm[i]).y, pw[i].y, 0.00001);
+    }
+  }
 }
 
 int main(int argc, char ** argv)

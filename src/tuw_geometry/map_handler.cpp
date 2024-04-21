@@ -4,8 +4,8 @@
 #include <iomanip>
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
-#include <tuw_geometry/utils.hpp>
 #include <tuw_geometry/map_handler.hpp>
+#include <tuw_geometry/utils.hpp>
 
 using namespace tuw;
 
@@ -41,53 +41,50 @@ std::string MapHdl::info_map() const
   char txt[0x1FF];
   sprintf(
     txt,
-    "MapInfo: [%4dpix, %4dpix] * [%6.5f m/pix,  %6.5f m/pix] = [%6.2fm, %6.2fm]; origin: [%6.2fm, %6.2fm, "
+    "MapInfo: [%4dpix, %4dpix] * [%6.5f m/pix,  %6.5f m/pix] = [%6.2fm, %6.2fm]; origin: [%6.2fm, "
+    "%6.2fm, "
     "%4.3frad]",
-    width_pixel_, height_pixel_, 1./sx_, 1./sy_, dx_, dy_, mx_, my_, rotation_);
+    width_pixel_, height_pixel_, 1. / sx_, 1. / sy_, dx_, dy_, mx_, my_, rotation_);
   return txt;
 }
 
-void MapHdl::init(cv::Size canvas_size, double resolution, Origin origin){
-  switch (origin)
-  {
-  case TOP_LEFT:
-      init(canvas_size, resolution, cv::Point2d(0,0));
-    break;
-  case BOTTOM_LEFT:
+void MapHdl::init(cv::Size canvas_size, double resolution, Origin origin)
+{
+  switch (origin) {
+    case TOP_LEFT:
+      init(canvas_size, resolution, cv::Point2d(0, 0));
+      break;
+    case BOTTOM_LEFT:
       init(canvas_size, resolution, cv::Point2d(0, -canvas_size.height * resolution));
-    break;
-  case CENTER:
-      init(canvas_size, resolution, cv::Point2d(canvas_size.width * resolution, -canvas_size.height * resolution)/2.);
-  default:
-    break;
+      break;
+    case CENTER:
+      init(
+        canvas_size, resolution,
+        cv::Point2d(canvas_size.width * resolution, -canvas_size.height * resolution) / 2.);
+    default:
+      break;
   }
 }
 
-void MapHdl::init(cv::Size cavas_size, double resolution, cv::Point2d origin){
-  width_pixel_ = cavas_size.width, 
-  height_pixel_ = cavas_size.height;
+void MapHdl::init(cv::Size cavas_size, double resolution, cv::Point2d origin)
+{
+  width_pixel_ = cavas_size.width, height_pixel_ = cavas_size.height;
   sx_ = 1.0 / resolution;
   sy_ = 1.0 / resolution;
   rotation_ = 0;
-  dx_ = cavas_size.width  * resolution;
+  dx_ = cavas_size.width * resolution;
   dy_ = cavas_size.height * resolution;
   ox_ = 0;
-  oy_ = 0;  
-  mx_ =  origin.x;
-  my_ =  origin.y;
-  cv::Matx<double, 3, 3> Tw(  1,   0, mx_, 
-                              0,   1, my_, 
-                              0,   0,   1);    // translation
-  cv::Matx<double, 3, 3> Sc(sx_,   0,   0, 
-                              0, sy_,   0, 
-                              0,   0,   1);    // scaling
-  cv::Matx<double, 3, 3> Sp(  1,   0,   0, 
-                              0,  -1,   0, 
-                              0,   0,   1);    // mirroring
+  oy_ = 0;
+  mx_ = origin.x;
+  my_ = origin.y;
+  cv::Matx<double, 3, 3> Tw(1, 0, mx_, 0, 1, my_, 0, 0, 1);  // translation
+  cv::Matx<double, 3, 3> Sc(sx_, 0, 0, 0, sy_, 0, 0, 0, 1);  // scaling
+  cv::Matx<double, 3, 3> Sp(1, 0, 0, 0, -1, 0, 0, 0, 1);     // mirroring
   Mw2m_ = Sp * Sc * Tw;
   Mm2w_ = Mw2m_.inv();
 
-  cv::Vec3d min = Mm2w_ * cv::Vec3d(0.0,0.0,1.);
+  cv::Vec3d min = Mm2w_ * cv::Vec3d(0.0, 0.0, 1.);
   min_x_ = min[0];
   min_y_ = min[1];
   max_x_ = min_x_ + dx_;
@@ -111,9 +108,11 @@ void MapHdl::init(
 const cv::Matx33d & MapHdl::Mw2m() const {return Mw2m_;}
 const cv::Matx33d & MapHdl::Mm2w() const {return Mm2w_;}
 Point2D MapHdl::w2m(const Point2D & src) const {return Mw2m_ * src;}
-Point2D MapHdl::w2m(double x, double y) const 
+Point2D MapHdl::w2m(double x, double y) const
 {
-  Point2D des(Mw2m_(0,0) * x + Mw2m_(0,1) * y + Mw2m_(0,2), Mw2m_(1,0) * x + Mw2m_(1,1) * y + Mw2m_(1,2));
+  Point2D des(
+    Mw2m_(0, 0) * x + Mw2m_(0, 1) * y + Mw2m_(0, 2),
+    Mw2m_(1, 0) * x + Mw2m_(1, 1) * y + Mw2m_(1, 2));
   return des;
 }
 Point2D & MapHdl::w2m(const Point2D & src, Point2D & des) const
@@ -123,8 +122,8 @@ Point2D & MapHdl::w2m(const Point2D & src, Point2D & des) const
 }
 cv::Point2d & MapHdl::w2m(const cv::Point2d & src, cv::Point2d & des) const
 {
-  des.x = Mw2m_(0,0) * src.x + Mw2m_(0,1) * src.y + Mw2m_(0,2);
-  des.y = Mw2m_(1,0) * src.x + Mw2m_(1,1) * src.y + Mw2m_(1,2);
+  des.x = Mw2m_(0, 0) * src.x + Mw2m_(0, 1) * src.y + Mw2m_(0, 2);
+  des.y = Mw2m_(1, 0) * src.x + Mw2m_(1, 1) * src.y + Mw2m_(1, 2);
   return des;
 }
 cv::Point MapHdl::w2m(const cv::Point2d & src) const
@@ -134,8 +133,8 @@ cv::Point MapHdl::w2m(const cv::Point2d & src) const
 }
 cv::Point & MapHdl::w2m(const cv::Point2d & src, cv::Point & des) const
 {
-  des.x = Mw2m_(0,0) * src.x + Mw2m_(0,1) * src.y + Mw2m_(0,2);
-  des.y = Mw2m_(1,0) * src.x + Mw2m_(1,1) * src.y + Mw2m_(1,2);
+  des.x = Mw2m_(0, 0) * src.x + Mw2m_(0, 1) * src.y + Mw2m_(0, 2);
+  des.y = Mw2m_(1, 0) * src.x + Mw2m_(1, 1) * src.y + Mw2m_(1, 2);
   return des;
 }
 Point2D MapHdl::m2w(const Point2D & src) const {return Mm2w_ * src;}
@@ -147,34 +146,32 @@ Point2D & MapHdl::m2w(const Point2D & src, Point2D & des) const
 }
 cv::Point2d & MapHdl::m2w(const cv::Point2d & src, cv::Point2d & des) const
 {
-  des.x = Mm2w_(0,0) * src.x + Mm2w_(0,1) * src.y + Mm2w_(0,2);
-  des.y = Mm2w_(1,0) * src.x + Mm2w_(1,1) * src.y + Mm2w_(1,2);
+  des.x = Mm2w_(0, 0) * src.x + Mm2w_(0, 1) * src.y + Mm2w_(0, 2);
+  des.y = Mm2w_(1, 0) * src.x + Mm2w_(1, 1) * src.y + Mm2w_(1, 2);
   return des;
 }
 cv::Point2d MapHdl::m2w(const cv::Point & src) const
 {
   cv::Point2d des;
-  return m2w(src, des);;
+  return m2w(src, des);
 }
 cv::Point2d & MapHdl::m2w(const cv::Point & src, cv::Point2d & des) const
 {
-  des.x = Mm2w_(0,0) * src.x + Mm2w_(0,1) * src.y + Mm2w_(0,2);
-  des.y = Mm2w_(1,0) * src.x + Mm2w_(1,1) * src.y + Mm2w_(1,2);
+  des.x = Mm2w_(0, 0) * src.x + Mm2w_(0, 1) * src.y + Mm2w_(0, 2);
+  des.y = Mm2w_(1, 0) * src.x + Mm2w_(1, 1) * src.y + Mm2w_(1, 2);
   return des;
 }
 double MapHdl::max_x() const {return max_x_;}
 double MapHdl::min_x() const {return min_x_;}
 double MapHdl::scale_x() const {return sx_;}
-double MapHdl::resolution_x() const {return 1./sx_;}
+double MapHdl::resolution_x() const {return 1. / sx_;}
 double MapHdl::max_y() const {return max_y_;}
 double MapHdl::min_y() const {return min_y_;}
 double MapHdl::scale_y() const {return sy_;}
-double MapHdl::resolution_y() const {return 1./sy_;}
+double MapHdl::resolution_y() const {return 1. / sy_;}
 int MapHdl::width() const {return width_pixel_;}
 int MapHdl::height() const {return height_pixel_;}
-cv::Size MapHdl::size() const {
-  return cv::Size(width_pixel_, height_pixel_);
-}
+cv::Size MapHdl::size() const {return cv::Size(width_pixel_, height_pixel_);}
 double MapHdl::origin_x() const {return mx_;}
 double MapHdl::origin_y() const {return my_;}
 

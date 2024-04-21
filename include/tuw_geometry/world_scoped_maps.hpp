@@ -4,8 +4,8 @@
 
 #include <opencv2/core/core.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
-#include <tuw_geometry/pose2d.hpp>
 #include <tuw_geometry/map_handler.hpp>
+#include <tuw_geometry/pose2d.hpp>
 
 namespace tuw
 {
