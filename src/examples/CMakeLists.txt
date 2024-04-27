@@ -16,8 +16,8 @@ install(TARGETS example_figure
 )
 
 
-SET(EXAMPLE_GEO_MAP 0 CACHE BOOL "build geo map sample. GeographicLib is requiered!" )
-IF(EXAMPLE_GEO_MAP )
+set(EXAMPLE_GEO_MAP 0 CACHE BOOL "build geo map sample. GeographicLib is requiered!" )
+if(EXAMPLE_GEO_MAP )
 # Geographiclib installs FindGeographicLib.cmake to this non-standard location
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "/usr/share/cmake/geographiclib/")
 find_package(GeographicLib QUIET)
@@ -46,4 +46,4 @@ target_link_libraries(example_geo_map
 install(TARGETS example_geo_map
   DESTINATION lib/${PROJECT_NAME}
 )
-ENDIF(EXAMPLE_GEO_MAP )
+endif()
