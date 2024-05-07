@@ -98,9 +98,12 @@ ament_export_targets(
 )
 
 ament_export_dependencies(
+  rclcpp
+  rclcpp_components
   sensor_msgs
   std_msgs
   OpenCV
+  GeographicLib
 )
 
 ament_package()
