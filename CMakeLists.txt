@@ -103,7 +103,6 @@ ament_export_dependencies(
   sensor_msgs
   std_msgs
   OpenCV
-  GeographicLib
 )
 
 ament_package()
