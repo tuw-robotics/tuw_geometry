@@ -7,6 +7,7 @@
 #include <opencv2/core/core.hpp>
 #include <tuw_geometry/map_handler.hpp>
 #include <tuw_geometry/pose2d.hpp>
+#include <iomanip>
 
 namespace tuw
 {
@@ -20,7 +21,8 @@ class WorldFile
 {
 public:
   WorldFile()
-  : resolution_x(.0), rotation_y(.0), rotation_x(.0), coordinate_x(.0), coordinate_y(.0)
+  : resolution_x(.0), rotation_y(.0), rotation_x(.0), coordinate_x(.0), coordinate_y(.0),
+    coordinate_z(.0), origin_x(.0), origin_y(.0)
   {
   }
 
@@ -30,7 +32,31 @@ public:
   double resolution_y;  /// pixel size in the y-direction in map units, almost always negative
   double coordinate_x;  /// x-coordinate of the center of the upper left pixel
   double coordinate_y;  /// y-coordinate of the center of the upper left pixel
+  double coordinate_z;  /// z-coordinate of the center of the upper left pixel (if exits)
+  double origin_x;      /// origin of the map default upper left pixel (if exits)
+  double origin_y;      /// origin of the map default upper left pixel (if exits)
 
+  /**
+     * writes a world file with six lines
+     * @param filename
+     * @return true on error otherwise false
+     **/
+  bool write_jgw(const std::string & filename)
+  {
+    std::ofstream datei(filename);
+    if (datei.is_open()) {
+      // write six lines
+      datei << std::fixed << std::setprecision(8) << resolution_x << std::endl;
+      datei << std::fixed << std::setprecision(8) << rotation_y << std::endl;
+      datei << std::fixed << std::setprecision(8) << rotation_x << std::endl;
+      datei << std::fixed << std::setprecision(8) << resolution_y << std::endl;
+      datei << std::fixed << std::setprecision(8) << coordinate_x << std::endl;
+      datei << std::fixed << std::setprecision(8) << coordinate_y << std::endl;
+      datei << std::fixed << std::setprecision(8) << coordinate_z << std::endl;
+      datei << std::fixed << std::setprecision(8) << origin_x << std::endl;
+      datei << std::fixed << std::setprecision(8) << origin_y << std::endl;
+    }
+  }
   /**
      * reads a world file with six lines
      * @param filename
@@ -38,7 +64,6 @@ public:
      **/
   bool read_jgw(const std::string & filename)
   {
-    std::vector<double> numbers;
     std::ifstream geo_info_file(filename.c_str());
     // Check if the file is open
     if (!geo_info_file.is_open()) {
@@ -66,6 +91,20 @@ public:
     if (geo_info_file >> num) {
       coordinate_y = num;  /// Line 6
     }
+    try {
+      if (geo_info_file >> num) {
+        coordinate_z = num;  /// Line 7
+      }
+      if (geo_info_file >> num) {
+        origin_x = num;  /// Line 8
+      }
+      if (geo_info_file >> num) {
+        origin_y = num;  /// Line 9
+      }
+    } catch (std::ifstream::failure & e) {
+
+    }
+
     geo_info_file.close();
     return false;
   }

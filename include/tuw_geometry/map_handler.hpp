@@ -31,9 +31,9 @@ class MapHdl
 public:
   enum Origin
   {
-    TOP_LEFT,
-    BOTTOM_LEFT,
-    CENTER,
+    TOP_LEFT = 0,
+    BOTTOM_LEFT = 1,
+    CENTER = 2,
   };
   //special class member functions
   MapHdl();
