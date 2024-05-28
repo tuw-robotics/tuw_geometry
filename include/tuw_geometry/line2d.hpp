@@ -125,6 +125,11 @@ public:
   **/
   cv::Vec<double, 2> normal() const;
   /**
+  * restuns the direction vector to a line
+  * @return vector
+  **/
+  cv::Vec<double, 2> direction() const;
+  /**
   * constructor to create a line from points
   * @param x0
   * @param y0

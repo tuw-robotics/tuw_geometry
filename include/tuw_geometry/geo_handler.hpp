@@ -13,16 +13,16 @@ namespace tuw
 {
 
 /**
-   * class to hole world file data
+   * class to hold world file data
    * A world file is a six line plain text sidecar file used by geographic information systems (GIS)
    * to georeference raster map images. The file specification was introduced by Esri
+   * This version has an extension to also read and store an UTM z value and a map offset.
    **/
 class WorldFile
 {
 public:
   WorldFile()
-  : resolution_x(.0), rotation_y(.0), rotation_x(.0), coordinate_x(.0), coordinate_y(.0),
-    coordinate_z(.0), origin_x(.0), origin_y(.0)
+  : resolution_x(.0), rotation_y(.0), rotation_x(.0), coordinate_x(.0), coordinate_y(.0), coordinate_z(.0), origin_x(.0), origin_y(.0)
   {
   }
 
@@ -43,19 +43,19 @@ public:
      **/
   bool write_jgw(const std::string & filename)
   {
-    std::ofstream datei(filename);
-    if (datei.is_open()) {
-      // write six lines
-      datei << std::fixed << std::setprecision(8) << resolution_x << std::endl;
-      datei << std::fixed << std::setprecision(8) << rotation_y << std::endl;
-      datei << std::fixed << std::setprecision(8) << rotation_x << std::endl;
-      datei << std::fixed << std::setprecision(8) << resolution_y << std::endl;
-      datei << std::fixed << std::setprecision(8) << coordinate_x << std::endl;
-      datei << std::fixed << std::setprecision(8) << coordinate_y << std::endl;
-      datei << std::fixed << std::setprecision(8) << coordinate_z << std::endl;
-      datei << std::fixed << std::setprecision(8) << origin_x << std::endl;
-      datei << std::fixed << std::setprecision(8) << origin_y << std::endl;
-    }
+      std::ofstream datei(filename);
+      if (datei.is_open()) {
+        // write six lines
+        datei << std::fixed << std::setprecision(8) << resolution_x << std::endl;
+        datei << std::fixed << std::setprecision(8) << rotation_y << std::endl;
+        datei << std::fixed << std::setprecision(8) << rotation_x << std::endl;
+        datei << std::fixed << std::setprecision(8) << resolution_y << std::endl;
+        datei << std::fixed << std::setprecision(8) << coordinate_x << std::endl;
+        datei << std::fixed << std::setprecision(8) << coordinate_y << std::endl;
+        datei << std::fixed << std::setprecision(8) << coordinate_z << std::endl;
+        datei << std::fixed << std::setprecision(8) << origin_x << std::endl;
+        datei << std::fixed << std::setprecision(8) << origin_y << std::endl;
+      }
   }
   /**
      * reads a world file with six lines
@@ -93,18 +93,18 @@ public:
     }
     try {
       if (geo_info_file >> num) {
-        coordinate_z = num;  /// Line 7
+        coordinate_z = num;  /// Line 7 
       }
       if (geo_info_file >> num) {
-        origin_x = num;  /// Line 8
+        origin_x = num;  /// Line 8 
       }
       if (geo_info_file >> num) {
-        origin_y = num;  /// Line 9
+        origin_y = num;  /// Line 9 
       }
-    } catch (std::ifstream::failure & e) {
+    } catch( std::ifstream::failure &e ) {
 
     }
-
+    
     geo_info_file.close();
     return false;
   }
