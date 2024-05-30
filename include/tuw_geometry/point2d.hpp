@@ -164,9 +164,17 @@ public:
   cv::Vec<double, 2> vector() const;
   /**
      * returns the distance to an other point
+     * @param p
      * @return disance
      **/
   double distanceTo(const Point2D & p) const;
+  /**
+     * returns the distance to an other point
+     * @param x
+     * @param y
+     * @return disance
+     **/
+  double distanceTo(double x, double y) const;
   /**
      * returns a cv::Point_<double> reference
      * @return cv

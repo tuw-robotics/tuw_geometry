@@ -123,6 +123,15 @@ double Point2D::distanceTo(const Point2D & p) const
   return sqrt(dx * dx + dy * dy);
 }
 /**
+ * returns the distance to an other point
+ * @return disance
+ **/
+double Point2D::distanceTo(double x, double y) const
+{
+  double dx = x - this->val[0], dy = y - this->val[1];
+  return sqrt(dx * dx + dy * dy);
+}
+/**
  * returns a cv::Point_<double> reference
  * @return cv
  **/
