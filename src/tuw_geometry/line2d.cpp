@@ -50,7 +50,10 @@ Point2D Line2D::intersection(const Line2D & l) const
   return Point2D(h[0] / h[2], h[1] / h[2]);
 }
 cv::Vec<double, 2> Line2D::normal() const {return cv::Vec<double, 2>(this->val[0], this->val[1]);}
-cv::Vec<double, 2> Line2D::direction() const {return cv::Vec<double, 2>(this->val[1], -this->val[0]);}
+cv::Vec<double, 2> Line2D::direction() const
+{
+  return cv::Vec<double, 2>(this->val[1], -this->val[0]);
+}
 Line2D & Line2D::set(
   const double & x0, const double & y0, const double & x1, const double & y1, bool normalize)
 {
