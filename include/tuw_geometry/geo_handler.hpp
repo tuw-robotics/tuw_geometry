@@ -124,6 +124,7 @@ public:
 class GeoHdl : public MapHdl
 {
   cv::Vec3d utm_;  /// utm offset to map origin
+  double gamma_;   /// meridian convergence at point [degree]
   int zone_;       /// utm zone id
   bool northp_;    /// true if map is on northern hemisphere
 
@@ -152,12 +153,14 @@ public:
      * @param origin origin
      * @param lla  latitude longitude altitude of origin
      **/
-  void init(cv::Size canvas_size, double resolution, Origin origin, cv::Vec3d lla)
+  void init(cv::Size canvas_size, double resolution, cv::Point2d origin, cv::Vec3d lla)
   {
+    double gamma, k;
     GeographicLib::UTMUPS::Forward(
-      lla[0], lla[1], this->zone_, this->northp_, this->utm_[0], this->utm_[1]);
+      lla[0], lla[1], this->zone_, this->northp_, this->utm_[0], this->utm_[1], gamma, k);
+    this->gamma_ = gamma_ * M_PI / 180.0;
     this->utm_[2] = lla[3];
-    MapHdl::init(canvas_size, resolution, origin);
+    MapHdl::init(canvas_size, resolution, origin, this->gamma_);
   }
 
   /**
@@ -170,12 +173,16 @@ public:
      * @param northp  true if map is on northern hemisphere
      **/
   void init(
-    cv::Size canvas_size, double resolution, Origin origin, cv::Vec3d utm, int zone, bool northp)
+    cv::Size canvas_size, double resolution, cv::Point2d origin, cv::Vec3d utm, int zone, bool northp)
   {
+    double lat, lon, gamma, k;
+    GeographicLib::UTMUPS::Reverse(
+      zone, northp, utm[0], utm[1], lat, lon, gamma, k);
     this->utm_ = utm;
+    this->gamma_ = gamma_ * M_PI / 180.0;
     this->zone_ = zone;
     this->northp_ = northp;
-    MapHdl::init(canvas_size, resolution, origin);
+    MapHdl::init(canvas_size, resolution, origin, this->gamma_);
   }
 
   /**
@@ -231,6 +238,29 @@ public:
   {
     cv::Point des;
     return lla2map(src, des);
+  }
+  /**
+     * latitude longitude altitude -> world [m]
+     * the utm map depents on the map init
+     * @param src latitude longitude altitude
+     * @return world x, y, z
+     **/
+  cv::Vec3d & lla2world(const cv::Vec3d & src, cv::Vec3d & des) const
+  {
+    cv::Vec3d utm;
+    lla2utm(src, utm);
+    return utm2world(utm, des);
+  }  
+  /**
+     * latitude longitude altitude -> world [m]
+     * the utm map depents on the map init
+     * @param src latitude longitude altitude
+     * @return world x, y, z
+     **/
+  cv::Vec3d lla2world(const cv::Vec3d & src) const
+  {
+    cv::Vec3d des;
+    return lla2world(src, des);
   }
 
   /**

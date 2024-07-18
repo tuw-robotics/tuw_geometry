@@ -29,12 +29,7 @@ class MapHdl
   void init();  ///< initializes the transformation matrices
 
 public:
-  enum Origin
-  {
-    TOP_LEFT = 0,
-    BOTTOM_LEFT = 1,
-    CENTER = 2,
-  };
+
   //special class member functions
   MapHdl();
   virtual ~MapHdl() = default;
@@ -79,16 +74,9 @@ public:
      * @param canvas_size pixel size of the canvas [pix]
      * @param resolution resolution size of a pixel [m/pix]
      * @param origin origin in relative to the top left [m]
+     * @param rotation origin in relative to the top left [m]
      **/
-  void init(cv::Size canvas_size, double resolution, cv::Point2d origin);
-
-  /**
-     * used to initialize the figure
-     * @param canvas_size pixel size of the canvas [pix]
-     * @param resolution resolution size of a pixel [m/pix]
-     * @param origin origin
-     **/
-  void init(cv::Size canvas_size, double resolution, Origin origin);
+  void init(cv::Size canvas_size, double resolution, cv::Point2d origin, double rotation = 0.);
 
   /**
      * used to initialize the figure

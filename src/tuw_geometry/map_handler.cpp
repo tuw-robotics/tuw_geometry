@@ -48,26 +48,9 @@ std::string MapHdl::info_map() const
   return txt;
 }
 
-void MapHdl::init(cv::Size canvas_size, double resolution, Origin origin)
+void MapHdl::init(cv::Size cavas_size, double resolution, cv::Point2d origin, double rotation)
 {
-  switch (origin) {
-    case TOP_LEFT:
-      init(canvas_size, resolution, cv::Point2d(0, 0));
-      break;
-    case BOTTOM_LEFT:
-      init(canvas_size, resolution, cv::Point2d(0, -canvas_size.height * resolution));
-      break;
-    case CENTER:
-      init(
-        canvas_size, resolution,
-        cv::Point2d(canvas_size.width * resolution, -canvas_size.height * resolution) / 2.);
-    default:
-      break;
-  }
-}
-
-void MapHdl::init(cv::Size cavas_size, double resolution, cv::Point2d origin)
-{
+  (void) rotation;
   width_pixel_ = cavas_size.width, height_pixel_ = cavas_size.height;
   sx_ = 1.0 / resolution;
   sy_ = 1.0 / resolution;
@@ -85,7 +68,7 @@ void MapHdl::init(cv::Size cavas_size, double resolution, cv::Point2d origin)
   Mm2w_ = Mw2m_.inv();
 
   cv::Vec3d min = Mm2w_ * cv::Vec3d(0.0, 0.0, 1.);
-  min_x_ = min[0];
+  min_x_ = min[0]; 
   min_y_ = min[1];
   max_x_ = min_x_ + dx_;
   max_y_ = min_y_ + dy_;
