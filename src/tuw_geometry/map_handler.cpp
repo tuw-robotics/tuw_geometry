@@ -16,7 +16,6 @@ MapHdl::MapHdl()
 
 bool MapHdl::initialized() {return (width_pixel_ != -1) && (height_pixel_ != -1);}
 
-
 void MapHdl::init()
 {
   dx_ = max_x_ - min_x_;
@@ -51,7 +50,7 @@ std::string MapHdl::info_map() const
 
 void MapHdl::init(cv::Size cavas_size, double resolution, cv::Point2d origin, double rotation)
 {
-  (void) rotation;
+  (void)rotation;
   width_pixel_ = cavas_size.width, height_pixel_ = cavas_size.height;
   sx_ = 1.0 / resolution;
   sy_ = 1.0 / resolution;
@@ -69,7 +68,7 @@ void MapHdl::init(cv::Size cavas_size, double resolution, cv::Point2d origin, do
   Mm2w_ = Mw2m_.inv();
 
   cv::Vec3d min = Mm2w_ * cv::Vec3d(0.0, 0.0, 1.);
-  min_x_ = min[0]; 
+  min_x_ = min[0];
   min_y_ = min[1];
   max_x_ = min_x_ + dx_;
   max_y_ = min_y_ + dy_;
@@ -101,15 +100,12 @@ void MapHdl::init(
 {
   width_pixel_ = width_pixel, height_pixel_ = height_pixel;
   rotation_ = rotation;
-  if(enforce_positive_axis)
-  {
+  if (enforce_positive_axis) {
     min_y_ = std::min(min_y, max_y);
     max_y_ = std::max(min_y, max_y);
     min_x_ = std::min(min_x, max_x);
     max_x_ = std::max(min_x, max_x);
-  } 
-  else 
-  {
+  } else {
     min_y_ = min_y;
     max_y_ = max_y;
     min_x_ = min_x;

@@ -29,7 +29,6 @@ class MapHdl
   void init();  ///< initializes the transformation matrices
 
 public:
-
   //special class member functions
   MapHdl();
   virtual ~MapHdl() = default;
