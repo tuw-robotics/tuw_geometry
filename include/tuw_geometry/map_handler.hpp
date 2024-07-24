@@ -44,25 +44,7 @@ public:
      * @param height_pixel pixel size of the canvas
      * @param Mw2m transformation world to map
      **/
-  void init(int width_pixel, int height_pixel, cv::Matx33d Mw2m)
-  {
-    width_pixel_ = width_pixel, height_pixel_ = height_pixel;
-    Mw2m_ = Mw2m;
-    Mm2w_ = Mw2m_.inv();
-    Point2D p_o = w2m(0, 0);
-    ox_ = p_o.x();
-    oy_ = p_o.y();
-    Point2D p_min = m2w(0, 0);
-    Point2D p_max = m2w(width_pixel_, height_pixel_);
-    min_y_ = std::min(p_min.y(), p_max.y());
-    max_y_ = std::max(p_min.y(), p_max.y());
-    min_x_ = std::min(p_min.x(), p_max.x());
-    max_x_ = std::max(p_min.x(), p_max.x());
-    dx_ = max_x_ - min_x_;
-    dy_ = max_y_ - min_y_;
-    sx_ = ((double)width_pixel_) / dx_;
-    sy_ = ((double)height_pixel_) / dy_;
-  }
+  void init(int width_pixel, int height_pixel, cv::Matx33d Mw2m);
 
   /**
    * @return map information as string to print
@@ -82,15 +64,16 @@ public:
      * used to initialize the figure
      * @param width_pixel pixel size of the canvas
      * @param height_pixel pixel size of the canvas
-     * @param min_y minimal y of the visualized space
-     * @param max_y maximal y of the visualized space
      * @param min_x minimal x of the visualized space
      * @param max_x maximal x of the visualized space
+     * @param min_y minimal y of the visualized space
+     * @param max_y maximal y of the visualized space
      * @param rotation rotation of the visualized spaces
+     * @param enforce_positive_axis on true it will check that min_y < max_y and min_x < max_x and corrects if needed
      **/
   void init(
-    int width_pixel, int height_pixel, double min_y, double max_y, double min_x, double max_x,
-    double rotation = 0);
+    int width_pixel, int height_pixel, double min_x, double max_x, double min_y, double max_y,
+    double rotation = 0, bool enforce_positive_axis = true);
 
   /**
      * used to initialize the figure based on a ROS nav_msgs/MapMetaData
