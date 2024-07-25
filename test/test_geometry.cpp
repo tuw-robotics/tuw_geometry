@@ -119,8 +119,9 @@ TEST(WorldScopedMaps, TestOrigin)
   {
     /// Origin is the top left
     tuw::WorldScopedMaps map;
+    double resolution = 0.1;
     cv::Mat view(cv::Size(600, 400), CV_8UC3, cv::Scalar(0xFF, 0xFF, 0xFF));
-    map.init(view.size(), 0.1, cv::Point2d(0, 0));
+    map.init(view.size(), resolution, cv::Point2d(0, 0));
     tuw::Point2D p0(0, 0);
     tuw::Point2D t0(0, 0);
     tuw::Point2D p1(30, -20);
@@ -140,8 +141,9 @@ TEST(WorldScopedMaps, TestOrigin)
   {
     /// Origin is the bottom left
     tuw::WorldScopedMaps map;
+    double resolution = 0.1;
     cv::Mat view(cv::Size(600, 400), CV_8UC3, cv::Scalar(0xFF, 0xFF, 0xFF));
-    map.init(view.size(), 0.1, cv::Point2d(0, 0));
+    map.init(view.size(), resolution, cv::Point2d(0, -view.rows * resolution));
     tuw::Point2D p0(0, 0);
     tuw::Point2D t0(0, 400);
     tuw::Point2D p1(30, 20);
