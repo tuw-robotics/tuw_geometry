@@ -2,8 +2,8 @@
 Changelog for package tuw_geometry
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.1.2 (2024-12-05)
+------------------
 * unittest fixed
 * reformatted
 * init map updated
