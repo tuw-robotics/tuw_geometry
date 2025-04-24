@@ -2,8 +2,8 @@
 Changelog for package tuw_geometry
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.1.3 (2025-04-24)
+------------------
 * package updates
 * CMakefile update
 * Merge pull request `#6 <https://github.com/tuw-robotics/tuw_geometry/issues/6>`_ from yashphalle/ros2
