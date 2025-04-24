@@ -2,6 +2,18 @@
 Changelog for package tuw_geometry
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* package updates
+* CMakefile update
+* Merge pull request `#6 <https://github.com/tuw-robotics/tuw_geometry/issues/6>`_ from yashphalle/ros2
+  fix: Added explicit dependencies for ament_cmake_ros and gtest_vendor
+* Merge pull request `#7 <https://github.com/tuw-robotics/tuw_geometry/issues/7>`_ from GAUTHAMPSANKAR/fix-regression-deps
+  Fix regression: add gtest_vendor and ament_cmake_ros dependencies
+* Fix regression: add gtest_vendor and ament_cmake_ros dependencies
+* fix: added explicit dependencies for ament_cmake_ros and gtest_vendor
+* Contributors: GAUTHAM P SANKAR, Markus Bader, yashphalle
+
 0.1.2 (2024-12-05)
 ------------------
 * unittest fixed
