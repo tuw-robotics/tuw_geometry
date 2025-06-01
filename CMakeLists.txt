@@ -39,14 +39,16 @@ target_compile_features(tuw_geometry PUBLIC c_std_99 cxx_std_17)  # Require C99 
 target_include_directories(tuw_geometry PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>)
-ament_target_dependencies(${PROJECT_NAME}
-  rclcpp
-  rclcpp_components
-  sensor_msgs
-  std_msgs
-  OpenCV
+target_link_libraries(${PROJECT_NAME}
+  rclcpp::rclcpp
+  rclcpp_components::component
+  opencv_core
+  opencv_imgproc
+  opencv_highgui
+  opencv_imgcodecs
+  ${std_msgs_TARGETS}
+  ${sensor_msgs_TARGETS}
 )
-
   # Causes the visibility macros to use dllexport rather than dllimport,
 # which is appropriate when building the dll but not consuming it.
 target_compile_definitions(tuw_geometry PRIVATE "TUW_GEOMETRY_BUILDING_LIBRARY")
