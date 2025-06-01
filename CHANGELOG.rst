@@ -2,6 +2,11 @@
 Changelog for package tuw_geometry
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* ament_target_dependencies replaced by target_link_libraries
+* Contributors: Markus Bader
+
 0.1.3 (2025-04-24)
 ------------------
 * package updates
