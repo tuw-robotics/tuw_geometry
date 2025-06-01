@@ -12,7 +12,6 @@ find_package(ament_cmake REQUIRED)
 find_package(ament_cmake_ros REQUIRED)
 find_package(gtest_vendor REQUIRED)
 find_package(rclcpp REQUIRED)
-find_package(rclcpp_components REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(OpenCV REQUIRED COMPONENTS core highgui imgcodecs imgproc videoio)
@@ -41,7 +40,6 @@ target_include_directories(tuw_geometry PUBLIC
   $<INSTALL_INTERFACE:include>)
 target_link_libraries(${PROJECT_NAME}
   rclcpp::rclcpp
-  rclcpp_components::component
   opencv_core
   opencv_imgproc
   opencv_highgui
@@ -102,7 +100,6 @@ ament_export_targets(
 
 ament_export_dependencies(
   rclcpp
-  rclcpp_components
   sensor_msgs
   std_msgs
   OpenCV
