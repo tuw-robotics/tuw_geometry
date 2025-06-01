@@ -12,6 +12,7 @@ find_package(ament_cmake REQUIRED)
 find_package(ament_cmake_ros REQUIRED)
 find_package(gtest_vendor REQUIRED)
 find_package(rclcpp REQUIRED)
+find_package(rclcpp_components REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(OpenCV REQUIRED COMPONENTS core highgui imgcodecs imgproc videoio)
@@ -38,15 +39,14 @@ target_compile_features(tuw_geometry PUBLIC c_std_99 cxx_std_17)  # Require C99 
 target_include_directories(tuw_geometry PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>)
-target_link_libraries(${PROJECT_NAME}
-  rclcpp::rclcpp
-  opencv_core
-  opencv_imgproc
-  opencv_highgui
-  opencv_imgcodecs
-  ${std_msgs_TARGETS}
-  ${sensor_msgs_TARGETS}
+ament_target_dependencies(${PROJECT_NAME}
+  rclcpp
+  rclcpp_components
+  sensor_msgs
+  std_msgs
+  OpenCV
 )
+
   # Causes the visibility macros to use dllexport rather than dllimport,
 # which is appropriate when building the dll but not consuming it.
 target_compile_definitions(tuw_geometry PRIVATE "TUW_GEOMETRY_BUILDING_LIBRARY")
