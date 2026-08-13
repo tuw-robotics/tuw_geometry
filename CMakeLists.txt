@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.8)
+cmake_minimum_required(VERSION 3.10)
 project(tuw_geometry)
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
@@ -39,12 +39,12 @@ target_compile_features(tuw_geometry PUBLIC c_std_99 cxx_std_17)  # Require C99 
 target_include_directories(tuw_geometry PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>)
-ament_target_dependencies(${PROJECT_NAME}
-  rclcpp
-  rclcpp_components
-  sensor_msgs
-  std_msgs
-  OpenCV
+target_link_libraries(${PROJECT_NAME} PUBLIC
+  rclcpp::rclcpp
+  rclcpp_components::component
+  ${sensor_msgs_TARGETS}
+  ${std_msgs_TARGETS}
+  ${OpenCV_LIBS}
 )
 
   # Causes the visibility macros to use dllexport rather than dllimport,
